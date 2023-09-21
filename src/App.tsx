@@ -9,4 +9,3 @@ function App() {
 }
 
 export default App
-// git remote add origin https://github.com/hell-llex/my-site.git
