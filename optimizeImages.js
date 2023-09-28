@@ -10,7 +10,8 @@ import {
 } from "fs";
 import { join, extname } from "path";
 import ExifImage from "exif";
-import readline from "readline";
+import inquirer from "inquirer";
+import "colors";
 import readlineSync from "readline-sync";
 import { EOL } from "os";
 import { promises as fs } from "fs";
@@ -30,7 +31,7 @@ try {
       totalInfo: {
         resize: null,
         quality: quality,
-      }, // Замените это на ваши базовые значения
+      },
     };
     await fs.writeFile(
       "./src/assets/img/data.json",
@@ -45,31 +46,66 @@ try {
 
 const { totalInfo } = data;
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+// const rl = readline.createInterface({
+//   input: process.stdin,
+//   output: process.stdout,
+// });
 
-console.log("=".repeat(70));
-rl.question(`Введите размер для обрезки по длине: ${EOL}`, (answer) => {
-  console.log("=".repeat(70));
-  let forcedUpdate = false;
-  if (answer) {
-    resize = parseInt(answer);
-  }
-  if (answer.length !== 0 && isNaN(Number(answer))) {
-    throw new Error("Неверный формат данных");
-  }
-  console.log("=".repeat(70));
-  rl.question(`Качество сжатия (по умолчанию ${quality}): ${EOL}`, (answer) => {
-    console.log("=".repeat(70));
-    if (answer) {
-      quality = parseInt(answer);
+let questions = [
+  {
+    type: "input",
+    name: "length",
+    message: "Введите размер для обрезки по длине:",
+    validate: function (value) {
+      var valid = !isNaN(parseFloat(value));
+      return valid || "Пожалуйста, введите число";
+    },
+    filter: Number,
+  },
+  {
+    type: "input",
+    name: "quality",
+    message: `Качество сжатия (по умолчанию ${quality}):`,
+    validate: function (value) {
+      var valid = !isNaN(parseFloat(value));
+      return valid || "Пожалуйста, введите число";
+    },
+    filter: Number,
+  },
+];
+
+inquirer
+  .prompt({
+    type: "confirm",
+    name: "start",
+    message: "Требуется ли оптимизация фотографий?",
+    default: false,
+  })
+  .then((answers) => {
+    if (answers.start) {
+      return doSomething();
+    } else {
+      console.log("Завершение работы...");
+      console.log(EOL);
+      process.exit();
     }
-    if (answer.length !== 0 && isNaN(Number(answer))) {
-      throw new Error("Неверный формат данных");
+  })
+  .then(() => {
+    process.stdin.resume();
+  });
+
+function doSomething() {
+  inquirer.prompt(questions).then((answers) => {
+    // console.log("-".repeat(70));
+    resize;
+    let forcedUpdate = false;
+    if (answers.length) {
+      resize = parseInt(answers.length);
     }
-    rl.close();
+    // console.log("-".repeat(70));
+    if (answers.quality) {
+      quality = parseInt(answers.quality);
+    }
 
     if (totalInfo.resize !== resize || totalInfo.quality !== quality) {
       forcedUpdate = true;
@@ -98,7 +134,14 @@ rl.question(`Введите размер для обрезки по длине: 
       }
     });
 
-    console.log("Список доступных изображений:" + EOL, imageNames.join(" | "));
+    console.log(
+      EOL +
+        "Список доступных изображений:" +
+        EOL +
+        EOL +
+        imageNames.join(" | ".green) +
+        EOL
+    );
 
     // Файл для сохранения данных об оптимизированных изображениях
     const dataFile = "./src/data.json";
@@ -150,6 +193,7 @@ rl.question(`Введите размер для обрезки по длине: 
       fileName,
       description
     ) {
+      // console.log(EOL);
       // Оптимизация в формате JPEG
       sharp(inputPath)
         .resize(resize || undefined) // Измените размер по ширине
@@ -157,8 +201,8 @@ rl.question(`Введите размер для обрезки по длине: 
         .toFile(outputPathJpg)
         .then(() => {
           console.log(
-            `Оптимизировано изображение в формате JPEG: ${
-              fileName.split(".")[0]
+            `${"->".green} Оптимизировано изображение в формате JPEG: ${
+              fileName.split(".")[0].blue
             }`
           );
           // Оптимизация в формате WebP
@@ -169,8 +213,8 @@ rl.question(`Введите размер для обрезки по длине: 
         })
         .then(() => {
           console.log(
-            `Оптимизировано изображение в формате WebP: ${
-              fileName.split(".")[0]
+            `${"->".green} Оптимизировано изображение в формате WebP: ${
+              fileName.split(".")[0].blue
             }`
           );
           // Добавить данные об оптимизированном изображении в массив
@@ -182,18 +226,18 @@ rl.question(`Введите размер для обрезки по длине: 
             description
           );
         })
-        .catch((err) => console.error("Ошибка оптимизации изображения:", err));
+        .catch((err) =>
+          console.error("Ошибка оптимизации изображения:".red, err)
+        );
     }
 
     let index = 1;
-    console.log("=".repeat(70));
     readdirSync(inputDir).forEach((file) => {
       // Если файл не является изображением, пропустить его
       if (!imageExtensions.includes(extname(file))) {
-        console.log(`Пропущен файл: ${file}`);
+        console.log(`${"---".red}Пропущен файл: ${file.red}`);
         return;
       }
-      console.log("=".repeat(70));
 
       let description = "";
 
@@ -211,9 +255,9 @@ rl.question(`Введите размер для обрезки по длине: 
         data[file.split(".")[0]].description.length !== 0
       ) {
         console.log(
-          `У файла ${file.split(".")[0]} уже есть описание: ${
-            data[file.split(".")[0]].description
-          }`
+          `${">|".green} У файла ${
+            file.split(".")[0].blue
+          } уже есть описание: ${data[file.split(".")[0]].description}`
         );
 
         updateDataFile(
@@ -224,12 +268,11 @@ rl.question(`Введите размер для обрезки по длине: 
           data[file.split(".")[0]].description
         );
         description = data[file.split(".")[0]].description;
-        // return;
       } else {
         const answer = readlineSync.question(
-          `Введите описание для ${
+          `${">|".green} Введите описание для ${
             file.split(".")[0]
-          } или нажмите Enter, чтобы пропустить: ${EOL}`
+          } или нажмите Enter, чтобы пропустить:`
         ); // потом переделать на асинхронный код
         if (answer) {
           description = answer;
@@ -249,7 +292,9 @@ rl.question(`Введите размер для обрезки по длине: 
         existsSync(outputPathWebp) &&
         !forcedUpdate
       ) {
-        console.log(`Файл уже оптимизирован: ${file.split(".")[0]}`);
+        console.log(
+          ` ${"|>".green} Файл уже оптимизирован: ${file.split(".")[0].blue}`
+        );
         updateDataFile(
           inputPath,
           file.split(".")[0],
@@ -263,8 +308,10 @@ rl.question(`Введите размер для обрезки по длине: 
 
       if (forcedUpdate) alreadyOptimized = false;
 
-      if (file.startsWith("image-") && file.endsWith(extname(file))) {
-        console.log(`Файл уже соответствует шаблону: ${file}`);
+      if (file.startsWith("image_") && file.endsWith(extname(file))) {
+        console.log(
+          ` ${"|>".green} Файл уже соответствует шаблону: ${file.blue}`
+        );
         if (!alreadyOptimized)
           optimizeImage(
             inputPath,
@@ -276,15 +323,22 @@ rl.question(`Введите размер для обрезки по длине: 
         // return;
       } else {
         const oldPath = join(inputPath);
-        if (imageNames.includes(`image-${index}${extname(file)}`)) {
-          while (imageNames.includes(`image-${index}${extname(file)}`)) index++;
+        if (imageNames.includes(`image_${index}${extname(file)}`)) {
+          let i = 1;
+          while (imageNames.includes(`image_${i}${extname(file)}`)) {
+            i++;
+          }
+          index = i;
         }
-        const newName = `image-${index}${extname(file)}`;
+        const newName = `image_${index}${extname(file)}`;
         const newPath = join(inputDir, newName);
 
         rename(oldPath, newPath, (err) => {
           if (err) throw err;
-          console.log(`Файл переименован: ${file} -> ${newName}`);
+          console.log(
+            // EOL +
+            `${">>".green} Файл переименован: ${file.red} -> ${newName.blue}`
+          );
           outputPathJpg = join(outputDirJpg, newName);
           outputPathWebp = join(
             outputDirWebp,
@@ -303,10 +357,11 @@ rl.question(`Введите размер для обрезки по длине: 
         });
       }
 
-      console.log("=".repeat(70));
+      // console.log("-".repeat(70));
       index++;
     });
 
+    // console.log(EOL);
     // Проверить все файлы в целевых директориях
     for (const dir of [outputDirJpg, outputDirWebp]) {
       const files = readdirSync(dir);
@@ -323,12 +378,13 @@ rl.question(`Введите размер для обрезки по длине: 
           if (existsSync(targetFile)) {
             unlinkSync(targetFile);
             console.log(
-              `Удален файл, которого нет в исходной директории: ${targetFile}`
+              `${">>>|".red} Удален файл, которого нет в исходной директории: ${
+                targetFile.red
+              }`
             );
-            console.log(EOL);
           }
         }
       }
     }
   });
-});
+}
