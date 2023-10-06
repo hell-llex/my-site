@@ -1,1 +1,1 @@
-export { default } from "./pageContact";
+export { default } from "./PageContact";

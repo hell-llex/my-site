@@ -1,1 +1,1 @@
-export { default } from "./pageError404";
+export { default } from "./PageError404";

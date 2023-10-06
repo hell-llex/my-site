@@ -1,7 +1,7 @@
 import React from 'react';
 
-const pageError404 = () => {
-  return <div>pageError404</div>;
+const PageError404 = () => {
+  return <div>PageError404</div>;
 };
 
-export default pageError404;
+export default PageError404;

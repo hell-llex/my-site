@@ -1,7 +1,7 @@
 import React from 'react';
 
-const pagePortfolio = () => {
+const PagePortfolio = () => {
   return <div>pagePortfolio</div>;
 };
 
-export default pagePortfolio;
+export default PagePortfolio;
