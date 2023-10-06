@@ -4,16 +4,17 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "optimize-images": "node optimizeImages.js",
     "dev": "npm run optimize-images && vite",
     "build": "npm run optimize-images && tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "optimize-images": "node optimizeImages.js"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.14.10",
+    "@mui/icons-material": "^5.14.11",
+    "@mui/material": "^5.14.11",
     "@reduxjs/toolkit": "^1.9.5",
     "colors": "^1.4.0",
     "exif": "^0.6.0",
@@ -26,6 +27,7 @@
     "sharp": "^0.32.6"
   },
   "devDependencies": {
+    "@iconify/react": "^4.1.1",
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
     "@typescript-eslint/eslint-plugin": "^5.59.0",
