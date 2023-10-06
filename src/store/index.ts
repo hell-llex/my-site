@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { /* ИМЯ СЛАЙСА */Reducer } from "./slice//*ИМЯ-ФАЙЛА-СЛАЙСА*/";
+import { imagesInfoReducer } from "./slice/imagesInfoSlice";
+import { socialIconsInfoReducer } from "./slice/socialIconsInfoSlice";
 
 const rootReducer = combineReducers({
-  /* ИМЯ СЛАЙСА */: /* ИМЯ СЛАЙСА */Reducer,
+  imagesInfo: imagesInfoReducer,
+  socialIconsInfo: socialIconsInfoReducer,
 });
 
 export const setupStore = () => {
