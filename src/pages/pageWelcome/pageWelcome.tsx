@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import BackgroundStartPage from "../../components/BackgroundStartPage";
 import { ImageInfo, TotalInfo } from "../../types";
 import "./pageWelcome.scss";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../hooks/redux";
 

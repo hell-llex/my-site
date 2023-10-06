@@ -67,7 +67,10 @@ const socialIconsInfoSlice = createSlice({
   initialState,
   reducers: {
     // eslint-disable-next-line no-unused-vars
-    logSocialIconsInfo(state, action: { payload: string; type: string }) {
+    logSocialIconsInfo(
+      state
+      // , action: { payload: string; type: string }
+    ) {
       console.log("state :>> ", state);
     },
   },
