@@ -1,0 +1,879 @@
+{
+  "image_1": {
+    "name": "image_1",
+    "pathJpg": "public/img/jpg/image_1.jpg",
+    "pathWebp": "public/img/webp/image_1.webp",
+    "metadata": {
+      "image": {
+        "Make": "NIKON CORPORATION",
+        "Model": "NIKON D90",
+        "XResolution": 240,
+        "YResolution": 240,
+        "ResolutionUnit": 2,
+        "Software": "Adobe Photoshop Lightroom Classic 8.2.1 (Windows)",
+        "ModifyDate": "2019:11:16 04:57:30",
+        "ExifOffset": 224
+      },
+      "thumbnail": {},
+      "exif": {
+        "ExposureTime": 0.0015625,
+        "FNumber": 4.5,
+        "ExposureProgram": 1,
+        "ISO": 100,
+        "ExifVersion": {
+          "type": "Buffer",
+          "data": [
+            48,
+            50,
+            51,
+            48
+          ]
+        },
+        "DateTimeOriginal": "2019:08:18 19:08:36",
+        "CreateDate": "2019:08:18 19:08:36",
+        "ShutterSpeedValue": 9.321928,
+        "ApertureValue": 4.33985,
+        "ExposureCompensation": 0,
+        "MaxApertureValue": 4.4,
+        "MeteringMode": 5,
+        "LightSource": 0,
+        "Flash": 0,
+        "FocalLength": 170,
+        "SubSecTimeOriginal": "00",
+        "SubSecTimeDigitized": "00",
+        "ColorSpace": 1,
+        "SensingMethod": 2,
+        "FileSource": {
+          "type": "Buffer",
+          "data": [
+            3
+          ]
+        },
+        "SceneType": {
+          "type": "Buffer",
+          "data": [
+            1
+          ]
+        },
+        "CFAPattern": {
+          "type": "Buffer",
+          "data": [
+            2,
+            0,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1
+          ]
+        },
+        "CustomRendered": 0,
+        "ExposureMode": 1,
+        "WhiteBalance": 0,
+        "DigitalZoomRatio": 1,
+        "FocalLengthIn35mmFormat": 255,
+        "SceneCaptureType": 0,
+        "GainControl": 0,
+        "Contrast": 0,
+        "Saturation": 0,
+        "Sharpness": 0,
+        "SubjectDistanceRange": 0,
+        "SerialNumber": "6843320",
+        "LensInfo": [
+          70,
+          300,
+          4,
+          5.6
+        ],
+        "LensModel": "70.0-300.0 mm f/4.0-5.6"
+      },
+      "gps": {},
+      "interoperability": {},
+      "makernote": {}
+    },
+    "description": ""
+  },
+  "totalInfo": {
+    "totalCount": 10,
+    "resize": null,
+    "quality": 30
+  },
+  "image_4": {
+    "name": "image_4",
+    "pathJpg": "public/img/jpg/image_4.jpg",
+    "pathWebp": "public/img/webp/image_4.webp",
+    "metadata": {
+      "image": {
+        "Make": "NIKON CORPORATION",
+        "Model": "NIKON D90",
+        "XResolution": 240,
+        "YResolution": 240,
+        "ResolutionUnit": 2,
+        "Software": "Adobe Photoshop Lightroom Classic 10.2 (Windows)",
+        "ModifyDate": "2021:06:12 16:37:59",
+        "ExifOffset": 224
+      },
+      "thumbnail": {
+        "Compression": 6,
+        "XResolution": 72,
+        "YResolution": 72,
+        "ResolutionUnit": 2,
+        "ThumbnailOffset": 952,
+        "ThumbnailLength": 12344
+      },
+      "exif": {
+        "ExposureTime": 0.002,
+        "FNumber": 4.5,
+        "ExposureProgram": 1,
+        "ISO": 100,
+        "ExifVersion": {
+          "type": "Buffer",
+          "data": [
+            48,
+            50,
+            51,
+            49
+          ]
+        },
+        "DateTimeOriginal": "2021:04:26 18:18:39",
+        "CreateDate": "2021:04:26 18:18:39",
+        "ShutterSpeedValue": 8.965784,
+        "ApertureValue": 4.33985,
+        "ExposureCompensation": 0,
+        "MaxApertureValue": 4.4,
+        "MeteringMode": 5,
+        "LightSource": 0,
+        "Flash": 0,
+        "FocalLength": 29,
+        "SubSecTimeOriginal": "00",
+        "SubSecTimeDigitized": "00",
+        "ColorSpace": 1,
+        "SensingMethod": 2,
+        "FileSource": {
+          "type": "Buffer",
+          "data": [
+            3
+          ]
+        },
+        "SceneType": {
+          "type": "Buffer",
+          "data": [
+            1
+          ]
+        },
+        "CFAPattern": {
+          "type": "Buffer",
+          "data": [
+            2,
+            0,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1
+          ]
+        },
+        "CustomRendered": 0,
+        "ExposureMode": 1,
+        "WhiteBalance": 0,
+        "DigitalZoomRatio": 1,
+        "FocalLengthIn35mmFormat": 43,
+        "SceneCaptureType": 0,
+        "GainControl": 0,
+        "Contrast": 0,
+        "Saturation": 0,
+        "Sharpness": 0,
+        "SubjectDistanceRange": 0,
+        "SerialNumber": "6843320",
+        "LensInfo": [
+          18,
+          55,
+          3.5,
+          5.6
+        ],
+        "LensModel": "18.0-55.0 mm f/3.5-5.6"
+      },
+      "gps": {},
+      "interoperability": {},
+      "makernote": {}
+    },
+    "description": ""
+  },
+  "image_7": {
+    "name": "image_7",
+    "pathJpg": "public/img/jpg/image_7.jpg",
+    "pathWebp": "public/img/webp/image_7.webp",
+    "metadata": {
+      "image": {
+        "Make": "NIKON CORPORATION",
+        "Model": "NIKON D90",
+        "XResolution": 240,
+        "YResolution": 240,
+        "ResolutionUnit": 2,
+        "Software": "Adobe Photoshop Lightroom Classic 10.2 (Windows)",
+        "ModifyDate": "2021:07:12 21:49:57",
+        "ExifOffset": 224
+      },
+      "thumbnail": {
+        "Compression": 6,
+        "XResolution": 72,
+        "YResolution": 72,
+        "ResolutionUnit": 2,
+        "ThumbnailOffset": 952,
+        "ThumbnailLength": 5336
+      },
+      "exif": {
+        "ExposureTime": 0.001,
+        "FNumber": 8,
+        "ExposureProgram": 1,
+        "ISO": 200,
+        "ExifVersion": {
+          "type": "Buffer",
+          "data": [
+            48,
+            50,
+            51,
+            49
+          ]
+        },
+        "DateTimeOriginal": "2021:04:24 19:46:13",
+        "CreateDate": "2021:04:24 19:46:13",
+        "ShutterSpeedValue": 9.965784,
+        "ApertureValue": 6,
+        "ExposureCompensation": -3,
+        "MaxApertureValue": 5,
+        "MeteringMode": 5,
+        "LightSource": 0,
+        "Flash": 0,
+        "FocalLength": 300,
+        "SubSecTimeOriginal": "00",
+        "SubSecTimeDigitized": "00",
+        "ColorSpace": 1,
+        "SensingMethod": 2,
+        "FileSource": {
+          "type": "Buffer",
+          "data": [
+            3
+          ]
+        },
+        "SceneType": {
+          "type": "Buffer",
+          "data": [
+            1
+          ]
+        },
+        "CFAPattern": {
+          "type": "Buffer",
+          "data": [
+            2,
+            0,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1
+          ]
+        },
+        "CustomRendered": 0,
+        "ExposureMode": 1,
+        "WhiteBalance": 0,
+        "DigitalZoomRatio": 1,
+        "FocalLengthIn35mmFormat": 450,
+        "SceneCaptureType": 0,
+        "GainControl": 0,
+        "Contrast": 0,
+        "Saturation": 0,
+        "Sharpness": 0,
+        "SubjectDistanceRange": 0,
+        "SerialNumber": "6843320",
+        "LensInfo": [
+          70,
+          300,
+          4,
+          5.6
+        ],
+        "LensModel": "70.0-300.0 mm f/4.0-5.6"
+      },
+      "gps": {},
+      "interoperability": {},
+      "makernote": {}
+    },
+    "description": ""
+  },
+  "image_2": {
+    "name": "image_2",
+    "pathJpg": "public/img/jpg/image_2.jpg",
+    "pathWebp": "public/img/webp/image_2.webp",
+    "metadata": {
+      "image": {
+        "Make": "Xiaomi",
+        "Model": "Mi A1",
+        "Software": "Adobe Lightroom 5.0 (Android)",
+        "ExifOffset": 106
+      },
+      "thumbnail": {},
+      "exif": {
+        "ExposureTime": 0.0008333333333333334,
+        "FNumber": 2.2,
+        "ISO": 92,
+        "ApertureValue": 2.275007,
+        "FocalLength": 3.81
+      },
+      "gps": {},
+      "interoperability": {},
+      "makernote": {}
+    },
+    "description": ""
+  },
+  "image_10": {
+    "name": "image_10",
+    "pathJpg": "public/img/jpg/image_10.jpg",
+    "pathWebp": "public/img/webp/image_10.webp",
+    "metadata": {
+      "image": {
+        "Make": "NIKON CORPORATION",
+        "Model": "NIKON D90",
+        "XResolution": 240,
+        "YResolution": 240,
+        "ResolutionUnit": 2,
+        "Software": "Adobe Photoshop Lightroom Classic 10.2 (Windows)",
+        "ModifyDate": "2021:07:12 21:50:53",
+        "ExifOffset": 224
+      },
+      "thumbnail": {
+        "Compression": 6,
+        "XResolution": 72,
+        "YResolution": 72,
+        "ResolutionUnit": 2,
+        "ThumbnailOffset": 952,
+        "ThumbnailLength": 6002
+      },
+      "exif": {
+        "ExposureTime": 0.005,
+        "FNumber": 6.3,
+        "ExposureProgram": 1,
+        "ISO": 200,
+        "ExifVersion": {
+          "type": "Buffer",
+          "data": [
+            48,
+            50,
+            51,
+            49
+          ]
+        },
+        "DateTimeOriginal": "2021:04:24 19:57:38",
+        "CreateDate": "2021:04:24 19:57:38",
+        "ShutterSpeedValue": 7.643856,
+        "ApertureValue": 5.310704,
+        "ExposureCompensation": -3,
+        "MaxApertureValue": 4.9,
+        "MeteringMode": 5,
+        "LightSource": 0,
+        "Flash": 0,
+        "FocalLength": 270,
+        "SubSecTimeOriginal": "00",
+        "SubSecTimeDigitized": "00",
+        "ColorSpace": 1,
+        "SensingMethod": 2,
+        "FileSource": {
+          "type": "Buffer",
+          "data": [
+            3
+          ]
+        },
+        "SceneType": {
+          "type": "Buffer",
+          "data": [
+            1
+          ]
+        },
+        "CFAPattern": {
+          "type": "Buffer",
+          "data": [
+            2,
+            0,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1
+          ]
+        },
+        "CustomRendered": 0,
+        "ExposureMode": 1,
+        "WhiteBalance": 0,
+        "DigitalZoomRatio": 1,
+        "FocalLengthIn35mmFormat": 405,
+        "SceneCaptureType": 0,
+        "GainControl": 0,
+        "Contrast": 0,
+        "Saturation": 0,
+        "Sharpness": 0,
+        "SubjectDistanceRange": 0,
+        "SerialNumber": "6843320",
+        "LensInfo": [
+          70,
+          300,
+          4,
+          5.6
+        ],
+        "LensModel": "70.0-300.0 mm f/4.0-5.6"
+      },
+      "gps": {},
+      "interoperability": {},
+      "makernote": {}
+    },
+    "description": ""
+  },
+  "image_6": {
+    "name": "image_6",
+    "pathJpg": "public/img/jpg/image_6.jpg",
+    "pathWebp": "public/img/webp/image_6.webp",
+    "metadata": {
+      "image": {
+        "Make": "NIKON CORPORATION",
+        "Model": "NIKON D90",
+        "XResolution": 240,
+        "YResolution": 240,
+        "ResolutionUnit": 2,
+        "Software": "Adobe Photoshop Lightroom Classic 11.5 (Macintosh)",
+        "ModifyDate": "2023:05:31 00:54:18",
+        "ExifOffset": 226
+      },
+      "thumbnail": {
+        "Compression": 6,
+        "XResolution": 72,
+        "YResolution": 72,
+        "ResolutionUnit": 2,
+        "ThumbnailOffset": 954,
+        "ThumbnailLength": 9570
+      },
+      "exif": {
+        "ExposureTime": 0.003125,
+        "FNumber": 5.6,
+        "ExposureProgram": 1,
+        "ISO": 100,
+        "ExifVersion": {
+          "type": "Buffer",
+          "data": [
+            48,
+            50,
+            51,
+            49
+          ]
+        },
+        "DateTimeOriginal": "2022:08:04 16:21:24",
+        "CreateDate": "2022:08:04 16:21:24",
+        "ShutterSpeedValue": 8.321928,
+        "ApertureValue": 4.970854,
+        "ExposureCompensation": 0,
+        "MaxApertureValue": 3.7,
+        "MeteringMode": 5,
+        "LightSource": 0,
+        "Flash": 0,
+        "FocalLength": 18,
+        "SubSecTimeOriginal": "00",
+        "SubSecTimeDigitized": "00",
+        "ColorSpace": 1,
+        "SensingMethod": 2,
+        "FileSource": {
+          "type": "Buffer",
+          "data": [
+            3
+          ]
+        },
+        "SceneType": {
+          "type": "Buffer",
+          "data": [
+            1
+          ]
+        },
+        "CFAPattern": {
+          "type": "Buffer",
+          "data": [
+            2,
+            0,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1
+          ]
+        },
+        "CustomRendered": 0,
+        "ExposureMode": 1,
+        "WhiteBalance": 0,
+        "DigitalZoomRatio": 1,
+        "FocalLengthIn35mmFormat": 27,
+        "SceneCaptureType": 0,
+        "GainControl": 0,
+        "Contrast": 0,
+        "Saturation": 0,
+        "Sharpness": 0,
+        "SubjectDistanceRange": 0,
+        "SerialNumber": "6843320",
+        "LensInfo": [
+          18,
+          55,
+          3.5,
+          5.6
+        ],
+        "LensModel": "18.0-55.0 mm f/3.5-5.6"
+      },
+      "gps": {},
+      "interoperability": {},
+      "makernote": {}
+    },
+    "description": ""
+  },
+  "image_3": {
+    "name": "image_3",
+    "pathJpg": "public/img/jpg/image_3.jpg",
+    "pathWebp": "public/img/webp/image_3.webp",
+    "metadata": {
+      "image": {
+        "Make": "NIKON CORPORATION",
+        "Model": "NIKON D90",
+        "XResolution": 240,
+        "YResolution": 240,
+        "ResolutionUnit": 2,
+        "Software": "Adobe Photoshop Lightroom Classic 10.2 (Windows)",
+        "ModifyDate": "2021:07:12 21:48:45",
+        "ExifOffset": 224
+      },
+      "thumbnail": {
+        "Compression": 6,
+        "XResolution": 72,
+        "YResolution": 72,
+        "ResolutionUnit": 2,
+        "ThumbnailOffset": 952,
+        "ThumbnailLength": 9506
+      },
+      "exif": {
+        "ExposureTime": 0.002,
+        "FNumber": 4.2,
+        "ExposureProgram": 1,
+        "ISO": 200,
+        "ExifVersion": {
+          "type": "Buffer",
+          "data": [
+            48,
+            50,
+            51,
+            49
+          ]
+        },
+        "DateTimeOriginal": "2021:04:24 20:02:04",
+        "CreateDate": "2021:04:24 20:02:04",
+        "ShutterSpeedValue": 8.965784,
+        "ApertureValue": 4.140779,
+        "ExposureCompensation": -3,
+        "MaxApertureValue": 4.1,
+        "MeteringMode": 5,
+        "LightSource": 0,
+        "Flash": 0,
+        "FocalLength": 122,
+        "SubSecTimeOriginal": "00",
+        "SubSecTimeDigitized": "00",
+        "ColorSpace": 1,
+        "SensingMethod": 2,
+        "FileSource": {
+          "type": "Buffer",
+          "data": [
+            3
+          ]
+        },
+        "SceneType": {
+          "type": "Buffer",
+          "data": [
+            1
+          ]
+        },
+        "CFAPattern": {
+          "type": "Buffer",
+          "data": [
+            2,
+            0,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1
+          ]
+        },
+        "CustomRendered": 0,
+        "ExposureMode": 1,
+        "WhiteBalance": 0,
+        "DigitalZoomRatio": 1,
+        "FocalLengthIn35mmFormat": 183,
+        "SceneCaptureType": 0,
+        "GainControl": 0,
+        "Contrast": 0,
+        "Saturation": 0,
+        "Sharpness": 0,
+        "SubjectDistanceRange": 0,
+        "SerialNumber": "6843320",
+        "LensInfo": [
+          70,
+          300,
+          4,
+          5.6
+        ],
+        "LensModel": "70.0-300.0 mm f/4.0-5.6"
+      },
+      "gps": {},
+      "interoperability": {},
+      "makernote": {}
+    },
+    "description": ""
+  },
+  "image_5": {
+    "name": "image_5",
+    "pathJpg": "public/img/jpg/image_5.jpg",
+    "pathWebp": "public/img/webp/image_5.webp",
+    "metadata": {
+      "image": {
+        "Make": "NIKON CORPORATION",
+        "Model": "NIKON D90",
+        "XResolution": 240,
+        "YResolution": 240,
+        "ResolutionUnit": 2,
+        "Software": "Adobe Photoshop Lightroom Classic 10.2 (Windows)",
+        "ModifyDate": "2021:10:21 02:58:47",
+        "ExifOffset": 224
+      },
+      "thumbnail": {
+        "Compression": 6,
+        "XResolution": 72,
+        "YResolution": 72,
+        "ResolutionUnit": 2,
+        "ThumbnailOffset": 952,
+        "ThumbnailLength": 19193
+      },
+      "exif": {
+        "ExposureTime": 0.0025,
+        "FNumber": 6.3,
+        "ExposureProgram": 1,
+        "ISO": 200,
+        "ExifVersion": {
+          "type": "Buffer",
+          "data": [
+            48,
+            50,
+            51,
+            49
+          ]
+        },
+        "DateTimeOriginal": "2021:04:25 17:10:08",
+        "CreateDate": "2021:04:25 17:10:08",
+        "ShutterSpeedValue": 8.643856,
+        "ApertureValue": 5.310704,
+        "ExposureCompensation": 0,
+        "MaxApertureValue": 5,
+        "MeteringMode": 5,
+        "LightSource": 0,
+        "Flash": 0,
+        "FocalLength": 300,
+        "SubSecTimeOriginal": "00",
+        "SubSecTimeDigitized": "00",
+        "ColorSpace": 1,
+        "SensingMethod": 2,
+        "FileSource": {
+          "type": "Buffer",
+          "data": [
+            3
+          ]
+        },
+        "SceneType": {
+          "type": "Buffer",
+          "data": [
+            1
+          ]
+        },
+        "CFAPattern": {
+          "type": "Buffer",
+          "data": [
+            2,
+            0,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1
+          ]
+        },
+        "CustomRendered": 0,
+        "ExposureMode": 1,
+        "WhiteBalance": 0,
+        "DigitalZoomRatio": 1,
+        "FocalLengthIn35mmFormat": 450,
+        "SceneCaptureType": 0,
+        "GainControl": 0,
+        "Contrast": 0,
+        "Saturation": 0,
+        "Sharpness": 0,
+        "SubjectDistanceRange": 0,
+        "SerialNumber": "6843320",
+        "LensInfo": [
+          70,
+          300,
+          4,
+          5.6
+        ],
+        "LensModel": "70.0-300.0 mm f/4.0-5.6"
+      },
+      "gps": {},
+      "interoperability": {},
+      "makernote": {}
+    },
+    "description": ""
+  },
+  "image_8": {
+    "name": "image_8",
+    "pathJpg": "public/img/jpg/image_8.jpg",
+    "pathWebp": "public/img/webp/image_8.webp",
+    "metadata": {
+      "image": {
+        "Make": "NIKON CORPORATION",
+        "Model": "NIKON D90",
+        "XResolution": 240,
+        "YResolution": 240,
+        "ResolutionUnit": 2,
+        "Software": "Adobe Photoshop Lightroom Classic 10.2 (Windows)",
+        "ModifyDate": "2021:08:30 02:44:58",
+        "ExifOffset": 224
+      },
+      "thumbnail": {
+        "Compression": 6,
+        "XResolution": 72,
+        "YResolution": 72,
+        "ResolutionUnit": 2,
+        "ThumbnailOffset": 952,
+        "ThumbnailLength": 5869
+      },
+      "exif": {
+        "ExposureTime": 0.00625,
+        "FNumber": 9,
+        "ExposureProgram": 1,
+        "ISO": 100,
+        "ExifVersion": {
+          "type": "Buffer",
+          "data": [
+            48,
+            50,
+            51,
+            49
+          ]
+        },
+        "DateTimeOriginal": "2021:08:25 19:45:38",
+        "CreateDate": "2021:08:25 19:45:38",
+        "ShutterSpeedValue": 7.321928,
+        "ApertureValue": 6.33985,
+        "ExposureCompensation": 0,
+        "MaxApertureValue": 5,
+        "MeteringMode": 5,
+        "LightSource": 0,
+        "Flash": 0,
+        "FocalLength": 55,
+        "SubSecTimeOriginal": "00",
+        "SubSecTimeDigitized": "00",
+        "ColorSpace": 1,
+        "SensingMethod": 2,
+        "FileSource": {
+          "type": "Buffer",
+          "data": [
+            3
+          ]
+        },
+        "SceneType": {
+          "type": "Buffer",
+          "data": [
+            1
+          ]
+        },
+        "CFAPattern": {
+          "type": "Buffer",
+          "data": [
+            2,
+            0,
+            2,
+            0,
+            1,
+            2,
+            0,
+            1
+          ]
+        },
+        "CustomRendered": 0,
+        "ExposureMode": 1,
+        "WhiteBalance": 0,
+        "DigitalZoomRatio": 1,
+        "FocalLengthIn35mmFormat": 82,
+        "SceneCaptureType": 0,
+        "GainControl": 0,
+        "Contrast": 0,
+        "Saturation": 0,
+        "Sharpness": 0,
+        "SubjectDistanceRange": 0,
+        "SerialNumber": "6843320",
+        "LensInfo": [
+          18,
+          55,
+          3.5,
+          5.6
+        ],
+        "LensModel": "18.0-55.0 mm f/3.5-5.6"
+      },
+      "gps": {},
+      "interoperability": {},
+      "makernote": {}
+    },
+    "description": ""
+  },
+  "image_9": {
+    "name": "image_9",
+    "pathJpg": "public/img/jpg/image_9.jpg",
+    "pathWebp": "public/img/webp/image_9.webp",
+    "metadata": {
+      "image": {
+        "Make": "samsung",
+        "Model": "SM-N960F",
+        "Software": "Adobe Lightroom 6.3.0 (Android)",
+        "ModifyDate": "2021:07:07 04:05:04",
+        "ExifOffset": 144
+      },
+      "thumbnail": {},
+      "exif": {
+        "ExposureTime": 0.25,
+        "FNumber": 1.5,
+        "ExposureProgram": 2,
+        "ISO": 160,
+        "DateTimeOriginal": "2021:07:07 04:05:04",
+        "ShutterSpeedValue": 2,
+        "ApertureValue": 1.169925,
+        "BrightnessValue": -3.89,
+        "ExposureCompensation": -1.5,
+        "MaxApertureValue": 1.16,
+        "MeteringMode": 3,
+        "Flash": 0,
+        "FocalLength": 4.3,
+        "SubSecTime": "004",
+        "SubSecTimeOriginal": "004",
+        "FocalLengthIn35mmFormat": 26,
+        "LensModel": "Samsung Galaxy Note 9 Rear Camera"
+      },
+      "gps": {},
+      "interoperability": {},
+      "makernote": {}
+    },
+    "description": ""
+  }
+}
