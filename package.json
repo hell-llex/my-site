@@ -4,8 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "npm run optimize-images && vite",
-    "build": "npm run optimize-images && tsc && vite build",
+    "dev": "vite",
+    "dev:optimize": "npm run optimize-images && vite",
+    "build:optimize": "npm run optimize-images && tsc && vite build",
+    "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "optimize-images": "node optimizeImages.js"
