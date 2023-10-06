@@ -10,7 +10,10 @@ const imagesInfoSlice = createSlice({
   initialState,
   reducers: {
     // eslint-disable-next-line no-unused-vars
-    logImagesInfo(state, action: { payload: string; type: string }) {
+    logImagesInfo(
+      state
+      // , action: { payload: string; type: string }
+    ) {
       console.log("state :>> ", state);
     },
   },

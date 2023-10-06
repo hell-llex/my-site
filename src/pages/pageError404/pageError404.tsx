@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 
 const PageError404 = () => {
   return <div>PageError404</div>;

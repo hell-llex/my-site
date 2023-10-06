@@ -1,13 +1,14 @@
 import "./App.css";
 import { Routes, Route, Navigate } from "react-router-dom";
+
+import Layout from "./components/Layout";
+import PageCv from "./pages/PageCv";
 import PageAboutMe from "./pages/PageAboutMe";
 import PageContact from "./pages/PageContact";
 import PageError404 from "./pages/PageError404";
 import PageHome from "./pages/PageHome";
 import PagePortfolio from "./pages/PagePortfolio";
 import PageWelcome from "./pages/PageWelcome";
-import Layout from "./components/Layout";
-import PageCv from "./pages/PageCv";
 
 function App() {
   return (
