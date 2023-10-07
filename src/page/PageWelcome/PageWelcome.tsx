@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
-import BackgroundStartPage from "../../BackgroundStartPage";
-import { ImageInfo, TotalInfo } from "../../../types";
+import BackgroundStartPage from "../../components/BackgroundStartPage";
+import { ImageInfo, TotalInfo } from "../../types";
 import "./PageWelcome.scss";
 import { Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../../hooks/redux";
+import { useAppSelector } from "../../hooks/redux";
 
 const PageWelcome = () => {
   const navigate = useNavigate();

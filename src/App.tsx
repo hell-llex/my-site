@@ -2,13 +2,13 @@ import "./App.css";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import Layout from "./components/Layout";
-import PageCv from "./components/pages/PageCv";
-import PageAboutMe from "./components/pages/PageAboutMe";
-import PageContact from "./components/pages/PageContact";
-import PageError404 from "./components/pages/PageError404";
-import PageHome from "./components/pages/PageHome";
-import PagePortfolio from "./components/pages/PagePortfolio";
-import PageWelcome from "./components/pages/PageWelcome";
+import PageCv from "./page/PageCv";
+import PageAboutMe from "./page/PageAboutMe";
+import PageContact from "./page/PageContact";
+import PageError404 from "./page/PageError404";
+import PageHome from "./page/PageHome";
+import PagePortfolio from "./page/PagePortfolio";
+import PageWelcome from "./page/PageWelcome";
 
 function App() {
   return (
