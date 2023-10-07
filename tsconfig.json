@@ -5,14 +5,19 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-    "baseUrl": "./src/",
+    // "baseUrl": "./src/*",
+    // "paths": {
+    //   "src/*": ["./src/*/"],
+    // },
+    "baseUrl": ".",
     "paths": {
-      "src/*": ["./src/*"],
+      "@/*": ["src/*"]
     },
     "checkJs": true,
 
     /* Bundler mode */
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
+    // "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -30,7 +35,9 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     
+    // "target": "esnext",
+    // "lib": ["dom", "esnext", "dom.iterable", "WebWorker"],
   },
-  "include": ["src/*"],
+  "include": ["./src/*", "src/**/*", "./src/**/*.ts", "src/**/*.ts", "src/**/*.tsx", "styled.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

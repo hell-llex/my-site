@@ -1,8 +1,8 @@
 import { useState } from "react";
-import BackgroundHomePage from "../../components/BackgroundHomePage";
-import { ImageInfo, TotalInfo } from "../../types";
+import BackgroundHomePage from "../../BackgroundHomePage";
+import { ImageInfo, TotalInfo } from "../../../types";
 // import SocialLinks from "../../components/SocialLinks";
-import { useAppSelector } from "../../hooks/redux";
+import { useAppSelector } from "../../../hooks/redux";
 import "./PageHome.scss";
 // import { Icon } from "@iconify/react/dist/iconify.js";
 
