@@ -1,8 +1,8 @@
 {
   "image_1": {
     "name": "image_1",
-    "pathJpg": "public/img/jpg/image_1.jpg",
-    "pathWebp": "public/img/webp/image_1.webp",
+    "pathJpg": "img/jpg/image_1.jpg",
+    "pathWebp": "img/webp/image_1.webp",
     "metadata": {
       "image": {
         "Make": "NIKON CORPORATION",
@@ -97,12 +97,12 @@
   "totalInfo": {
     "totalCount": 10,
     "resize": null,
-    "quality": 30
+    "quality": 80
   },
   "image_4": {
     "name": "image_4",
-    "pathJpg": "public/img/jpg/image_4.jpg",
-    "pathWebp": "public/img/webp/image_4.webp",
+    "pathJpg": "img/jpg/image_4.jpg",
+    "pathWebp": "img/webp/image_4.webp",
     "metadata": {
       "image": {
         "Make": "NIKON CORPORATION",
@@ -203,8 +203,8 @@
   },
   "image_7": {
     "name": "image_7",
-    "pathJpg": "public/img/jpg/image_7.jpg",
-    "pathWebp": "public/img/webp/image_7.webp",
+    "pathJpg": "img/jpg/image_7.jpg",
+    "pathWebp": "img/webp/image_7.webp",
     "metadata": {
       "image": {
         "Make": "NIKON CORPORATION",
@@ -305,8 +305,8 @@
   },
   "image_2": {
     "name": "image_2",
-    "pathJpg": "public/img/jpg/image_2.jpg",
-    "pathWebp": "public/img/webp/image_2.webp",
+    "pathJpg": "img/jpg/image_2.jpg",
+    "pathWebp": "img/webp/image_2.webp",
     "metadata": {
       "image": {
         "Make": "Xiaomi",
@@ -330,8 +330,8 @@
   },
   "image_10": {
     "name": "image_10",
-    "pathJpg": "public/img/jpg/image_10.jpg",
-    "pathWebp": "public/img/webp/image_10.webp",
+    "pathJpg": "img/jpg/image_10.jpg",
+    "pathWebp": "img/webp/image_10.webp",
     "metadata": {
       "image": {
         "Make": "NIKON CORPORATION",
@@ -432,8 +432,8 @@
   },
   "image_6": {
     "name": "image_6",
-    "pathJpg": "public/img/jpg/image_6.jpg",
-    "pathWebp": "public/img/webp/image_6.webp",
+    "pathJpg": "img/jpg/image_6.jpg",
+    "pathWebp": "img/webp/image_6.webp",
     "metadata": {
       "image": {
         "Make": "NIKON CORPORATION",
@@ -534,8 +534,8 @@
   },
   "image_3": {
     "name": "image_3",
-    "pathJpg": "public/img/jpg/image_3.jpg",
-    "pathWebp": "public/img/webp/image_3.webp",
+    "pathJpg": "img/jpg/image_3.jpg",
+    "pathWebp": "img/webp/image_3.webp",
     "metadata": {
       "image": {
         "Make": "NIKON CORPORATION",
@@ -636,8 +636,8 @@
   },
   "image_5": {
     "name": "image_5",
-    "pathJpg": "public/img/jpg/image_5.jpg",
-    "pathWebp": "public/img/webp/image_5.webp",
+    "pathJpg": "img/jpg/image_5.jpg",
+    "pathWebp": "img/webp/image_5.webp",
     "metadata": {
       "image": {
         "Make": "NIKON CORPORATION",
@@ -738,8 +738,8 @@
   },
   "image_8": {
     "name": "image_8",
-    "pathJpg": "public/img/jpg/image_8.jpg",
-    "pathWebp": "public/img/webp/image_8.webp",
+    "pathJpg": "img/jpg/image_8.jpg",
+    "pathWebp": "img/webp/image_8.webp",
     "metadata": {
       "image": {
         "Make": "NIKON CORPORATION",
@@ -840,8 +840,8 @@
   },
   "image_9": {
     "name": "image_9",
-    "pathJpg": "public/img/jpg/image_9.jpg",
-    "pathWebp": "public/img/webp/image_9.webp",
+    "pathJpg": "img/jpg/image_9.jpg",
+    "pathWebp": "img/webp/image_9.webp",
     "metadata": {
       "image": {
         "Make": "samsung",
