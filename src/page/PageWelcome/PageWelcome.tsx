@@ -12,13 +12,18 @@ const PageWelcome = () => {
   const dataImages = useAppSelector((state) => state.imagesInfo);
   const [imagesBack] = useState<(ImageInfo | TotalInfo)[]>([
     dataImages.image_1,
+    dataImages.image_2,
     dataImages.image_3,
     dataImages.image_4,
-    dataImages.image_7,
     dataImages.image_5,
-    dataImages.image_2,
+    dataImages.image_6,
+    dataImages.image_7,
+    dataImages.image_8,
+    dataImages.image_9,
+    dataImages.image_10,
   ]);
   const [isScrolling, setIsScrolling] = useState(false);
+  const [isChangePage, setIsChangePage] = useState(false);
 
   useEffect(() => {
     window.addEventListener("wheel", handleScroll, { passive: false });
@@ -54,7 +59,11 @@ const PageWelcome = () => {
       <div
         className={`welcome-page ${isScrolling ? "welcome-page_scroll" : ""}`}
       >
-        <BackgroundStartPage imgs={imagesBack} width="100vw" />
+        <BackgroundStartPage
+          imgs={imagesBack}
+          width="100vw"
+          isChangePage={isChangePage}
+        />
         <div className="my-info">
           <div className="my-info__container">
             <Box>
@@ -120,6 +129,7 @@ const PageWelcome = () => {
                   setIsScrolling(true);
                   setTimeout(() => {
                     navigate("/home");
+                    // setIsChangePage(!isChangePage);
                   }, 300);
                 }}
               >
