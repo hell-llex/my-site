@@ -9,6 +9,7 @@ import PageError404 from "./page/PageError404";
 import PageHome from "./page/PageHome";
 import PagePortfolio from "./page/PagePortfolio";
 import PageWelcome from "./page/PageWelcome";
+// import PortfolioGallery from "./components/PortfolioGallery";
 
 function App() {
   return (
@@ -18,7 +19,15 @@ function App() {
           <Route index element={<Navigate to="welcome" replace />} />
           <Route path="welcome" element={<PageWelcome />} />
           <Route path="home" element={<PageHome />} />
-          <Route path="portfolio/*" element={<PagePortfolio />} />
+          <Route path="portfolio" element={<PagePortfolio />} />
+          <Route
+            path="portfolio/photo"
+            element={<p>Hello</p>}
+          />
+          <Route
+            path="portfolio/project"
+            element={<p>Hello</p>}
+          />
           <Route path="contact" element={<PageContact />} />
           <Route path="about-me" element={<PageAboutMe />} />
           <Route path="cv" element={<PageCv />} />

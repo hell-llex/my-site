@@ -23,7 +23,7 @@ const PageWelcome = () => {
     dataImages.image_10,
   ]);
   const [isScrolling, setIsScrolling] = useState(false);
-  const [isChangePage, setIsChangePage] = useState(false);
+  const [isChangePage] = useState(false);
 
   useEffect(() => {
     window.addEventListener("wheel", handleScroll, { passive: false });
