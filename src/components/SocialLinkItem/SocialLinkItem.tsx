@@ -3,8 +3,33 @@ import { SocialLink } from "../../types";
 import { Icon } from "@iconify/react";
 import "./SocialLinkItem.scss";
 import Tooltip from "@mui/material/Tooltip";
+import Zoom from "@mui/material/Zoom";
 
-const SocialLinkItem = ({ link }: { link: SocialLink }) => {
+type TooltipPlacement =
+  | "left"
+  | "right"
+  | "top"
+  | "bottom"
+  | "bottom-end"
+  | "bottom-start"
+  | "left-end"
+  | "left-start"
+  | "right-end"
+  | "right-start"
+  | "top-end"
+  | "top-start"
+  | undefined;
+const SocialLinkItem = ({
+  link,
+  defaultSetting,
+}: {
+  link: SocialLink;
+  defaultSetting: {
+    defaultOpen?: boolean;
+    placement: TooltipPlacement;
+    arrow: boolean;
+  };
+}) => {
   const [linkItem] = useState<SocialLink>(link);
   const [isHovered, setIsHovered] = useState<string | boolean>(false);
 
@@ -15,10 +40,13 @@ const SocialLinkItem = ({ link }: { link: SocialLink }) => {
     <>
       <a href={linkItem.link} key={linkItem.name}>
         <Tooltip
+          TransitionComponent={Zoom}
+          TransitionProps={{ timeout: 200 }}
           title={linkItem.name}
-          placement="right"
+          placement={defaultSetting.placement}
           disableInteractive
-          // open={true}
+          open={defaultSetting.defaultOpen}
+          arrow={defaultSetting.arrow}
           PopperProps={{
             sx: {
               ".MuiTooltip-tooltip": {
@@ -30,15 +58,14 @@ const SocialLinkItem = ({ link }: { link: SocialLink }) => {
                 borderRadius: "100px",
                 textAlign: "center",
                 verticalAlign: "middle",
-                // right: "5rem",
                 width: "clamp(100px, 11vw, 400px)",
                 height: linkItem.size,
                 cursor: "pointer",
               },
-              // ".MuiTooltip-arrow": {
-              //   color:
-              //     linkItem.color === "#000000" ? "#ffffff" : linkItem.color,
-              // },
+              ".MuiTooltip-arrow": {
+                color:
+                  linkItem.color === "#000000" ? "#ffffff" : linkItem.color,
+              },
             },
           }}
         >
