@@ -17,9 +17,21 @@ const Header = ({ social }: { social: boolean }) => {
     { path: "/about-me", name: "About me", otherPath: false },
     { path: "/cv", name: "My CV", otherPath: false },
   ]);
+  const [otherLinksInfo] = useState<RouteInfo[]>([
+    { path: "/portfolio/photo", name: "Photo", otherPath: false },
+    { path: "/portfolio/project", name: "Project", otherPath: false },
+  ]);
 
-  const setActive = ({ isActive }: { isActive: boolean }) =>
-    isActive ? "link-container__nav-link_active" : "link-container__nav-link";
+  const setActive = ({ isActive }: { isActive: boolean }) => {
+    return isActive
+      ? "link-container__nav-link_active"
+      : "link-container__nav-link";
+  };
+  const setActiveOther = ({ isActive }: { isActive: boolean }) => {
+    return isActive
+      ? "link-container__nav-link-other_active"
+      : "link-container__nav-link-other";
+  };
 
   return (
     <>
@@ -35,7 +47,14 @@ const Header = ({ social }: { social: boolean }) => {
           {social && (
             <div className="link-container__social-links">
               {Object.values(socialLinksInfo).map((linkItem) => (
-                <SocialLinkItem link={linkItem} key={linkItem.name} />
+                <SocialLinkItem
+                  link={linkItem}
+                  key={linkItem.name}
+                  defaultSetting={{
+                    placement: "right",
+                    arrow: false,
+                  }}
+                />
               ))}
             </div>
           )}
@@ -47,13 +66,27 @@ const Header = ({ social }: { social: boolean }) => {
         {!social && (
           <div className="link-container__nav-links">
             {Object.values(linksInfo).map((linkNav) => (
-              <NavLink
-                to={linkNav.path}
-                key={linkNav.toString()}
-                className={setActive}
-              >
-                <span>{linkNav.name}</span>
-              </NavLink>
+              <>
+                <div className="link-container__container-nav-link">
+                  <NavLink
+                    to={linkNav.path}
+                    key={linkNav.toString()}
+                    className={setActive}
+                  >
+                    <span>{linkNav.name}</span>
+                  </NavLink>
+                  {linkNav.otherPath &&
+                    otherLinksInfo.map((linkOtherNav) => (
+                      <NavLink
+                        to={linkOtherNav.path}
+                        key={linkNav.toString()}
+                        className={setActiveOther}
+                      >
+                        <span>{linkOtherNav.name}</span>
+                      </NavLink>
+                    ))}
+                </div>
+              </>
             ))}
           </div>
         )}
