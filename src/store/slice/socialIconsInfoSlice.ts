@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { SocialLinksInfo } from "../../types";
 
-const sizeIcon = "clamp(20px, 2.6vw, 60px)";
+const sizeIcon = "clamp(20px, 2.6vw, 45px)";
 
 const initialState: SocialLinksInfo = {
   // vk: {
