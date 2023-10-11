@@ -1,0 +1,43 @@
+.background_page-portfolio {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .background__images {
+    position: relative;
+    height: 65vh;
+    width: 100%;
+    display: flex;
+
+    .MuiButtonBase-root {
+      filter: blur(0px);
+      -webkit-filter: blur(0px);
+      transition: all 0.5s ease-out;
+    }
+
+    &:hover>.MuiButtonBase-root:not(:hover) {
+      filter: blur(4px);
+      -webkit-filter: blur(4px);
+      transition: all 0.5s ease-out;
+    }
+
+    &.background__images_row {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1vw;
+
+      .background__image {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+    }
+  }
+}
