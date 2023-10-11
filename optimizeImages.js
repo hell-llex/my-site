@@ -168,8 +168,8 @@ function doSomething() {
 
           optimizedImages[fileName] = {
             name: fileName,
-            pathJpg: outputPathJpg.replace("public/", ""),
-            pathWebp: outputPathWebp.replace("public/", ""),
+            pathJpg: outputPathJpg.replace("public", ""),
+            pathWebp: outputPathWebp.replace("public", ""),
             metadata: exifData,
             description: description,
           };
