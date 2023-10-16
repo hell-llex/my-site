@@ -14,9 +14,10 @@ const Layout = () => {
 
   return (
     <>
-      {thisPath === "/error-page-404" || thisPath === "/welcome" ? null : (
+      {thisPath.includes("error-page-404") ||
+      thisPath.includes("welcome") ? null : (
         <>
-          <Header social={thisPath === "/home"} />
+          <Header social={thisPath.includes("home")} />
           <DrawerMenu />
         </>
       )}

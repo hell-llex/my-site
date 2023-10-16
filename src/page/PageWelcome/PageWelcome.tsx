@@ -45,7 +45,7 @@ const PageWelcome = () => {
       // window.scroll(window.scrollX + event.deltaY * 5, 0);
       setIsScrolling(true);
       setTimeout(() => {
-        navigate("/home");
+        navigate("../home", { relative: "path" });
       }, 300);
       event.preventDefault();
     }
@@ -128,7 +128,7 @@ const PageWelcome = () => {
                 onClick={() => {
                   setIsScrolling(true);
                   setTimeout(() => {
-                    navigate("/home");
+                    navigate("../home", { relative: "path" });
                     // setIsChangePage(!isChangePage);
                   }, 300);
                 }}

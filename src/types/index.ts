@@ -104,3 +104,7 @@ export type RouteInfo = {
   name: string;
   otherPath: boolean;
 };
+
+export type language = "en" | "ru";
+export type theme = "light" | "dark";
+export type platform = "react" | "vue";

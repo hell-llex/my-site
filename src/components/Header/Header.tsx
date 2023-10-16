@@ -11,15 +11,15 @@ const Header = ({ social }: { social: boolean }) => {
   const dataIcons = useAppSelector((state) => state.socialIconsInfo);
   const [socialLinksInfo] = useState<SocialLinksInfo>(dataIcons);
   const [linksInfo] = useState<RouteInfo[]>([
-    { path: "/home", name: "Home", otherPath: false },
-    { path: "/portfolio", name: "Portfolio", otherPath: true },
-    { path: "/contact", name: "Contact", otherPath: false },
-    { path: "/about-me", name: "About me", otherPath: false },
-    { path: "/cv", name: "My CV", otherPath: false },
+    { path: "home", name: "Home", otherPath: false },
+    { path: "portfolio", name: "Portfolio", otherPath: true },
+    { path: "contact", name: "Contact", otherPath: false },
+    { path: "about-me", name: "About me", otherPath: false },
+    { path: "cv", name: "My CV", otherPath: false },
   ]);
   const [otherLinksInfo] = useState<RouteInfo[]>([
-    { path: "/portfolio/photo", name: "Photo", otherPath: false },
-    { path: "/portfolio/project", name: "Project", otherPath: false },
+    { path: "portfolio/photo", name: "Photo", otherPath: false },
+    { path: "portfolio/project", name: "Project", otherPath: false },
   ]);
 
   const setActive = ({ isActive }: { isActive: boolean }) => {

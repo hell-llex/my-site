@@ -9,31 +9,63 @@ import PageError404 from "./page/PageError404";
 import PageHome from "./page/PageHome";
 import PagePortfolio from "./page/PagePortfolio";
 import PageWelcome from "./page/PageWelcome";
-// import PortfolioGallery from "./components/PortfolioGallery";
+import PortfolioGallery from "./components/PortfolioGallery";
+import { useAppDispatch, useAppSelector } from "./hooks/redux";
+import { useEffect } from "react";
+import { updateLang } from "./store/slice/baseParamsSlice";
+import { SettingWithUrl } from "./hoc/SettingWithUrl";
+import { language } from "./types";
 
 function App() {
+  const thisLang = useAppSelector((state) => state.baseParams.lang);
+  const dispatch = useAppDispatch();
+  const newLang = (item?: language | undefined) => dispatch(updateLang(item));
+
+  useEffect(() => {
+    newLang();
+  }, []);
+
   return (
     <>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route
+          path="/react"
+          element={<Navigate to={`/react/${thisLang}`} replace />}
+        />
+        <Route
+          path="/vue"
+          element={<Navigate to={`/vue/${thisLang}`} replace />}
+        />
+        <Route
+          path="/"
+          element={<Navigate to={`/react/${thisLang}`} replace />}
+        />
+        <Route
+          path="/:platform/:lang/*"
+          element={
+            <SettingWithUrl>
+              <Layout />
+            </SettingWithUrl>
+          }
+        >
           <Route index element={<Navigate to="welcome" replace />} />
           <Route path="welcome" element={<PageWelcome />} />
           <Route path="home" element={<PageHome />} />
           <Route path="portfolio" element={<PagePortfolio />} />
           <Route
             path="portfolio/photo"
-            element={<p>Hello</p>}
+            element={<PortfolioGallery page="photo" />}
           />
           <Route
             path="portfolio/project"
-            element={<p>Hello</p>}
+            element={<PortfolioGallery page="project" />}
           />
           <Route path="contact" element={<PageContact />} />
           <Route path="about-me" element={<PageAboutMe />} />
           <Route path="cv" element={<PageCv />} />
-          <Route path="*" element={<Navigate to="error-page-404" replace />} />
-          <Route path="error-page-404" element={<PageError404 />} />
         </Route>
+        <Route path="*" element={<Navigate to="error-page-404" replace />} />
+        <Route path="error-page-404" element={<PageError404 />} />
       </Routes>
     </>
   );
