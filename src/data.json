@@ -3105,52 +3105,122 @@
       ],
       "orientation": "horizontal",
       "metadata": {
-        "image": {},
-        "thumbnail": {},
-        "exif": {},
+        "image": {
+          "Make": "NIKON CORPORATION",
+          "Model": "NIKON D90",
+          "Orientation": 1,
+          "XResolution": 300,
+          "YResolution": 300,
+          "ResolutionUnit": 2,
+          "Software": "Adobe Photoshop CC 2019 (Windows)",
+          "ModifyDate": "2018:12:04 21:13:06",
+          "ExifOffset": 220
+        },
+        "thumbnail": {
+          "Compression": 6,
+          "XResolution": 72,
+          "YResolution": 72,
+          "ResolutionUnit": 2,
+          "ThumbnailOffset": 966,
+          "ThumbnailLength": 1352
+        },
+        "exif": {
+          "ExposureTime": 0.02,
+          "FNumber": 4,
+          "ExposureProgram": 1,
+          "ISO": 640,
+          "ExifVersion": {
+            "type": "Buffer",
+            "data": [
+              48,
+              50,
+              50,
+              49
+            ]
+          },
+          "DateTimeOriginal": "2018:12:01 17:55:25",
+          "CreateDate": "2018:12:01 17:55:25",
+          "ShutterSpeedValue": 5.643856,
+          "ApertureValue": 4,
+          "ExposureCompensation": 0,
+          "MaxApertureValue": 4,
+          "MeteringMode": 5,
+          "LightSource": 0,
+          "Flash": 0,
+          "FocalLength": 90,
+          "SubSecTime": "00",
+          "SubSecTimeOriginal": "00",
+          "SubSecTimeDigitized": "00",
+          "ColorSpace": 65535,
+          "ExifImageWidth": 4288,
+          "ExifImageHeight": 2848,
+          "SensingMethod": 2,
+          "FileSource": {
+            "type": "Buffer",
+            "data": [
+              3
+            ]
+          },
+          "SceneType": {
+            "type": "Buffer",
+            "data": [
+              1
+            ]
+          },
+          "CFAPattern": {
+            "type": "Buffer",
+            "data": [
+              2,
+              0,
+              2,
+              0,
+              1,
+              2,
+              0,
+              1
+            ]
+          },
+          "CustomRendered": 0,
+          "ExposureMode": 1,
+          "WhiteBalance": 0,
+          "DigitalZoomRatio": 1,
+          "FocalLengthIn35mmFormat": 135,
+          "SceneCaptureType": 0,
+          "GainControl": 1,
+          "Contrast": 0,
+          "Saturation": 0,
+          "Sharpness": 0,
+          "SubjectDistanceRange": 0,
+          "SerialNumber": "6843320",
+          "LensInfo": [
+            70,
+            300,
+            4,
+            5.6
+          ],
+          "LensModel": "70.0-300.0 mm f/4.0-5.6"
+        },
         "gps": {},
         "interoperability": {},
         "makernote": {}
       }
     },
-    "image_5": {
-      "name": "image_5",
-      "pathJpg": "/img/jpg/image_5.jpg",
-      "pathWebp": "/img/webp/image_5.webp",
-      "description": "Night work v2",
+    "image_45": {
+      "name": "image_45",
+      "pathJpg": "/img/jpg/image_45.jpg",
+      "pathWebp": "/img/webp/image_45.webp",
+      "description": "Fatigue",
       "category": [
-        "landscape",
-        "mobile"
+        "portrait",
+        "me"
       ],
       "orientation": "vertical",
       "metadata": {
         "image": {
-          "Make": "samsung",
-          "Model": "SM-N960F",
-          "Software": "Adobe Lightroom 6.3.0 (Android)",
-          "ModifyDate": "2021:07:07 04:05:55",
-          "ExifOffset": 144
+          "Software": "Adobe Lightroom 6.3.0 (Android)"
         },
         "thumbnail": {},
-        "exif": {
-          "ExposureTime": 0.03333333333333333,
-          "FNumber": 1.5,
-          "ExposureProgram": 1,
-          "ISO": 400,
-          "DateTimeOriginal": "2021:07:07 04:05:55",
-          "ShutterSpeedValue": 4.906891,
-          "ApertureValue": 1.169925,
-          "BrightnessValue": -4.52,
-          "ExposureCompensation": 0,
-          "MaxApertureValue": 1.16,
-          "MeteringMode": 1,
-          "Flash": 0,
-          "FocalLength": 4.3,
-          "SubSecTime": "015",
-          "SubSecTimeOriginal": "015",
-          "FocalLengthIn35mmFormat": 26,
-          "LensModel": "Samsung Galaxy Note 9 Rear Camera"
-        },
+        "exif": {},
         "gps": {},
         "interoperability": {},
         "makernote": {}
@@ -3328,50 +3398,10 @@
       ],
       "orientation": "vertical",
       "metadata": {
-        "image": {
-          "Make": "samsung",
-          "Model": "SM-N960F",
-          "Software": "Adobe Lightroom 6.3.0 (Android)",
-          "ModifyDate": "2021:09:17 03:10:15",
-          "ExifOffset": 156,
-          "GPSInfo": 484
-        },
+        "image": {},
         "thumbnail": {},
-        "exif": {
-          "ExposureTime": 0.02857142857142857,
-          "FNumber": 1.5,
-          "ExposureProgram": 2,
-          "ISO": 250,
-          "DateTimeOriginal": "2021:09:17 03:10:15",
-          "ShutterSpeedValue": 5.129283,
-          "ApertureValue": 1.169925,
-          "BrightnessValue": -2.14,
-          "ExposureCompensation": -2,
-          "MaxApertureValue": 1.16,
-          "MeteringMode": 3,
-          "Flash": 0,
-          "FocalLength": 4.3,
-          "SubSecTime": "086",
-          "SubSecTimeOriginal": "086",
-          "FocalLengthIn35mmFormat": 26,
-          "LensModel": "Samsung Galaxy Note 9 Rear Camera"
-        },
-        "gps": {
-          "GPSLatitudeRef": "N",
-          "GPSLatitude": [
-            53,
-            54.1729,
-            0
-          ],
-          "GPSLongitudeRef": "E",
-          "GPSLongitude": [
-            27,
-            28.7541,
-            0
-          ],
-          "GPSAltitudeRef": 0,
-          "GPSAltitude": 292
-        },
+        "exif": {},
+        "gps": {},
         "interoperability": {},
         "makernote": {}
       }
@@ -3379,7 +3409,7 @@
   },
   "totalInfo": {
     "resize": null,
-    "quality": 80,
+    "quality": 40,
     "totalCountImg": 42
   }
 }
