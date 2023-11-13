@@ -1,7 +1,7 @@
-interface ImageMetadata {
+export interface ImageMetadata {
   image: {
-    Make: string;
-    Model: string;
+    Make?: string;
+    Model?: string;
     Software?: string;
     ModifyDate?: string;
     ExifOffset?: number;
@@ -20,8 +20,8 @@ interface ImageMetadata {
     ExposureProgram?: number;
     ISO?: number;
     ExifVersion?: {
-      type: string;
-      data: number[];
+      type?: string;
+      data?: number[];
     };
     DateTimeOriginal?: string;
     CreateDate?: string;
@@ -38,16 +38,16 @@ interface ImageMetadata {
     ColorSpace?: number;
     SensingMethod?: number;
     FileSource?: {
-      type: string;
-      data: number[];
+      type?: string;
+      data?: number[];
     };
     SceneType?: {
-      type: string;
-      data: number[];
+      type?: string;
+      data?: number[];
     };
     CFAPattern?: {
-      type: string;
-      data: number[];
+      type?: string;
+      data?: number[];
     };
     CustomRendered?: number;
     ExposureMode?: number;
@@ -64,10 +64,13 @@ interface ImageMetadata {
     LensInfo?: number[];
     LensModel?: string;
   };
-  gps: object;
-  interoperability: object;
-  makernote: object;
+  gps?: object;
+  interoperability?: object;
+  makernote?: object;
 }
+
+export type category = "landscape" | "mobile" | "portrait" | "me";
+export type orientation = "horizontal" | "vertical" | "square";
 
 export interface ImageInfo {
   name: string;
@@ -75,16 +78,19 @@ export interface ImageInfo {
   pathWebp: string;
   metadata: ImageMetadata;
   description: string;
+  category: string[];
+  orientation: string;
 }
 
 export interface TotalInfo {
-  totalCount: number;
+  totalCountImg: number;
   resize: null | number;
   quality: number;
 }
 
 export interface TypedJSON {
-  [key: string]: ImageInfo | TotalInfo;
+  optimizedImages: Record<string, ImageInfo>;
+  totalInfo: TotalInfo;
 }
 
 export interface SocialLink {
