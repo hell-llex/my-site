@@ -49,6 +49,8 @@
       transform: scale(2);
       z-index: 1;
       transition: all 0.3s ease-in-out;
+      user-select: none;
+      pointer-events: none;
     }
 
     .btn-container-cv__btn-item-cv {
@@ -85,6 +87,8 @@
         transform: scale(1);
         z-index: 3;
         transition: all 0.3s ease-in-out;
+        user-select: all;
+        pointer-events: all;
       }
     }
   }

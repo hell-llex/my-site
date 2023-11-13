@@ -6,20 +6,39 @@ import ClearIcon from "@mui/icons-material/Clear";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { saveAs } from "file-saver";
 import { useState, useEffect } from "react";
+import Loader from "../../components/Loader";
 
 const PageCv = () => {
   const [fontSize] = useState("clamp(2rem, 4vw, 3rem)");
   const imageUrl =
     "https://hell-llex.github.io/My-CV/assets/CV%20Alexander%20Demeshchenko.png";
 
-  function preloadImage(url: string) {
-    const img = new Image();
-    img.src = url;
-  }
+  const [isLoading, setIsLoading] = useState(false);
+  const [isComponentLoaded, setIsComponentLoaded] = useState(false);
+  const [isPreloaderTimer, setIsPreloaderTimer] = useState(false);
 
   useEffect(() => {
-    preloadImage(imageUrl);
+    const img = new Image();
+    img.onload = () => {
+      setIsComponentLoaded(true);
+    };
+    img.src = imageUrl;
+
+    const timerId = setTimeout(() => {
+      setIsPreloaderTimer(true);
+    }, 500);
+    return () => {
+      clearTimeout(timerId);
+    };
   }, []);
+
+  useEffect(() => {
+    if (isComponentLoaded && isPreloaderTimer) {
+      setIsLoading(true);
+      setIsPreloaderTimer(false);
+      setIsComponentLoaded(false);
+    }
+  }, [isComponentLoaded, isPreloaderTimer]);
 
   const downloadImage = (file: boolean) => {
     file
@@ -58,121 +77,140 @@ const PageCv = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="cv-page">
-      <Box className={`container-cv ${isOpen && "container-cv_open"}`}>
-        <Container className="btn-img-cv">
-          <ImageButton
-            focusRipple
-            onClick={() => {
-              setTimeout(() => {
-                setIsOpen(!isOpen);
-              }, 0);
-            }}
-          >
-            <img className="background__image" src={imageUrl} alt="My CV" />
-          </ImageButton>
-        </Container>
+    <>
+      {!isLoading && <Loader />}
+      <div className="cv-page">
+        <Box className={`container-cv ${isOpen && "container-cv_open"}`}>
+          <Container className="btn-img-cv">
+            <ImageButton
+              focusRipple
+              onClick={() => {
+                setTimeout(() => {
+                  setIsOpen(!isOpen);
+                }, 0);
+              }}
+              style={{
+                height: "60%",
+                width: "100%",
+              }}
+            >
+              <img
+                className="background__image"
+                style={{
+                  height: "100%",
+                  width: "100%",
+                  objectFit: "cover",
+                }}
+                src={imageUrl}
+                alt="My CV"
+              />
+            </ImageButton>
+          </Container>
 
-        <Container className="btn-container-cv" style={{ fontSize: fontSize }}>
-          <Button
-            className="btn-container-cv__btn-item-cv"
-            startIcon={
-              <ImageIcon
-                style={{
-                  fontSize: "inherit",
-                }}
-              />
-            }
-            size="large"
-            onClick={() =>
-              setTimeout(() => {
-                downloadImage(true);
-              }, 300)
-            }
-            style={{
-              fontSize: "inherit",
-              padding: "1rem 3rem",
-              backgroundColor: "white",
-              color: "black",
-            }}
+          <Container
+            className="btn-container-cv"
+            style={{ fontSize: fontSize }}
           >
-            Download PNG
-          </Button>
-          <Button
-            className="btn-container-cv__btn-item-cv"
-            startIcon={
-              <InsertDriveFileIcon
-                style={{
-                  fontSize: "inherit",
-                }}
-              />
-            }
-            size="large"
-            onClick={() =>
-              setTimeout(() => {
-                downloadImage(false);
-              }, 300)
-            }
-            style={{
-              fontSize: "inherit",
-              padding: "1rem 3rem",
-              backgroundColor: "white",
-              color: "black",
-            }}
-          >
-            Download PDF
-          </Button>
-          <Button
-            className="btn-container-cv__btn-item-cv"
-            startIcon={
-              <OpenInNewIcon
-                style={{
-                  fontSize: "inherit",
-                }}
-              />
-            }
-            size="large"
-            onClick={() =>
-              setTimeout(() => {
-                window.open("https://hell-llex.github.io/My-CV/", "_blank");
-              }, 300)
-            }
-            style={{
-              fontSize: "inherit",
-              padding: "1rem 3rem",
-              backgroundColor: "white",
-              color: "black",
-            }}
-          >
-            Go to site
-          </Button>
-          <Button
-            className="btn-container-cv__btn-item-cv"
-            startIcon={
-              <ClearIcon
-                style={{
-                  fontSize: "inherit",
-                }}
-              />
-            }
-            size="large"
-            onClick={() =>
-              setTimeout(() => {
-                setIsOpen(!isOpen);
-              }, 0)
-            }
-            style={{
-              fontSize: "inherit",
-              padding: "1rem 3rem",
-              backgroundColor: "white",
-              color: "black",
-            }}
-          >
-            Come back
-          </Button>
-        </Container>
-      </Box>
-    </div>
+            <Button
+              className="btn-container-cv__btn-item-cv"
+              startIcon={
+                <ImageIcon
+                  style={{
+                    fontSize: "inherit",
+                  }}
+                />
+              }
+              size="large"
+              onClick={() =>
+                setTimeout(() => {
+                  downloadImage(true);
+                }, 300)
+              }
+              style={{
+                fontSize: "inherit",
+                padding: "1rem 3rem",
+                backgroundColor: "white",
+                color: "black",
+              }}
+            >
+              Download PNG
+            </Button>
+            <Button
+              className="btn-container-cv__btn-item-cv"
+              startIcon={
+                <InsertDriveFileIcon
+                  style={{
+                    fontSize: "inherit",
+                  }}
+                />
+              }
+              size="large"
+              onClick={() =>
+                setTimeout(() => {
+                  downloadImage(false);
+                }, 300)
+              }
+              style={{
+                fontSize: "inherit",
+                padding: "1rem 3rem",
+                backgroundColor: "white",
+                color: "black",
+              }}
+            >
+              Download PDF
+            </Button>
+            <Button
+              className="btn-container-cv__btn-item-cv"
+              startIcon={
+                <OpenInNewIcon
+                  style={{
+                    fontSize: "inherit",
+                  }}
+                />
+              }
+              size="large"
+              onClick={() =>
+                setTimeout(() => {
+                  window.open("https://hell-llex.github.io/My-CV/", "_blank");
+                }, 300)
+              }
+              style={{
+                fontSize: "inherit",
+                padding: "1rem 3rem",
+                backgroundColor: "white",
+                color: "black",
+              }}
+            >
+              Go to site
+            </Button>
+            <Button
+              className="btn-container-cv__btn-item-cv"
+              startIcon={
+                <ClearIcon
+                  style={{
+                    fontSize: "inherit",
+                  }}
+                />
+              }
+              size="large"
+              onClick={() =>
+                setTimeout(() => {
+                  setIsOpen(!isOpen);
+                }, 0)
+              }
+              style={{
+                fontSize: "inherit",
+                padding: "1rem 3rem",
+                backgroundColor: "white",
+                color: "black",
+              }}
+            >
+              Come back
+            </Button>
+          </Container>
+        </Box>
+      </div>
+    </>
   );
 };
 
