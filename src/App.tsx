@@ -9,18 +9,17 @@ import PageError404 from "./page/PageError404";
 import PageHome from "./page/PageHome";
 import PagePortfolio from "./page/PagePortfolio";
 import PageWelcome from "./page/PageWelcome";
-import PortfolioGallery from "./components/PortfolioGallery";
 import { useAppDispatch, useAppSelector } from "./hooks/redux";
 import { useEffect } from "react";
 import { updateLang } from "./store/slice/baseParamsSlice";
 import { SettingWithUrl } from "./hoc/SettingWithUrl";
 import { language } from "./types";
+import PagePortfolioGallery from "./page/PagePortfolioGallery";
 
 function App() {
   const thisLang = useAppSelector((state) => state.baseParams.lang);
   const dispatch = useAppDispatch();
   const newLang = (item?: language | undefined) => dispatch(updateLang(item));
-
   useEffect(() => {
     newLang();
   }, []);
@@ -54,11 +53,11 @@ function App() {
           <Route path="portfolio" element={<PagePortfolio />} />
           <Route
             path="portfolio/photo"
-            element={<PortfolioGallery page="photo" />}
+            element={<PagePortfolioGallery page="photo" />}
           />
           <Route
             path="portfolio/project"
-            element={<PortfolioGallery page="project" />}
+            element={<PagePortfolioGallery page="project" />}
           />
           <Route path="contact" element={<PageContact />} />
           <Route path="about-me" element={<PageAboutMe />} />
