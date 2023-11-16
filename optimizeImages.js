@@ -7,7 +7,6 @@ import {
   writeFileSync,
   mkdirSync,
   unlinkSync,
-  copyFileSync,
 } from "fs";
 import { join, extname } from "path";
 import ExifImage from "exif";
@@ -24,21 +23,35 @@ let qualityOptimizeNumber = 80;
 let resizeImgNumber = null;
 let needOpenImg = false;
 let nowOpenImg = false;
-const imageNames = [];
+let forcedUpdate = false;
+const imagesNames = [];
 const imageExtensions = [".jpg", ".jpeg", ".png", ".gif", ".webp"];
-const inputDir = "./src/assets/img"; // Папка с исходными изображениями
-const outputDirJpg = "./public/img/jpg"; // Папка для оптимизированных изображений
-const outputDirWebp = "./public/img/webp"; // Папка для оптимизированных изображений
-const dataFile = "./src/data.json"; // Файл для сохранения данных об оптимизированных изображениях
-let optimizedData = {
+const inputDirPhoto = "./src/assets/img"; // Папка с исходными изображениями
+const inputDirProject = "./src/assets/project"; // Папка с исходными проектами
+const outputDirPhotoJpg = "./public/img/jpg"; // Папка для оптимизированных изображений
+const outputDirPhotoWebp = "./public/img/webp"; // Папка для оптимизированных изображений
+const outputDirProjectJpg = "./public/project/jpg"; // Папка для оптимизированных проектов
+const outputDirProjectWebp = "./public/project/webp"; // Папка для оптимизированных проектов
+const dataFilePhoto = "./src/assets/img/data.json"; // Файл для сохранения данных об оптимизированных изображениях
+const dataFileProject = "./src/assets/project/data.json"; // Файл для сохранения данных об оптимизированных проектов
+let optimizedDataPhoto = {
   optimizedImages: {},
   totalInfo: {
     resize: resizeImgNumber,
     quality: qualityOptimizeNumber,
-    totalCountImg: 0,
+    totalCount: 0,
   },
 }; // Объект для хранения данных о новых оптимизированных изображениях
-let data; // Объект для хранения данных о старых оптимизированных изображениях
+let optimizedDataProject = {
+  optimizedImages: {},
+  totalInfo: {
+    resize: resizeImgNumber,
+    quality: qualityOptimizeNumber,
+    totalCount: 0,
+  },
+}; // Объект для хранения данных о новых оптимизированных изображениях
+let dataPhoto; // Объект для хранения данных о старых оптимизированных изображениях
+let dataProject; // Объект для хранения данных о старых оптимизированных изображениях
 // * =================================================================
 // ! =================================================================
 
@@ -76,14 +89,19 @@ const allQuestions = {
       min: 100,
     },
   },
-  questiondDescription: {
+  questionDescription: {
     type: "text",
     name: "descriptionImg",
     message: `Введите описание для `,
   },
-  questiondCategory: {
+  questionName: {
+    type: "text",
+    name: "nameProject",
+    message: `Введите имя для `,
+  },
+  questionCategoryPhoto: {
     type: "multiselect",
-    name: "categoryImg",
+    name: "categoryFile",
     message: "Выберите категории:",
     instructions: false,
     choices: [
@@ -95,73 +113,95 @@ const allQuestions = {
     min: 1,
     hint: "- Пробел для выбора. Можно выбрать несколько категорий.",
   },
-  questiondOpenImg: {
+  questionCategoryProject: {
+    type: "multiselect",
+    name: "categoryFile",
+    message: "Выберите категории:",
+    instructions: false,
+    choices: [
+      { name: "Vanilla", value: "vanilla" },
+      { name: "React", value: "react" },
+      { name: "Vue", value: "vue" },
+      { name: "Other", value: "other" },
+    ],
+    min: 1,
+    hint: "- Пробел для выбора. Можно выбрать несколько категорий.",
+  },
+  questionOpenImg: {
     type: "confirm",
     name: "needOpenImg",
     message: "Требуется ли открывать изображения?",
     initial: true,
   },
 };
+async function checkDataFile(dataFilePath, data) {
+  try {
+    const jsonString = await fs.readFile(dataFilePath, "utf8");
+    if (jsonString) return JSON.parse(jsonString);
+  } catch (error) {
+    if (error.code === "ENOENT") {
+      data = {
+        totalInfo: {
+          resize: resizeImgNumber,
+          quality: qualityOptimizeNumber,
+        },
+        optimizedImages: {},
+      };
 
-try {
-  const jsonStringImg = await fs.readFile("./src/assets/img/data.json", "utf8");
-  const jsonStringSrc = await fs.readFile("./src/data.json", "utf8");
-  if (jsonStringImg && jsonStringSrc) data = JSON.parse(jsonStringImg);
-} catch (error) {
-  if (error.code === "ENOENT") {
-    data = {
-      totalInfo: {
-        resize: resizeImgNumber,
-        quality: qualityOptimizeNumber,
-      },
-      optimizedImages: {},
-    };
-
-    await fs.writeFile(
-      "./src/assets/img/data.json",
-      JSON.stringify(data),
-      "utf8"
-    );
-    await fs.writeFile("./src/data.json", JSON.stringify(data), "utf8");
-  } else {
-    console.error("Ошибка при чтении файла:", error);
+      await fs.writeFile(dataFilePath, JSON.stringify(data), "utf8");
+      return data;
+    } else {
+      console.error("Ошибка при чтении файла:", error);
+    }
   }
 }
 
-const { totalInfo } = data;
+dataPhoto = await checkDataFile(dataFilePhoto, dataPhoto);
+dataProject = await checkDataFile(dataFileProject, dataProject);
 
-!existsSync(outputDirJpg) ? mkdirSync(outputDirJpg, { recursive: true }) : null;
+const totalInfoPhoto = dataPhoto.totalInfo;
+const totalInfoProject = dataProject.totalInfo;
 
-!existsSync(outputDirWebp)
-  ? mkdirSync(outputDirWebp, { recursive: true })
+!existsSync(outputDirPhotoJpg)
+  ? mkdirSync(outputDirPhotoJpg, { recursive: true })
+  : null;
+!existsSync(outputDirPhotoWebp)
+  ? mkdirSync(outputDirPhotoWebp, { recursive: true })
+  : null;
+!existsSync(outputDirProjectJpg)
+  ? mkdirSync(outputDirProjectJpg, { recursive: true })
+  : null;
+!existsSync(outputDirProjectWebp)
+  ? mkdirSync(outputDirProjectWebp, { recursive: true })
   : null;
 
 // * =================================================================
 // ! ============== список доступных изображений =====================
 // * =================================================================
-const listAvailableImg = () => {
-  let totalCountImg = 0;
-  readdirSync(inputDir).forEach((file, i) => {
+async function listAvailableImg(inputPathFolder, typeFile) {
+  let totalCountFile = 0;
+  imagesNames.length = 0;
+  readdirSync(inputPathFolder).forEach((file, i) => {
     if (imageExtensions.includes(extname(file))) {
       i % 7 !== 0
-        ? imageNames.push(file)
-        : (imageNames.push(EOL), imageNames.push(file));
-      totalCountImg++;
+        ? imagesNames.push(file)
+        : (imagesNames.push(EOL), imagesNames.push(file));
+      totalCountFile++;
     }
   });
 
-  optimizedData.totalInfo.totalCountImg = totalCountImg;
-
   console.log(
     EOL +
-      "Список доступных изображений: " +
-      totalCountImg +
+      `Список доступных ${typeFile}: ` +
+      totalCountFile +
       EOL +
       EOL +
-      imageNames.join(" | ".green) +
+      imagesNames.join(" | ".green) +
       EOL
   );
-};
+
+  return totalCountFile;
+}
 
 const closeLog = () => {
   console.log("Завершение работы...");
@@ -190,39 +230,33 @@ const closeFileInVSCode = () => {
 // * =================================================================
 // ! ================== обновление файла data ========================
 // * =================================================================
-function updateDataFile(updateData) {
+function updateDataFile(updateData, pathDataFile) {
   // Очистить файл data.json
-  writeFileSync(dataFile, "");
-  writeFileSync(dataFile, JSON.stringify(updateData, null, 2));
-  copyFileSync(dataFile, join(inputDir, "data.json"));
+  writeFileSync(pathDataFile, "");
+  writeFileSync(pathDataFile, JSON.stringify(updateData, null, 2));
 }
 // * =================================================================
 // ! ============ удаление отсутствующих изображений =================
 // * =================================================================
-function deleteUnuseFile() {
+function deleteUnuseFile(outputDirJpg, outputDirWebp, inputDir) {
   for (const dir of [outputDirJpg, outputDirWebp]) {
     const files = readdirSync(dir);
 
     for (const file of files) {
-      const sourceFile = join(inputDir, file.replace(/\.[^/.]+$/, "") + ".jpg");
-
-      if (!existsSync(sourceFile)) {
-        // const sourceFileName = sourceFile.split('/').pop().split('.')[0];
-        // console.log('sourceFileName :>> ', sourceFileName);
-        // console.log('object :>> ', optimizedData.optimizedImages[sourceFileName]);
-        // optimizedData.optimizedImages[sourceFile.split('/')[sourceFile.split('/').length - 1].split('.')[0]]
+      let fileExistsSync = false;
+      imageExtensions.forEach((elem) => {
+        const sourceFile = join(inputDir, file.replace(/\.[^/.]+$/, "") + elem);
+        if (existsSync(sourceFile)) fileExistsSync = !existsSync(sourceFile);
+      });
+      if (fileExistsSync) {
         const targetFile = join(dir, file);
-
         if (existsSync(targetFile)) {
           unlinkSync(targetFile);
-
-          // console.log('targetFile :>> ', targetFile, targetFile.split('/')[targetFile.split('/').length - 1]);
           console.log(
             `${">>>|".red} Удален файл, которого нет в исходной директории: ${
               targetFile.red
             }`
           );
-          // optimizedData.optimizedImages.
         }
       }
     }
@@ -291,8 +325,15 @@ async function optimizeImage(
 function createFileRenamer(index) {
   let newIndex = index;
 
-  return async function renameFile(file, inputPath) {
-    if (file.startsWith("image_") && file.endsWith(extname(file))) {
+  return async function renameFile(
+    file,
+    inputPath,
+    outputDirJpg,
+    outputDirWebp,
+    inputDir
+  ) {
+    const patternName = inputDir.includes("img") ? "image_" : "project_";
+    if (file.startsWith(patternName) && file.endsWith(extname(file))) {
       console.log(
         ` ${"|>".green} Файл уже соответствует шаблону: ${file.blue}`
       );
@@ -308,14 +349,14 @@ function createFileRenamer(index) {
       };
     } else {
       const oldPath = join(inputPath);
-      if (imageNames.includes(`image_${newIndex}${extname(file)}`)) {
+      if (imagesNames.includes(`${patternName}${newIndex}${extname(file)}`)) {
         let i = 1;
-        while (imageNames.includes(`image_${i}${extname(file)}`)) {
+        while (imagesNames.includes(`${patternName}${i}${extname(file)}`)) {
           i++;
         }
         newIndex = i;
       }
-      const name = `image_${newIndex}${extname(file)}`;
+      const name = `${patternName}${newIndex}${extname(file)}`;
       const newInputPath = join(inputDir, name);
 
       await rename(oldPath, newInputPath);
@@ -341,14 +382,190 @@ function createFileRenamer(index) {
 // * =================================================================
 // ! ==================== основная функция ===========================
 // * =================================================================
+async function fileHandling(
+  index,
+  outputDirJpg,
+  outputDirWebp,
+  inputDir,
+  data
+) {
+  let optimizedData = {
+    optimizedImages: {},
+  };
+  const files = readdirSync(inputDir);
+  for (const file of files) {
+    // Если файл не является изображением, пропустить его
+    if (!imageExtensions.includes(extname(file))) {
+      console.log(`${"---".red} Пропущен файл: ${file.red}`);
+      continue;
+    }
+
+    let fileImg = inputDir.includes("img");
+    let inputPath = join(inputDir, file);
+    let outputPathJpg = join(outputDirJpg, file);
+    let outputPathWebp = join(
+      outputDirWebp,
+      file.replace(/\.[^/.]+$/, "") + ".webp"
+    );
+    let shortFileName = file.split(".")[0];
+
+    const newFile = {
+      name: shortFileName,
+      pathJpg: outputPathJpg,
+      pathWebp: outputPathWebp,
+      description: "",
+      category: [],
+      orientation: "",
+      metadata: {},
+    };
+
+    const renameFile = createFileRenamer(index);
+
+    try {
+      const { newName, newPathJpg, newPathWebp, newInputPath, newIndex } =
+        await renameFile(
+          file,
+          inputPath,
+          outputDirJpg,
+          outputDirWebp,
+          inputDir
+        );
+
+      shortFileName = newName.split(".")[0];
+      if (fileImg) newFile.name = shortFileName;
+      newFile.pathJpg = outputPathJpg = newPathJpg;
+      newFile.pathWebp = outputPathWebp = newPathWebp;
+      inputPath = newInputPath;
+      index = newIndex;
+    } catch (err) {
+      console.error(err);
+    }
+
+    // ! проверка на имя проекта =================================
+    if (!fileImg) {
+      if (
+        data.optimizedImages[shortFileName] &&
+        data.optimizedImages[shortFileName].name !== shortFileName &&
+        data.optimizedImages[shortFileName].name.length !== 0
+      ) {
+        console.log(
+          `${">|".green} У файла ${shortFileName.blue} уже есть имя: ${
+            data.optimizedImages[shortFileName].name
+          }`
+        );
+        newFile.name = data.optimizedImages[shortFileName].name;
+      } else {
+        if (needOpenImg && !nowOpenImg) openInVSCode(inputPath);
+        const newQuestionName = Object.assign(allQuestions.questionName);
+        newQuestionName.message += shortFileName + ":";
+        const { nameProject } = await prompts(newQuestionName);
+        newFile.name = nameProject;
+      }
+    }
+    // ! =================================================================
+
+    // ! проверка на описание =================================
+    if (
+      data.optimizedImages[shortFileName] &&
+      data.optimizedImages[shortFileName].description &&
+      data.optimizedImages[shortFileName].description.length !== 0
+    ) {
+      console.log(
+        `${">|".green} У файла ${shortFileName.blue} уже есть описание: ${
+          data.optimizedImages[shortFileName].description
+        }`
+      );
+      newFile.description = data.optimizedImages[shortFileName].description;
+    } else {
+      if (needOpenImg && !nowOpenImg) openInVSCode(inputPath);
+      const newQuestiondDescription = Object.assign(
+        {},
+        allQuestions.questionDescription
+      );
+      newQuestiondDescription.message += shortFileName + ":";
+      const { descriptionImg } = await prompts(newQuestiondDescription);
+      newFile.description = descriptionImg;
+    }
+    // ! =================================================================
+
+    // ! проверка на категории =================================
+    if (
+      data.optimizedImages[shortFileName] &&
+      data.optimizedImages[shortFileName].category &&
+      data.optimizedImages[shortFileName].category.length !== 0
+    ) {
+      console.log(
+        `${">|".green} У файла ${shortFileName.blue} уже выбраны категории: ${
+          data.optimizedImages[shortFileName].category
+        }`
+      );
+      newFile.category = data.optimizedImages[shortFileName].category;
+    } else {
+      if (needOpenImg && !nowOpenImg) openInVSCode(inputPath);
+      const { categoryFile } = await prompts(
+        fileImg
+          ? allQuestions.questionCategoryPhoto
+          : allQuestions.questionCategoryProject
+      );
+      newFile.category = categoryFile;
+    }
+    // ! =================================================================
+
+    // ! проверка на оптимизированность =================================
+    if (
+      existsSync(outputPathJpg) &&
+      existsSync(outputPathWebp) &&
+      !forcedUpdate &&
+      data.optimizedImages[shortFileName] &&
+      data.optimizedImages[shortFileName].orientation &&
+      data.optimizedImages[shortFileName].orientation.length !== 0 &&
+      data.optimizedImages[shortFileName] &&
+      data.optimizedImages[shortFileName].metadata
+    ) {
+      console.log(
+        ` ${
+          "|>".green
+        } Файл уже оптимизирован и данные о изображении получены: ${
+          shortFileName.blue
+        }`
+      );
+      newFile.orientation = data.optimizedImages[shortFileName].orientation;
+      newFile.metadata = data.optimizedImages[shortFileName].metadata;
+    } else {
+      const { orientation, metadata } = await optimizeImage(
+        inputPath,
+        outputPathJpg,
+        outputPathWebp,
+        shortFileName
+      );
+      newFile.orientation = orientation;
+      newFile.metadata = metadata;
+    }
+
+    // ! =================================================================
+    newFile.pathJpg = newFile.pathJpg.replace("public", "");
+    newFile.pathWebp = newFile.pathWebp.replace("public", "");
+    optimizedData.optimizedImages[shortFileName] = newFile;
+    if (nowOpenImg) closeFileInVSCode();
+    console.log(EOL);
+  }
+  return optimizedData.optimizedImages;
+}
+
+// * =================================================================
+// ! ============= начало выполнения с вопросами =====================
+// * =================================================================
 (async () => {
   const { startApp } = await prompts(allQuestions.questionStartApp);
 
-  needOpenImg = await prompts(allQuestions.questiondOpenImg);
+  needOpenImg = await prompts(allQuestions.questionOpenImg);
 
   if (startApp) {
     const { qualityOptimize } = await prompts(allQuestions.questionQualityImg);
-    optimizedData.totalInfo.quality = qualityOptimizeNumber = qualityOptimize;
+    optimizedDataPhoto.totalInfo.quality =
+      optimizedDataProject.totalInfo.quality =
+      qualityOptimizeNumber =
+        qualityOptimize;
 
     const { needResize } = await prompts(
       allQuestions.questionQualitySize.needResized
@@ -358,151 +575,63 @@ function createFileRenamer(index) {
       const { resizeImg } = await prompts(
         allQuestions.questionQualitySize.resizeImg
       );
-      optimizedData.totalInfo.quality = resizeImgNumber = resizeImg;
+      optimizedDataPhoto.totalInfo.quality =
+        optimizedDataProject.totalInfo.quality =
+        resizeImgNumber =
+          resizeImg;
     }
 
-    listAvailableImg();
-    let forcedUpdate = false;
-
     if (
-      totalInfo.resize !== resizeImgNumber ||
-      totalInfo.quality !== qualityOptimizeNumber
+      totalInfoPhoto.resize !== resizeImgNumber ||
+      totalInfoPhoto.quality !== qualityOptimizeNumber ||
+      totalInfoProject.resize !== resizeImgNumber ||
+      totalInfoProject.quality !== qualityOptimizeNumber
     ) {
       forcedUpdate = true;
     }
 
-    // * =========================================================================
-    // * начало работы с файлами
-    // * =========================================================================
-
     let index = 1;
-    const files = readdirSync(inputDir);
-    for (const file of files) {
-      // Если файл не является изображением, пропустить его
-      if (!imageExtensions.includes(extname(file))) {
-        console.log(`${"---".red} Пропущен файл: ${file.red}`);
-        continue;
-      }
 
-      let inputPath = join(inputDir, file);
-      let outputPathJpg = join(outputDirJpg, file);
-      let outputPathWebp = join(
-        outputDirWebp,
-        file.replace(/\.[^/.]+$/, "") + ".webp"
-      );
-      let shortFileName = file.split(".")[0];
+    // * =========================================================================
+    // * начало работы с фото
+    // * =========================================================================
+    optimizedDataPhoto.totalInfo.totalCount = await listAvailableImg(
+      inputDirPhoto,
+      "photo",
+      optimizedDataPhoto
+    );
+    optimizedDataPhoto.optimizedImages = await fileHandling(
+      index,
+      outputDirPhotoJpg,
+      outputDirPhotoWebp,
+      inputDirPhoto,
+      dataPhoto
+    );
+    deleteUnuseFile(outputDirPhotoJpg, outputDirPhotoWebp, inputDirPhoto);
+    optimizedDataPhoto.totalInfo.totalCount =
+      Object.keys(optimizedDataPhoto.optimizedImages).length - 1;
+    updateDataFile(optimizedDataPhoto, dataFilePhoto);
 
-      const newFile = {
-        name: shortFileName,
-        pathJpg: outputPathJpg,
-        pathWebp: outputPathWebp,
-        description: "",
-        category: [],
-        orientation: "",
-        metadata: {},
-      };
+    // * =========================================================================
+    // * начало работы с фото
+    // * =========================================================================
+    optimizedDataProject.totalInfo.totalCount = await listAvailableImg(
+      inputDirProject,
+      "project",
+      optimizedDataProject
+    );
+    optimizedDataProject.optimizedImages = await fileHandling(
+      index,
+      outputDirProjectJpg,
+      outputDirProjectWebp,
+      inputDirProject,
+      dataProject
+    );
+    deleteUnuseFile(outputDirProjectJpg, outputDirProjectWebp, inputDirProject);
+    optimizedDataProject.totalInfo.totalCount =
+      Object.keys(optimizedDataProject.optimizedImages).length - 1;
+    updateDataFile(optimizedDataProject, dataFileProject);
 
-      const renameFile = createFileRenamer(index);
-
-      try {
-        const { newName, newPathJpg, newPathWebp, newInputPath, newIndex } =
-          await renameFile(file, inputPath);
-
-        newFile.name = shortFileName = newName.split(".")[0];
-        newFile.pathJpg = outputPathJpg = newPathJpg;
-        newFile.pathWebp = outputPathWebp = newPathWebp;
-        inputPath = newInputPath;
-        index = newIndex;
-      } catch (err) {
-        console.error(err);
-      }
-
-      // ! проверка на описание =================================
-      if (
-        data.optimizedImages[shortFileName] &&
-        data.optimizedImages[shortFileName].description &&
-        data.optimizedImages[shortFileName].description.length !== 0
-      ) {
-        console.log(
-          `${">|".green} У файла ${shortFileName.blue} уже есть описание: ${
-            data.optimizedImages[shortFileName].description
-          }`
-        );
-        newFile.description = data.optimizedImages[shortFileName].description;
-      } else {
-        if (needOpenImg && !nowOpenImg) openInVSCode(inputPath);
-        const newQuestiondDescription = Object.assign(
-          {},
-          allQuestions.questiondDescription
-        );
-        newQuestiondDescription.message += shortFileName + ":";
-        const { descriptionImg } = await prompts(newQuestiondDescription);
-        newFile.description = descriptionImg;
-      }
-      // ! =================================================================
-
-      // ! проверка на категории =================================
-      if (
-        data.optimizedImages[shortFileName] &&
-        data.optimizedImages[shortFileName].category &&
-        data.optimizedImages[shortFileName].category.length !== 0
-      ) {
-        console.log(
-          `${">|".green} У файла ${shortFileName.blue} уже выбраны категории: ${
-            data.optimizedImages[shortFileName].category
-          }`
-        );
-        newFile.category = data.optimizedImages[shortFileName].category;
-      } else {
-        if (needOpenImg && !nowOpenImg) openInVSCode(inputPath);
-        const { categoryImg } = await prompts(allQuestions.questiondCategory);
-        newFile.category = categoryImg;
-      }
-      // ! =================================================================
-
-      // ! проверка на оптимизированность =================================
-      if (
-        existsSync(outputPathJpg) &&
-        existsSync(outputPathWebp) &&
-        !forcedUpdate &&
-        data.optimizedImages[shortFileName] &&
-        data.optimizedImages[shortFileName].orientation &&
-        data.optimizedImages[shortFileName].orientation.length !== 0 &&
-        data.optimizedImages[shortFileName] &&
-        data.optimizedImages[shortFileName].metadata
-      ) {
-        console.log(
-          ` ${
-            "|>".green
-          } Файл уже оптимизирован и данные о изображении получены: ${
-            shortFileName.blue
-          }`
-        );
-        newFile.orientation = data.optimizedImages[shortFileName].orientation;
-        newFile.metadata = data.optimizedImages[shortFileName].metadata;
-      } else {
-        const { orientation, metadata } = await optimizeImage(
-          inputPath,
-          outputPathJpg,
-          outputPathWebp,
-          shortFileName
-        );
-        newFile.orientation = orientation;
-        newFile.metadata = metadata;
-      }
-
-      // ! =================================================================
-      newFile.pathJpg = newFile.pathJpg.replace("public", "");
-      newFile.pathWebp = newFile.pathWebp.replace("public", "");
-      optimizedData.optimizedImages[shortFileName] = newFile;
-      if (nowOpenImg) closeFileInVSCode();
-      console.log(EOL);
-    }
-
-    deleteUnuseFile();
-    optimizedData.totalInfo.totalCountImg =
-      Object.keys(optimizedData.optimizedImages).length - 1;
-    updateDataFile(optimizedData);
     closeLog();
   } else {
     closeLog();
