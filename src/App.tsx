@@ -15,6 +15,7 @@ import { updateLang } from "./store/slice/baseParamsSlice";
 import { SettingWithUrl } from "./hoc/SettingWithUrl";
 import { language } from "./types";
 import PagePortfolioGallery from "./page/PagePortfolioGallery";
+import PageLinks from "./page/PageLinks";
 
 function App() {
   const thisLang = useAppSelector((state) => state.baseParams.lang);
@@ -22,11 +23,17 @@ function App() {
   const newLang = (item?: language | undefined) => dispatch(updateLang(item));
   useEffect(() => {
     newLang();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
       <Routes>
+        <Route
+          path="/cv"
+          element={<Navigate to={`/react/${thisLang}/cv`} replace />}
+        />
+        <Route path="/links" element={<PageLinks />} />
         <Route
           path="/react"
           element={<Navigate to={`/react/${thisLang}`} replace />}
