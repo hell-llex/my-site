@@ -16,49 +16,49 @@ const initialState: SocialLinksInfo = {
     color: "#C1558B",
     name: "Instagram",
     size: sizeIcon,
-    link: "https://",
+    link: "https://www.instagram.com/hell_llex/",
   },
   telegram: {
     icon: "bxl:telegram",
     color: "#229ED9",
     name: "Telegram",
     size: sizeIcon,
-    link: "https://",
+    link: "https://t.me/hell_llex",
   },
   github: {
     icon: "bxl:github",
     color: "#000000",
     name: "GitHub",
     size: sizeIcon,
-    link: "https://",
+    link: "https://github.com/hell-llex",
   },
   linkedin: {
     icon: "bxl:linkedin",
     color: "#0077B5",
     name: "LinkedIn",
     size: sizeIcon,
-    link: "https://",
+    link: "https://www.linkedin.com/in/hell-llex",
   },
   discord: {
     icon: "bxl:discord-alt",
     color: "#7289DA",
     name: "Discord",
     size: sizeIcon,
-    link: "https://",
+    link: "https://discordapp.com/users/hell.llex/",
   },
   gmail: {
     icon: "bxl:gmail",
     color: "#BB001B",
     name: "Gmail",
     size: sizeIcon,
-    link: "https://",
+    link: "mailto:demeshenko333@gmail.com",
   },
   yamusic: {
     icon: "mingcute:music-3-fill",
     color: "#ffcb34",
     name: "Ya Music",
     size: sizeIcon,
-    link: "https://",
+    link: "https://music.yandex.by/users/demeshenko.sasha/playlists/3",
   },
 };
 
@@ -66,12 +66,8 @@ const socialIconsInfoSlice = createSlice({
   name: "socialIconsInfo",
   initialState,
   reducers: {
-    // eslint-disable-next-line no-unused-vars
-    logSocialIconsInfo(
-      state
-      // , action: { payload: string; type: string }
-    ) {
-      console.log("state :>> ", state);
+    logSocialIconsInfo(state, action: { payload: string; type: string }) {
+      console.log(initialState, action.payload, state);
     },
   },
 });
