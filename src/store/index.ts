@@ -1,10 +1,12 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { imagesInfoReducer } from "./slice/imagesInfoSlice";
+import { projectsInfoReducer } from "./slice/projectsInfoSlice";
 import { socialIconsInfoReducer } from "./slice/socialIconsInfoSlice";
 import { baseParamsReducer } from "./slice/baseParamsSlice";
 
 const rootReducer = combineReducers({
   imagesInfo: imagesInfoReducer,
+  projectsInfo: projectsInfoReducer,
   socialIconsInfo: socialIconsInfoReducer,
   baseParams: baseParamsReducer,
 });
