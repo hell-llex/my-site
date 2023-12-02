@@ -1,18 +1,17 @@
 import "./BackgroundStartPage.scss";
 import OImage from "../OImage";
-import { ImageInfo, TotalInfo } from "../../types";
+import { ImageInfo } from "../../types";
 import { useState, useEffect } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 
 const animation = { duration: 10000, easing: (t: number) => t };
-
 function BackgroundStartPage({
   imgs,
   width = "100%",
   isChangePage,
 }: {
-  imgs: (ImageInfo | TotalInfo)[];
+  imgs: ImageInfo[];
   width?: string;
   isChangePage: boolean;
 }) {
@@ -64,9 +63,6 @@ function BackgroundStartPage({
     created(s) {
       s.moveToIdx(5, true, animation);
     },
-    // updated(s) {
-    //   s.moveToIdx(s.track.details.abs + 5, true, animation);
-    // },
     animationEnded(s) {
       s.moveToIdx(s.track.details.abs + 5, true, animation);
     },
@@ -93,10 +89,10 @@ function BackgroundStartPage({
             transition: "width 1s ease",
           }}
         >
-          {imgs.map((img, i) => (
+          {imgs.map((img) => (
             <div
               className="background-page__image keen-slider__slide"
-              key={i}
+              key={img.name}
               style={{
                 width: animationSetting.width,
               }}

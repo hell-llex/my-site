@@ -1,23 +1,24 @@
 import "./BackgroundPortfolioPage.scss";
 import OImage from "../OImage";
-import { ImageInfo, TotalInfo } from "../../types";
+import { ImageInfo } from "../../types";
 import { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import ButtonBase from "@mui/material/ButtonBase";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 function BackgroundPortfolioPage({
   imgs,
   width = "100%",
 }: {
-  imgs: (ImageInfo | TotalInfo)[];
+  imgs: ImageInfo[];
   width?: string;
 }) {
   const [newWidth, setNewWidth] = useState(width);
   const [settingPage] = useState([
-    { path: "/portfolio/photo", name: "Photo" },
-    { path: "/portfolio/project", name: "Project" },
+    { path: "../portfolio/photo", name: "Photo" },
+    { path: "../portfolio/project", name: "Project" },
   ]);
 
   const navigate = useNavigate();
@@ -85,11 +86,11 @@ function BackgroundPortfolioPage({
       <div className="background__images background__images_row">
         {imgs.map((img, index) => (
           <ImageButton
-            key={img.toString()}
+            key={uuidv4()}
             focusRipple
             onClick={() => {
               setTimeout(() => {
-                navigate(settingPage[index].path);
+                navigate(settingPage[index].path, { relative: "path" });
               }, 500);
             }}
           >
