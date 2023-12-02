@@ -4,6 +4,7 @@ import { useAppSelector } from "../../hooks/redux";
 import { SocialLinksInfo } from "../../types";
 import { Box, Typography } from "@mui/material";
 import "./PageContact.scss";
+import { v4 as uuidv4 } from "uuid";
 
 const PageContact = () => {
   const dataIcons = useAppSelector((state) => state.socialIconsInfo);
@@ -44,7 +45,7 @@ const PageContact = () => {
         {Object.values(socialLinksInfo).map((linkItem) => (
           <SocialLinkItem
             link={linkItem}
-            key={linkItem.name}
+            key={uuidv4()}
             defaultSetting={{
               defaultOpen: true,
               placement: "bottom",

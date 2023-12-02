@@ -4,6 +4,7 @@ import { Icon } from "@iconify/react";
 import "./SocialLinkItem.scss";
 import Tooltip from "@mui/material/Tooltip";
 import Zoom from "@mui/material/Zoom";
+import { v4 as uuidv4 } from "uuid";
 
 type TooltipPlacement =
   | "left"
@@ -38,7 +39,7 @@ const SocialLinkItem = ({
   };
   return (
     <>
-      <a href={linkItem.link} key={linkItem.name}>
+      <a href={linkItem.link} key={uuidv4()}>
         <Tooltip
           TransitionComponent={Zoom}
           TransitionProps={{ timeout: 200 }}
