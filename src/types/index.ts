@@ -83,7 +83,7 @@ export interface ImageInfo {
 }
 
 export interface TotalInfo {
-  totalCountImg: number;
+  totalCount: number;
   resize: null | number;
   quality: number;
 }
@@ -114,3 +114,5 @@ export type RouteInfo = {
 export type language = "en" | "ru";
 export type theme = "light" | "dark";
 export type platform = "react" | "vue";
+export type filterPhoto = "landscape" | "mobile" | "portrait" | "me" | "all";
+export type filterProject = "vanilla" | "react" | "vue" | "other" | "all";
