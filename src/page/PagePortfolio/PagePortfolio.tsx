@@ -1,14 +1,14 @@
 import { useState } from "react";
 import BackgroundPortfolioPage from "../../components/BackgroundPortfolioPage";
 import { useAppSelector } from "../../hooks/redux";
-import { ImageInfo, TotalInfo } from "../../types";
+import { ImageInfo } from "../../types";
 import "./PagePortfolio.scss";
 
 const PagePortfolio = () => {
   const dataImages = useAppSelector((state) => state.imagesInfo);
-  const [imagesBack] = useState<(ImageInfo | TotalInfo)[]>([
-    dataImages.image_4,
-    dataImages.image_7,
+  const [imagesBack] = useState<ImageInfo[]>([
+    dataImages.landscape.image_4,
+    dataImages.landscape.image_7,
   ]);
 
   return (
