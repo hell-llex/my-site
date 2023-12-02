@@ -16,6 +16,15 @@ const theme = createTheme({
 
 const store = setupStore();
 
+(function init100vh() {
+  function setHeight() {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  }
+  setHeight();
+  window.addEventListener("resize", setHeight);
+})();
+
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
