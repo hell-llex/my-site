@@ -2,13 +2,16 @@ import { useState } from "react";
 import { RouteInfo, SocialLinksInfo } from "../../types";
 import "./Header.scss";
 import Logo from "../../../public/logo.png";
-// import LogoBlack from "../../../public/logo_black.png";
 import SocialLinkItem from "../SocialLinkItem";
 import { NavLink } from "react-router-dom";
 import { useAppSelector } from "../../hooks/redux";
+import { v4 as uuidv4 } from "uuid";
 
 const Header = ({ social }: { social: boolean }) => {
   const dataIcons = useAppSelector((state) => state.socialIconsInfo);
+  const fullWithGallery = useAppSelector(
+    (state) => state.baseParams.fullWithGallery
+  );
   const [socialLinksInfo] = useState<SocialLinksInfo>(dataIcons);
   const [linksInfo] = useState<RouteInfo[]>([
     { path: "home", name: "Home", otherPath: false },
@@ -39,8 +42,11 @@ const Header = ({ social }: { social: boolean }) => {
         className="link-container"
         style={
           !social
-            ? { justifyContent: "flex-start" }
-            : { justifyContent: "center" }
+            ? {
+                justifyContent: "flex-start",
+                minWidth: fullWithGallery ? "16rem" : "35rem",
+              }
+            : { justifyContent: "center", minWidth: "30rem" }
         }
       >
         <div className="link-container__background">
@@ -49,7 +55,7 @@ const Header = ({ social }: { social: boolean }) => {
               {Object.values(socialLinksInfo).map((linkItem) => (
                 <SocialLinkItem
                   link={linkItem}
-                  key={linkItem.name}
+                  key={uuidv4()}
                   defaultSetting={{
                     placement: "right",
                     arrow: false,
@@ -64,29 +70,29 @@ const Header = ({ social }: { social: boolean }) => {
           </a>
         </div>
         {!social && (
-          <div className="link-container__nav-links">
+          <div
+            className={`link-container__nav-links ${
+              fullWithGallery ? "hidden-link" : ""
+            }`}
+          >
             {Object.values(linksInfo).map((linkNav) => (
-              <>
+              <div key={uuidv4()}>
                 <div className="link-container__container-nav-link">
-                  <NavLink
-                    to={linkNav.path}
-                    key={linkNav.toString()}
-                    className={setActive}
-                  >
+                  <NavLink to={linkNav.path} className={setActive}>
                     <span>{linkNav.name}</span>
                   </NavLink>
                   {linkNav.otherPath &&
                     otherLinksInfo.map((linkOtherNav) => (
                       <NavLink
                         to={linkOtherNav.path}
-                        key={linkNav.toString()}
+                        key={uuidv4()}
                         className={setActiveOther}
                       >
                         <span>{linkOtherNav.name}</span>
                       </NavLink>
                     ))}
                 </div>
-              </>
+              </div>
             ))}
           </div>
         )}
