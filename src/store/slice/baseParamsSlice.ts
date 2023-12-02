@@ -1,14 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { language, platform, theme } from "../../types";
+import {
+  filterPhoto,
+  filterProject,
+  language,
+  platform,
+  theme,
+} from "../../types";
 
 const initialState: {
   platform: platform;
   lang: language;
   theme: theme;
+  fullWithGallery: boolean;
+  filterProject: ("vanilla" | "react" | "vue" | "other" | "all")[];
+  filterPhoto: ("landscape" | "mobile" | "portrait" | "me" | "all")[];
 } = {
   platform: "react",
   lang: "en",
   theme: "dark",
+  fullWithGallery: false,
+  filterProject: [],
+  filterPhoto: [],
 };
 
 const baseParamsSlice = createSlice({
@@ -45,9 +57,27 @@ const baseParamsSlice = createSlice({
       }
       localStorage.setItem("theme", JSON.stringify(state.theme));
     },
+    updateFullWidthGallery(state, action: { payload: boolean; type: string }) {
+      state.fullWithGallery = action.payload;
+    },
+    updateFilterProject(
+      state,
+      action: { payload: filterProject[]; type: string }
+    ) {
+      state.filterProject = action.payload;
+    },
+    updateFilterPhoto(state, action: { payload: filterPhoto[]; type: string }) {
+      state.filterPhoto = action.payload;
+    },
   },
 });
 
 export const baseParamsReducer = baseParamsSlice.reducer;
-export const { updatePlatform, updateLang, updateTheme } =
-  baseParamsSlice.actions;
+export const {
+  updatePlatform,
+  updateLang,
+  updateTheme,
+  updateFullWidthGallery,
+  updateFilterProject,
+  updateFilterPhoto,
+} = baseParamsSlice.actions;
