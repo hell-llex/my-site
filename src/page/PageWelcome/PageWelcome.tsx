@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import BackgroundStartPage from "../../components/BackgroundStartPage";
-import { ImageInfo, TotalInfo } from "../../types";
+import { ImageInfo } from "../../types";
 import "./PageWelcome.scss";
 import { Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -10,25 +10,26 @@ import { useAppSelector } from "../../hooks/redux";
 const PageWelcome = () => {
   const navigate = useNavigate();
   const dataImages = useAppSelector((state) => state.imagesInfo);
-  const [imagesBack] = useState<(ImageInfo | TotalInfo)[]>([
-    dataImages.image_1,
-    dataImages.image_2,
-    dataImages.image_3,
-    dataImages.image_4,
-    dataImages.image_5,
-    dataImages.image_6,
-    dataImages.image_7,
-    dataImages.image_8,
-    dataImages.image_9,
-    dataImages.image_10,
-  ]);
+  const [imagesBack] = useState<ImageInfo[]>(() => {
+    const allImages = Object.values(dataImages.all);
+    const resultArray: ImageInfo[] = [];
+
+    for (let i = 0; i < 10 && allImages.length > 0; i++) {
+      const randomIndex = Math.floor(Math.random() * allImages.length);
+      const randomImage = allImages[randomIndex];
+      resultArray.push(randomImage);
+      allImages.splice(randomIndex, 1);
+    }
+
+    return resultArray;
+  });
+
   const [isScrolling, setIsScrolling] = useState(false);
   const [isChangePage] = useState(false);
-
   useEffect(() => {
     window.addEventListener("wheel", handleScroll, { passive: false });
-
     return () => window.removeEventListener("wheel", handleScroll);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   let oneRedirect = true;
   const handleScroll = (event: {
@@ -129,7 +130,6 @@ const PageWelcome = () => {
                   setIsScrolling(true);
                   setTimeout(() => {
                     navigate("../home", { relative: "path" });
-                    // setIsChangePage(!isChangePage);
                   }, 300);
                 }}
               >
