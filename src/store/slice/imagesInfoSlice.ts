@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import _data from "../../data.json";
-import { ImageInfo, TypedJSON } from "../../types";
+import { createSlice, current } from "@reduxjs/toolkit";
+import _data from "../../assets/img/data.json";
+import { ImageInfo, TypedJSON, filterPhoto } from "../../types";
 const data: TypedJSON = _data;
 import loaderImg from "../../../public/loader.svg";
 
@@ -21,6 +21,26 @@ const imgStandby: ImageInfo = {
     makernote: {},
   },
 };
+const createArrayForPhotoGallery = (objectImages: (ImageInfo | "space")[]) => {
+  const allImagesBase: (ImageInfo | "space")[] = objectImages;
+
+  const allImagesNew: (ImageInfo | "space")[][] = [];
+
+  for (let i = 0; i < allImagesBase.length; i++) {
+    if (
+      allImagesBase[i] != "space" &&
+      (allImagesBase[i] as ImageInfo).orientation === "vertical"
+    ) {
+      allImagesBase.splice(i + 1, 0, "space");
+    }
+  }
+
+  for (let i = 0; i < allImagesBase.length; i += 3) {
+    allImagesNew.push(allImagesBase.slice(i, i + 3));
+  }
+
+  return allImagesNew;
+};
 
 const initialState: {
   all: Record<string, ImageInfo>;
@@ -28,14 +48,18 @@ const initialState: {
   landscape: Record<string, ImageInfo>;
   me: Record<string, ImageInfo>;
   mobile: Record<string, ImageInfo>;
+  filteredPhotos: (ImageInfo | "space")[][];
   image_0: ImageInfo;
   loader_img: string;
 } = {
-  all: {},
+  all: data.optimizedImages,
   portrait: {},
   landscape: {},
   me: {},
   mobile: {},
+  filteredPhotos: createArrayForPhotoGallery(
+    Object.values(data.optimizedImages)
+  ),
   image_0: imgStandby,
   loader_img: loaderImg,
 };
@@ -54,40 +78,29 @@ Object.keys(data.optimizedImages).forEach((imageName) => {
   });
 });
 
-initialState.all = Object.assign(data.optimizedImages);
-
-const maxNumberKey = Number(
-  Object.keys(initialState.all)
-    .reduce((a, b) =>
-      Number(initialState.all[a].name.split("_").pop()) >
-      Number(initialState.all[b].name.split("_").pop())
-        ? a
-        : b
-    )
-    .split("_")
-    .pop()
-);
-
-for (let index = 1; index < maxNumberKey + 1; index++) {
-  const name = `image_${index}`;
-  const imgData = initialState.all[name];
-  if (!imgData) {
-    initialState.all[name] = imgStandby;
-  }
-}
 const imagesInfoSlice = createSlice({
   name: "imagesInfo",
   initialState,
   reducers: {
-    // eslint-disable-next-line no-unused-vars
-    logImagesInfo(
-      state
-      // , action: { payload: string; type: string }
-    ) {
-      console.log("state :>> ", state);
+    logImagesInfo(state, action: { payload: string; type: string }) {
+      console.log(initialState, action.payload, state);
+    },
+    filterPhotos(state, action: { payload: filterPhoto[]; type: string }) {
+      const filterImagesPhotos = createArrayForPhotoGallery(
+        Object.values(current(state).all).filter((elem) =>
+          elem.category.some((value) =>
+            action.payload.some((filter) => filter.includes(value))
+          )
+        )
+      );
+
+      state.filteredPhotos =
+        filterImagesPhotos.length === 0
+          ? createArrayForPhotoGallery(Object.values(state.all))
+          : filterImagesPhotos;
     },
   },
 });
 
 export const imagesInfoReducer = imagesInfoSlice.reducer;
-export const { logImagesInfo } = imagesInfoSlice.actions;
+export const { logImagesInfo, filterPhotos } = imagesInfoSlice.actions;
