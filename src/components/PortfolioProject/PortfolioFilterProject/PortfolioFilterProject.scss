@@ -12,18 +12,6 @@
     width: 100%;
     display: flex;
 
-    // .MuiButtonBase-root {
-    //   filter: blur(0px);
-    //   -webkit-filter: blur(0px);
-    //   transition: all 0.5s ease-out;
-    // }
-
-    // &:hover>.MuiButtonBase-root:not(:hover) {
-    //   filter: blur(4px);
-    //   -webkit-filter: blur(4px);
-    //   transition: all 0.5s ease-out;
-    // }
-
     &.portfolio-filter__images_row {
       flex-direction: row;
       justify-content: center;

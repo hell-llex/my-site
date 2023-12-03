@@ -86,6 +86,7 @@ const ImageButton = styled(ButtonBase)(() => ({
       borderRadius: "5px",
     },
     "& .MuiTypography-root": {
+      boxSizing: "border-box",
       overflow: "hidden",
       position: "absolute",
       height: "110%",
@@ -95,16 +96,23 @@ const ImageButton = styled(ButtonBase)(() => ({
       right: "-5%",
       top: "-5%",
       bottom: "-5%",
+      padding: "15%",
       display: "flex",
+      flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
       fontSize: "1.6vw",
+      textAlign: "center",
       fontWeight: 700,
       backdropFilter: "blur(3px)",
       WebkitBackdropFilter: "blur(3px)",
-      color: "rgba(255, 255, 255, 0.4)",
+      color: "rgba(255, 255, 255, 0.6)",
       backgroundColor: "rgba(0, 0, 0, 0.5)",
       transition: "all 0.5s ease-out",
+      "& span": {
+        fontSize: "1.2vw",
+        textAlign: "start",
+      },
     },
   },
   "&:hover, &.Mui-focusVisible": {
@@ -118,26 +126,67 @@ const ImageButton = styled(ButtonBase)(() => ({
       right: "-5%",
       top: "-5%",
       bottom: "-5%",
+      textAlign: "start",
       backdropFilter: "blur(0px)",
       WebkitBackdropFilter: "blur(0px)",
       color: "rgba(255, 255, 255, 0.8)",
-      backgroundColor: "rgba(0, 0, 0, 0.2)",
+      backgroundColor: "rgba(0, 0, 0, 0.7)",
       transition: "all 0.5s ease-out",
     },
   },
 }));
 
+const MutationPlugin: KeenSliderPlugin = (slider) => {
+  const observer = new MutationObserver(function (mutations) {
+    mutations.forEach(function () {
+      slider.update();
+    });
+  });
+  const config = { childList: true };
+
+  slider.on("created", () => {
+    observer.observe(slider.container, config);
+  });
+  slider.on("destroyed", () => {
+    observer.disconnect();
+  });
+};
+
+const ResizePlugin: KeenSliderPlugin = (slider) => {
+  const observer = new ResizeObserver(function () {
+    slider.update();
+  });
+
+  slider.on("created", () => {
+    observer.observe(slider.container);
+  });
+  slider.on("destroyed", () => {
+    observer.unobserve(slider.container);
+  });
+};
+
 const PortfolioGalleryProject = () => {
-  const dataImages = useAppSelector((state) => state.imagesInfo);
+  const dataImages = useAppSelector((state) => state.projectsInfo);
+  const filterProjectStore = useAppSelector(
+    (state) => state.baseParams.filterProject
+  );
   const dispatch = useAppDispatch();
   const setFullWithGallery = (item: boolean) =>
     dispatch(updateFullWidthGallery(item));
 
-  const [imagesProject] = useState<ImageInfo[]>(Object.values(dataImages.all));
+  const [imagesProject, setImagesProject] = useState<ImageInfo[]>(
+    dataImages.filteredProjects
+  );
+
   const [progress, setProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [isComponentLoaded, setIsComponentLoaded] = useState(false);
   const [isPreloaderTimer, setIsPreloaderTimer] = useState(false);
+
+  useEffect(() => {
+    setImagesProject(dataImages.filteredProjects);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterProjectStore]);
 
   useEffect(() => {
     const timerId = setTimeout(() => {
@@ -165,7 +214,7 @@ const PortfolioGalleryProject = () => {
       renderMode: "performance",
       dragSpeed: 0.5,
       slides: {
-        perView: 5,
+        perView: 4,
         spacing: 10,
       },
       detailsChanged(s) {
@@ -178,7 +227,7 @@ const PortfolioGalleryProject = () => {
         setIsComponentLoaded(true);
       },
     },
-    [WheelControls]
+    [WheelControls, MutationPlugin, ResizePlugin]
   );
 
   return (
@@ -217,19 +266,32 @@ const PortfolioGalleryProject = () => {
             transition: "all 1s ease-out",
           }}
         >
-          {imagesProject.slice(0, 20).map((img, index) => (
-            <div key={index} className="keen-slider__slide">
+          {imagesProject.map((img) => (
+            <div key={img.name} className="keen-slider__slide">
               <ImageButton
                 focusRipple
                 onClick={() => {
                   setTimeout(() => {
-                    // navigate(settingPage[index].path, { relative: "path" });
-                    alert("Project-" + String(index + 1));
+                    alert(Object.values(img).join(" | "));
                   }, 500);
                 }}
               >
-                <Typography component="p" variant="subtitle1" color="inherit">
-                  {"Project-" + String(index + 1)}
+                <Typography component="p" variant="body1" color="inherit">
+                  {img.name}
+                  <span>
+                    <br />
+                    {"Category: " +
+                      img.category
+                        .map((elem) => elem[0].toUpperCase() + elem.slice(1))
+                        .join(" / ")}
+                    <br />
+                    <br />
+                    {"Description: " + img.description}
+                    {/* <br />
+                    {"Link GitHub"}
+                    <br />
+                    {"Link Project"} */}
+                  </span>
                 </Typography>
                 <div className="background__image">
                   <OImage img={img} />
