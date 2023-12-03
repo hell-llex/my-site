@@ -1,12 +1,14 @@
 import "./PortfolioFilterPhoto.scss";
 import OImage from "../../OImage";
-import { ImageInfo } from "../../../types";
+import { ImageInfo, filterPhoto } from "../../../types";
 import { useState } from "react";
 import { styled } from "@mui/material/styles";
 import ButtonBase from "@mui/material/ButtonBase";
 import Typography from "@mui/material/Typography";
-// import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../../hooks/redux";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
+import { updateFilterPhoto } from "../../../store/slice/baseParamsSlice";
+import { filterPhotos } from "../../../store/slice/imagesInfoSlice";
+import { v4 as uuidv4 } from "uuid";
 
 const ImageButton = styled(ButtonBase)(() => ({
   position: "relative",
@@ -44,7 +46,7 @@ const ImageButton = styled(ButtonBase)(() => ({
       transition: "all 0.5s ease-out",
     },
   },
-  "&:hover, &.Mui-focusVisible": {
+  "&:hover, &.Mui-focusVisible, &.active": {
     borderRadius: "5px",
     "& .MuiTypography-root": {
       position: "absolute",
@@ -66,8 +68,18 @@ const ImageButton = styled(ButtonBase)(() => ({
 
 function PortfolioFilterPhoto() {
   const dataImages = useAppSelector((state) => state.imagesInfo);
+
+  const filterPhotoStore = useAppSelector(
+    (state) => state.baseParams.filterPhoto
+  );
+  const dispatch = useAppDispatch();
+  const updateStoreFilterPhoto = (item: filterPhoto[]) =>
+    dispatch(updateFilterPhoto(item));
+  const filtrationPhotos = (item: filterPhoto[]) =>
+    dispatch(filterPhotos(item));
+
   const [filterItem] = useState<
-    { value: string; name: string; img: ImageInfo }[]
+    { value: filterPhoto; name: string; img: ImageInfo }[]
   >([
     {
       value: "portrait",
@@ -87,18 +99,25 @@ function PortfolioFilterPhoto() {
     { value: "me", name: "Me", img: Object.values(dataImages.me)[0] },
   ]);
 
+  function updateFilter(value: filterPhoto) {
+    const newFilter = filterPhotoStore.includes(value)
+      ? filterPhotoStore.filter((elem) => elem != value)
+      : [...filterPhotoStore, value];
+    updateStoreFilterPhoto(newFilter);
+    filtrationPhotos(newFilter);
+  }
+
   return (
     <div className="portfolio-filter">
       <div className="portfolio-filter__images portfolio-filter__images_row">
         {filterItem.map((item) => (
           <ImageButton
-            key={item.toString()}
+            key={uuidv4()}
             focusRipple
+            value={item.value}
+            className={filterPhotoStore.includes(item.value) ? "active" : ""}
             onClick={() => {
-              setTimeout(() => {
-                // navigate(settingPage[index].path, { relative: "path" });
-                alert(item.name);
-              }, 500);
+              updateFilter(item.value);
             }}
           >
             <Typography component="p" variant="subtitle1" color="inherit">

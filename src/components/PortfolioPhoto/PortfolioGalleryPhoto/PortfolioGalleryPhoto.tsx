@@ -6,11 +6,7 @@ import "./PortfolioGalleryPhoto.scss";
 import { useKeenSlider, KeenSliderPlugin } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import OImage from "../../OImage";
-
-// import { styled } from "@mui/material/styles";
-// import ButtonBase from "@mui/material/ButtonBase";
-// import Typography from "@mui/material/Typography";
-import { LinearProgress } from "@mui/material";
+import { ButtonBase, LinearProgress, styled } from "@mui/material";
 import Loader from "../../Loader";
 import { updateFullWidthGallery } from "../../../store/slice/baseParamsSlice";
 
@@ -71,90 +67,67 @@ const WheelControls: KeenSliderPlugin = (slider) => {
     });
   });
 };
-// const ImageButton = styled(ButtonBase)(() => ({
-//   position: "relative",
-//   height: "100%",
-//   width: "100%",
-//   overflow: "hidden",
-//   borderRadius: "5px",
-//   "&, &": {
-//     outline: "none",
-//     borderRadius: "5px",
-//     "& .MuiTouchRipple-root": {
-//       outline: "none",
-//       zIndex: 3,
-//       borderRadius: "5px",
-//     },
-//     "& .MuiTypography-root": {
-//       overflow: "hidden",
-//       position: "absolute",
-//       height: "110%",
-//       width: "110%",
-//       zIndex: 3,
-//       left: "-5%",
-//       right: "-5%",
-//       top: "-5%",
-//       bottom: "-5%",
-//       display: "flex",
-//       alignItems: "center",
-//       justifyContent: "center",
-//       fontSize: "1.6vw",
-//       fontWeight: 700,
-//       backdropFilter: "blur(3px)",
-//       WebkitBackdropFilter: "blur(3px)",
-//       color: "rgba(255, 255, 255, 0.4)",
-//       backgroundColor: "rgba(0, 0, 0, 0.5)",
-//       transition: "all 0.5s ease-out",
-//     },
-//   },
-//   "&:hover, &.Mui-focusVisible": {
-//     borderRadius: "5px",
-//     "& .MuiTypography-root": {
-//       position: "absolute",
-//       height: "110%",
-//       width: "110%",
-//       zIndex: 3,
-//       left: "-5%",
-//       right: "-5%",
-//       top: "-5%",
-//       bottom: "-5%",
-//       backdropFilter: "blur(0px)",
-//       WebkitBackdropFilter: "blur(0px)",
-//       color: "rgba(255, 255, 255, 0.8)",
-//       backgroundColor: "rgba(0, 0, 0, 0.2)",
-//       transition: "all 0.5s ease-out",
-//     },
-//   },
-// }));
+
+const MutationPlugin: KeenSliderPlugin = (slider) => {
+  const observer = new MutationObserver(function (mutations) {
+    mutations.forEach(function () {
+      slider.update();
+    });
+  });
+  const config = { childList: true };
+
+  slider.on("created", () => {
+    observer.observe(slider.container, config);
+  });
+  slider.on("destroyed", () => {
+    observer.disconnect();
+  });
+};
+
+const ResizePlugin: KeenSliderPlugin = (slider) => {
+  const observer = new ResizeObserver(function () {
+    slider.update();
+  });
+
+  slider.on("created", () => {
+    observer.observe(slider.container);
+  });
+  slider.on("destroyed", () => {
+    observer.unobserve(slider.container);
+  });
+};
+
+const ImageButton = styled(ButtonBase)(() => ({
+  position: "relative",
+  height: "100%",
+  width: "100%",
+  overflow: "hidden",
+  borderRadius: "5px",
+  transition: "all 0.3s ease-out",
+  outline: "none",
+  opacity: "0.7",
+  "& .MuiTouchRipple-root": {
+    outline: "none",
+    zIndex: 3,
+    borderRadius: "5px",
+  },
+  "&:hover, &.Mui-focusVisible": {
+    borderRadius: "5px",
+    opacity: "1",
+    transition: "all 0.3s ease-out",
+  },
+}));
 
 const PortfolioGalleryPhoto = () => {
   const dataImages = useAppSelector((state) => state.imagesInfo);
-
-  function createArrayForPhotoGallery(objectImages: Record<string, ImageInfo>) {
-    const allImagesBase: (ImageInfo | "space")[] = Object.values(objectImages);
-
-    const allImagesNew: (ImageInfo | "space")[][] = [];
-
-    for (let i = 0; i < allImagesBase.length; i++) {
-      if (
-        allImagesBase[i] != "space" &&
-        (allImagesBase[i] as ImageInfo).orientation === "vertical"
-      ) {
-        allImagesBase.splice(i + 1, 0, "space");
-      }
-    }
-
-    for (let i = 0; i < allImagesBase.length; i += 3) {
-      allImagesNew.push(allImagesBase.slice(i, i + 3));
-    }
-    // console.log("allImagesNew :>> ", allImagesNew);
-
-    return allImagesNew;
-  }
-
-  const [imagesPhoto] = useState<(ImageInfo | "space")[][]>(
-    createArrayForPhotoGallery(dataImages["all"])
+  const filterPhotoStore = useAppSelector(
+    (state) => state.baseParams.filterPhoto
   );
+
+  const [imagesPhoto, setImagesPhoto] = useState<(ImageInfo | "space")[][]>(
+    dataImages.filteredPhotos
+  );
+  const [numberSlides, setNumberSlides] = useState(6);
   const dispatch = useAppDispatch();
   const setFullWithGallery = (item: boolean) =>
     dispatch(updateFullWidthGallery(item));
@@ -163,6 +136,11 @@ const PortfolioGalleryPhoto = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isComponentLoaded, setIsComponentLoaded] = useState(false);
   const [isPreloaderTimer, setIsPreloaderTimer] = useState(false);
+
+  useEffect(() => {
+    setImagesPhoto(dataImages.filteredPhotos);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterPhotoStore]);
 
   useEffect(() => {
     const timerId = setTimeout(() => {
@@ -190,20 +168,20 @@ const PortfolioGalleryPhoto = () => {
       renderMode: "performance",
       dragSpeed: 0.5,
       slides: {
-        perView: 6,
+        perView: numberSlides,
         spacing: 10,
       },
       detailsChanged(s) {
         setProgress(s.track.details.progress * 100);
         s.track.details.abs >= 1
-          ? setFullWithGallery(true)
-          : setFullWithGallery(false);
+          ? (setFullWithGallery(true), setNumberSlides(6))
+          : (setFullWithGallery(false), setNumberSlides(6));
       },
       created() {
         setIsComponentLoaded(true);
       },
     },
-    [WheelControls]
+    [WheelControls, MutationPlugin, ResizePlugin]
   );
 
   return (
@@ -251,19 +229,29 @@ const PortfolioGalleryPhoto = () => {
                   gap: "10px",
                 }}
               >
-                {imgs.map((img, i) => {
+                {imgs.map((img) => {
                   if (img != "space") {
                     return (
-                      <OImage
-                        key={i}
-                        img={img}
-                        style={{
-                          height: "100%",
-                          width: "100%",
-                          borderRadius: "5px",
-                          overflow: "hidden",
+                      <ImageButton
+                        key={img.name}
+                        focusRipple
+                        onClick={() => {
+                          setTimeout(() => {
+                            // navigate(settingPage[index].path, { relative: "path" });
+                            alert(Object.values(img).join(" | "));
+                          }, 500);
                         }}
-                      />
+                      >
+                        <OImage
+                          img={img}
+                          style={{
+                            height: "100%",
+                            width: "100%",
+                            borderRadius: "5px",
+                            overflow: "hidden",
+                          }}
+                        />
+                      </ImageButton>
                     );
                   }
                 })}
