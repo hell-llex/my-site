@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { updateLang, updateTheme } from "../store/slice/baseParamsSlice";
-import { language } from "../types";
+import { language, theme } from "../types";
 
 const rightPlatform = {
   vue: "vue",
@@ -13,23 +13,21 @@ const rightPlatform = {
 };
 
 const SettingWithUrl = ({ children }: { children?: JSX.Element }) => {
-  // const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const newLang = (item: language | undefined) => dispatch(updateLang(item));
-  const newTheme = (item: boolean) => dispatch(updateTheme(item));
-  const thisLang = useAppSelector((state) => state.baseParams.lang);
+  const newTheme = (item: theme | undefined) => dispatch(updateTheme(item));
+  const theme = useAppSelector((state) => state.baseParams.theme);
   const { platform, lang } = useParams();
 
-  console.log("params :>> ", platform, thisLang);
-
   useEffect(() => {
-    newTheme(false);
+    newTheme(theme === "dark" ? "light" : "dark");
     if (lang && (lang === "en" || lang === "ru")) {
       newLang(lang);
     }
     // url === "vue" &&
 
     //   (window.location.href = "https://hell-llex.github.io/My-CV/");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (platform && platform in rightPlatform) {
