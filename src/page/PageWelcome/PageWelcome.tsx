@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import BackgroundStartPage from "../../components/BackgroundStartPage";
 import { ImageInfo } from "../../types";
