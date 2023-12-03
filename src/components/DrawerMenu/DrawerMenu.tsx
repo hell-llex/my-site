@@ -1,18 +1,10 @@
-// import { Icon } from "@iconify/react/dist/iconify.js";
 import "./DrawerMenu.scss";
-
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
-// import Button from "@mui/material/Button";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
-// import ListItemButton from "@mui/material/ListItemButton";
-// import ListItemIcon from "@mui/material/ListItemIcon";
-// import ListItemText from "@mui/material/ListItemText";
-// import InboxIcon from "@mui/icons-material/MoveToInbox";
-// import MailIcon from "@mui/icons-material/Mail";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
@@ -25,8 +17,16 @@ import {
   Typography,
 } from "@mui/material";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import {
+  updateLang,
+  updatePlatform,
+  updateTheme,
+} from "../../store/slice/baseParamsSlice";
+import { language, platform, theme } from "../../types";
+import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 type Anchor = "top" | "right";
 
 const DrawerMenu = () => {
@@ -34,14 +34,28 @@ const DrawerMenu = () => {
     top: false,
     right: false,
   });
+  const dispatch = useAppDispatch();
+  const newLang = (item: language | undefined) => dispatch(updateLang(item));
+  const newTheme = (item: theme | undefined) => dispatch(updateTheme(item));
+  const newPlatform = (item: platform) => dispatch(updatePlatform(item));
+  const thisLang = useAppSelector((state) => state.baseParams.lang);
+  const thisTheme = useAppSelector((state) => state.baseParams.theme);
+  const thisPlatform = useAppSelector((state) => state.baseParams.platform);
+  const navigate = useNavigate();
 
   const [settings] = useState({
     language: {
       label: "Language",
       value: ["en", "ru"],
       icon: [
-        <LanguageIcon key="0" sx={{ fontSize: "2rem", marginRight: "1rem" }} />,
-        <LanguageIcon key="1" sx={{ fontSize: "2rem", marginRight: "1rem" }} />,
+        <LanguageIcon
+          key={uuidv4()}
+          sx={{ fontSize: "2rem", marginRight: "1rem" }}
+        />,
+        <LanguageIcon
+          key={uuidv4()}
+          sx={{ fontSize: "2rem", marginRight: "1rem" }}
+        />,
       ],
     },
     theme: {
@@ -49,42 +63,79 @@ const DrawerMenu = () => {
       value: ["light", "dark"],
       icon: [
         <LightModeIcon
-          key="0"
+          key={uuidv4()}
           sx={{ fontSize: "2rem", marginRight: "1rem" }}
         />,
-        <DarkModeIcon key="1" sx={{ fontSize: "2rem", marginRight: "1rem" }} />,
+        <DarkModeIcon
+          key={uuidv4()}
+          sx={{ fontSize: "2rem", marginRight: "1rem" }}
+        />,
       ],
     },
     platform: {
       label: "Platform",
-      value: ["react", "vue.js"],
+      value: ["react", "vue"],
       icon: [
         <Icon
           icon="nonicons:react-16"
-          key="0"
+          key={uuidv4()}
           style={{ marginRight: "1rem" }}
         />,
-        <Icon icon="nonicons:vue-16" key="1" style={{ marginRight: "1rem" }} />,
+        <Icon
+          icon="nonicons:vue-16"
+          key={uuidv4()}
+          style={{ marginRight: "1rem" }}
+        />,
       ],
     },
   });
 
   const [settingsValue, setSettingsValue] = useState({
-    language: "en",
-    theme: "dark",
-    platform: "react",
+    language: thisLang,
+    theme: thisTheme,
+    platform: thisPlatform,
   });
+
+  useEffect(() => {
+    setSettingsValue({
+      language: thisLang,
+      theme: thisTheme,
+      platform: thisPlatform,
+    });
+  }, [thisLang, thisPlatform, thisTheme]);
 
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
-    newSettings: string
+    newSettings: language | theme | platform
   ) => {
     if (newSettings !== null) {
       const target = event.currentTarget as HTMLInputElement;
-      const newSettingsObject = { ...settingsValue };
-      newSettingsObject[target.name as keyof typeof settingsValue] =
-        newSettings;
-      setSettingsValue(newSettingsObject);
+      target.name === "theme" ? newTheme(newSettings as theme) : null;
+      if (target.name === "language") {
+        newLang(newSettings as language);
+        const newPath = location.pathname.replace(thisLang, newSettings);
+        navigate(newPath);
+      }
+      if (target.name === "platform") {
+        newPlatform(newSettings as platform);
+        const newPath = location.pathname.replace(thisPlatform, newSettings);
+        navigate(newPath);
+      }
+
+      setSettingsValue({
+        language:
+          target.name === "language"
+            ? (newSettings as language)
+            : settingsValue.language,
+        theme:
+          target.name === "theme"
+            ? (newSettings as theme)
+            : settingsValue.theme,
+        platform:
+          target.name === "platform"
+            ? (newSettings as platform)
+            : settingsValue.platform,
+      });
     }
   };
 
@@ -135,8 +186,8 @@ const DrawerMenu = () => {
           </IconButton>
         </ListItem>
         <Divider color="white" />
-        {Object.values(settings).map((item, index) => (
-          <>
+        {Object.values(settings).map((item) => (
+          <div key={uuidv4()}>
             <Typography
               variant="h3"
               fontWeight={500}
@@ -148,7 +199,7 @@ const DrawerMenu = () => {
             >
               {item.label}
             </Typography>
-            <ListItem key={index}>
+            <ListItem>
               <ToggleButtonGroup
                 value={
                   settingsValue[
@@ -161,17 +212,19 @@ const DrawerMenu = () => {
                 size="large"
                 sx={{
                   width: "100%",
+                  ".MuiToggleButtonGroup-grouped:not(:first-of-type)": {
+                    borderLeft: "2px solid white",
+                  },
                 }}
               >
                 {item.value.map((elem, i) => (
                   <ToggleButton
                     name={item.label.toLowerCase()}
                     value={elem}
-                    key={index}
+                    key={uuidv4()}
                     sx={{
-                      color: "black",
-                      backgroundColor: "rgba(225,225,225,0.4)",
-                      borderColor: "white",
+                      color: "white",
+                      border: "2px solid black",
                       width: "100%",
                       fontSize: "1.6rem",
                       borderRadius: "10px",
@@ -183,16 +236,17 @@ const DrawerMenu = () => {
                       "&.Mui-selected": {
                         color: "white",
                         fontWeight: "700",
-                        backgroundColor: "rgba(0,0,0,0.4)",
-                        borderColor: "black",
+                        borderLeft: "2px solid white",
+                        borderRight: "2px solid white",
+                        borderTop: "2px solid white",
+                        borderBottom: "2px solid white",
                         "&:hover": {
-                          backgroundColor: "rgba(0,0,0,1)",
-                          borderColor: "black",
+                          border: "2px solid white",
                         },
                       },
                       "&:hover": {
-                        backgroundColor: "rgba(225,225,225,1)",
-                        borderColor: "white",
+                        backgroundColor: "rgba(255, 255, 255, 0.1)",
+                        border: "2px solid black",
                       },
                     }}
                   >
@@ -203,7 +257,7 @@ const DrawerMenu = () => {
               </ToggleButtonGroup>
             </ListItem>
             <Divider />
-          </>
+          </div>
         ))}
       </List>
     </Box>
@@ -212,14 +266,19 @@ const DrawerMenu = () => {
   return (
     <>
       {(["right"] as const).map((anchor) => (
-        <React.Fragment key={anchor}>
+        <React.Fragment key={uuidv4()}>
           <div className="setting-btn">
             <IconButton
               onClick={toggleDrawer(anchor, true)}
               aria-label="setting"
               sx={{
-                fontSize: "4rem",
-                color: "white",
+                fontSize: "5rem",
+                color: "rgba(255, 255, 255, 0.7)",
+                transition: "all 0.3s ease-out",
+                "&:hover": {
+                  color: "rgba(255, 255, 255, 1)",
+                  transition: "all 0.3s ease-out",
+                },
                 "&:focus": {
                   outline: "none",
                 },
