@@ -3,9 +3,18 @@ import {
   // useNavigate,
   useParams,
 } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import { updateLang, updateTheme } from "../store/slice/baseParamsSlice";
-import { language, theme } from "../types";
+import {
+  useAppDispatch,
+  // useAppSelector
+} from "../hooks/redux";
+import {
+  updateLang,
+  // updateTheme
+} from "../store/slice/baseParamsSlice";
+import {
+  language,
+  // theme
+} from "../types";
 
 const rightPlatform = {
   vue: "vue",
@@ -15,12 +24,12 @@ const rightPlatform = {
 const SettingWithUrl = ({ children }: { children?: JSX.Element }) => {
   const dispatch = useAppDispatch();
   const newLang = (item: language | undefined) => dispatch(updateLang(item));
-  const newTheme = (item: theme | undefined) => dispatch(updateTheme(item));
-  const theme = useAppSelector((state) => state.baseParams.theme);
+  // const newTheme = (item: theme | undefined) => dispatch(updateTheme(item));
+  // const theme = useAppSelector((state) => state.baseParams.theme);
   const { platform, lang } = useParams();
 
   useEffect(() => {
-    newTheme(theme === "dark" ? "light" : "dark");
+    // newTheme(theme === "dark" ? "light" : "dark");
     if (lang && (lang === "en" || lang === "ru")) {
       newLang(lang);
     }
