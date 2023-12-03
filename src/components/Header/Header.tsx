@@ -76,7 +76,7 @@ const Header = ({ social }: { social: boolean }) => {
             }`}
           >
             {Object.values(linksInfo).map((linkNav) => (
-              <div key={uuidv4()}>
+              <div key={linkNav.name}>
                 <div className="link-container__container-nav-link">
                   <NavLink to={linkNav.path} className={setActive}>
                     <span>{linkNav.name}</span>
@@ -85,7 +85,7 @@ const Header = ({ social }: { social: boolean }) => {
                     otherLinksInfo.map((linkOtherNav) => (
                       <NavLink
                         to={linkOtherNav.path}
-                        key={uuidv4()}
+                        key={linkOtherNav.name}
                         className={setActiveOther}
                       >
                         <span>{linkOtherNav.name}</span>
