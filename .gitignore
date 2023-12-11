@@ -12,6 +12,8 @@ dist
 dist-ssr
 *.local
 
+optimization-app-local
+
 */node_modules
 */dist
 */dist-ssr
