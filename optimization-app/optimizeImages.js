@@ -15,6 +15,7 @@ import { promises as fs } from "fs";
 const { rename } = fs;
 import { exec } from "child_process";
 import robot from "robotjs";
+import deepEqual from 'deep-equal';
 
 // * =================================================================
 // ! ======================== переменные =============================
@@ -26,14 +27,16 @@ let nowOpenImg = false;
 let forcedUpdate = false;
 const imagesNames = [];
 const imageExtensions = [".jpg", ".jpeg", ".png", ".gif", ".webp"];
-const inputDirPhoto = "./src/assets/img"; // Папка с исходными изображениями
-const inputDirProject = "./src/assets/project"; // Папка с исходными проектами
-const outputDirPhotoJpg = "./public/img/jpg"; // Папка для оптимизированных изображений
-const outputDirPhotoWebp = "./public/img/webp"; // Папка для оптимизированных изображений
-const outputDirProjectJpg = "./public/project/jpg"; // Папка для оптимизированных проектов
-const outputDirProjectWebp = "./public/project/webp"; // Папка для оптимизированных проектов
-const dataFilePhoto = "./src/assets/img/data.json"; // Файл для сохранения данных об оптимизированных изображениях
-const dataFileProject = "./src/assets/project/data.json"; // Файл для сохранения данных об оптимизированных проектов
+const inputDirPhoto = "./assets/img"; // Папка с исходными изображениями
+const inputDirProject = "./assets/project"; // Папка с исходными проектами
+let outputDirPhotoJpg = "../FOLDER/public/img/jpg"; // Папка для оптимизированных изображений
+let outputDirPhotoWebp = "../FOLDER/public/img/webp"; // Папка для оптимизированных изображений
+let outputDirProjectJpg = "../FOLDER/public/project/jpg"; // Папка для оптимизированных проектов
+let outputDirProjectWebp = "../FOLDER/public/project/webp"; // Папка для оптимизированных проектов
+const dataFilePhoto = "./assets/img/data.json"; // Файл для сохранения данных об оптимизированных изображениях
+const dataFileProject = "./assets/project/data.json"; // Файл для сохранения данных об оптимизированных проектов
+let outputDirDataPhoto = "../FOLDER/public/img/data.json"; // Папка для оптимизированных изображений
+let outputDirDataProject = "../FOLDER/public/project/data.json"; // Папка для оптимизированных проектов
 let optimizedDataPhoto = {
   optimizedImages: {},
   totalInfo: {
@@ -52,6 +55,8 @@ let optimizedDataProject = {
 }; // Объект для хранения данных о новых оптимизированных изображениях
 let dataPhoto; // Объект для хранения данных о старых оптимизированных изображениях
 let dataProject; // Объект для хранения данных о старых оптимизированных изображениях
+let totalInfoPhoto;
+let totalInfoProject;
 // * =================================================================
 // ! =================================================================
 
@@ -61,6 +66,19 @@ const allQuestions = {
     name: "startApp",
     message: "Требуется ли оптимизация изображений?",
     initial: false,
+  },
+  questionProject: {
+    type: "select",
+    name: "project",
+    message: "Выберите проект:",
+    instructions: false,
+    choices: [
+      { name: "React", value: "react-site" },
+      { name: "Vue", value: "vue-site" },
+      { name: "Js", value: "js-site" },
+    ],
+    initial: 0,
+    hint: "- Пробел для выбора.",
   },
   questionQualityImg: {
     type: "number",
@@ -152,28 +170,10 @@ async function checkDataFile(dataFilePath, data) {
       return data;
     } else {
       console.error("Ошибка при чтении файла:", error);
+      throw error;
     }
   }
 }
-
-dataPhoto = await checkDataFile(dataFilePhoto, dataPhoto);
-dataProject = await checkDataFile(dataFileProject, dataProject);
-
-const totalInfoPhoto = dataPhoto.totalInfo;
-const totalInfoProject = dataProject.totalInfo;
-
-!existsSync(outputDirPhotoJpg)
-  ? mkdirSync(outputDirPhotoJpg, { recursive: true })
-  : null;
-!existsSync(outputDirPhotoWebp)
-  ? mkdirSync(outputDirPhotoWebp, { recursive: true })
-  : null;
-!existsSync(outputDirProjectJpg)
-  ? mkdirSync(outputDirProjectJpg, { recursive: true })
-  : null;
-!existsSync(outputDirProjectWebp)
-  ? mkdirSync(outputDirProjectWebp, { recursive: true })
-  : null;
 
 // * =================================================================
 // ! ============== список доступных изображений =====================
@@ -192,12 +192,12 @@ async function listAvailableImg(inputPathFolder, typeFile) {
 
   console.log(
     EOL +
-      `Список доступных ${typeFile}: ` +
-      totalCountFile +
-      EOL +
-      EOL +
-      imagesNames.join(" | ".green) +
-      EOL
+    `Список доступных ${typeFile}: ` +
+    totalCountFile +
+    EOL +
+    EOL +
+    imagesNames.join(" | ".green) +
+    EOL
   );
 
   return totalCountFile;
@@ -215,7 +215,6 @@ const openInVSCode = (imagePath) => {
     if (error) {
       console.error(`Ошибка при открытии изображения: ${error.message}`);
     } else {
-      // console.log(`Файл ${imagePath} успешно открыт`);
       nowOpenImg = true;
     }
   });
@@ -253,8 +252,7 @@ function deleteUnuseFile(outputDirJpg, outputDirWebp, inputDir) {
         if (existsSync(targetFile)) {
           unlinkSync(targetFile);
           console.log(
-            `${">>>|".red} Удален файл, которого нет в исходной директории: ${
-              targetFile.red
+            `${">>>|".red} Удален файл, которого нет в исходной директории: ${targetFile.red
             }`
           );
         }
@@ -278,8 +276,7 @@ async function optimizeImage(
     .toFile(outputPathJpg)
     .then(() => {
       console.log(
-        `${"->".green} Оптимизировано изображение в формате JPEG: ${
-          fileName.split(".")[0].blue
+        `${"->".green} Оптимизировано изображение в формате JPEG: ${fileName.split(".")[0].blue
         }`
       );
       // Оптимизация в формате WebP
@@ -290,8 +287,7 @@ async function optimizeImage(
     })
     .then(() => {
       console.log(
-        `${"->".green} Оптимизировано изображение в формате WebP: ${
-          fileName.split(".")[0].blue
+        `${"->".green} Оптимизировано изображение в формате WebP: ${fileName.split(".")[0].blue
         }`
       );
 
@@ -396,7 +392,7 @@ async function fileHandling(
   for (const file of files) {
     // Если файл не является изображением, пропустить его
     if (!imageExtensions.includes(extname(file))) {
-      console.log(`${"---".red} Пропущен файл: ${file.red}`);
+      console.log(`${"---".red} Пропущен файл: ${file.red}`, EOL);
       continue;
     }
 
@@ -449,8 +445,7 @@ async function fileHandling(
         data.optimizedImages[shortFileName].name.length !== 0
       ) {
         console.log(
-          `${">|".green} У файла ${shortFileName.blue} уже есть имя: ${
-            data.optimizedImages[shortFileName].name
+          `${">|".green} У файла ${shortFileName.blue} уже есть имя: ${data.optimizedImages[shortFileName].name
           }`
         );
         newFile.name = data.optimizedImages[shortFileName].name;
@@ -471,8 +466,7 @@ async function fileHandling(
       data.optimizedImages[shortFileName].description.length !== 0
     ) {
       console.log(
-        `${">|".green} У файла ${shortFileName.blue} уже есть описание: ${
-          data.optimizedImages[shortFileName].description
+        `${">|".green} У файла ${shortFileName.blue} уже есть описание: ${data.optimizedImages[shortFileName].description
         }`
       );
       newFile.description = data.optimizedImages[shortFileName].description;
@@ -495,8 +489,7 @@ async function fileHandling(
       data.optimizedImages[shortFileName].category.length !== 0
     ) {
       console.log(
-        `${">|".green} У файла ${shortFileName.blue} уже выбраны категории: ${
-          data.optimizedImages[shortFileName].category
+        `${">|".green} У файла ${shortFileName.blue} уже выбраны категории: ${data.optimizedImages[shortFileName].category
         }`
       );
       newFile.category = data.optimizedImages[shortFileName].category;
@@ -523,10 +516,8 @@ async function fileHandling(
       data.optimizedImages[shortFileName].metadata
     ) {
       console.log(
-        ` ${
-          "|>".green
-        } Файл уже оптимизирован и данные о изображении получены: ${
-          shortFileName.blue
+        ` ${"|>".green
+        } Файл уже оптимизирован и данные о изображении получены: ${shortFileName.blue
         }`
       );
       newFile.orientation = data.optimizedImages[shortFileName].orientation;
@@ -543,8 +534,8 @@ async function fileHandling(
     }
 
     // ! =================================================================
-    newFile.pathJpg = newFile.pathJpg.replace("public", "");
-    newFile.pathWebp = newFile.pathWebp.replace("public", "");
+    newFile.pathJpg = '/' + newFile.pathJpg.split('/').slice(3).join('/');
+    newFile.pathWebp = '/' + newFile.pathWebp.split('/').slice(3).join('/');
     optimizedData.optimizedImages[shortFileName] = newFile;
     if (nowOpenImg) closeFileInVSCode();
     console.log(EOL);
@@ -557,15 +548,56 @@ async function fileHandling(
 // * =================================================================
 (async () => {
   const { startApp } = await prompts(allQuestions.questionStartApp);
+  const { project } = await prompts(allQuestions.questionProject);
 
-  needOpenImg = await prompts(allQuestions.questionOpenImg);
+  if (startApp && project) {
 
-  if (startApp) {
+    [outputDirPhotoJpg, outputDirPhotoWebp, outputDirDataPhoto, outputDirProjectJpg, outputDirProjectWebp, outputDirDataProject] =
+      [outputDirPhotoJpg, outputDirPhotoWebp, outputDirDataPhoto, outputDirProjectJpg, outputDirProjectWebp, outputDirDataProject].map(elem => elem.replace("FOLDER", project))
+
+    !existsSync(outputDirPhotoJpg)
+      ? mkdirSync(outputDirPhotoJpg, { recursive: true })
+      : null;
+    !existsSync(outputDirPhotoWebp)
+      ? mkdirSync(outputDirPhotoWebp, { recursive: true })
+      : null;
+    !existsSync(outputDirProjectJpg)
+      ? mkdirSync(outputDirProjectJpg, { recursive: true })
+      : null;
+    !existsSync(outputDirProjectWebp)
+      ? mkdirSync(outputDirProjectWebp, { recursive: true })
+      : null;
+
+    // * =========================================================================
+    // * проверка и сравнение файлов data
+    // * =========================================================================
+    let sourcedataPhoto = await checkDataFile(dataFilePhoto, dataPhoto);
+    let targetdataPhoto = await checkDataFile(outputDirDataPhoto, dataPhoto);
+    const sourcedataPhotoUTF = await fs.readFile(dataFilePhoto, 'utf-8');
+    const targetdataPhotoUTF = await fs.readFile(outputDirDataPhoto, 'utf-8');
+    let sourcedataProject = await checkDataFile(dataFileProject, dataProject);
+    let targetdataProject = await checkDataFile(outputDirDataProject, dataProject);
+    const sourcedataProjectUTF = await fs.readFile(dataFileProject, 'utf-8');
+    const targetdataProjectUTF = await fs.readFile(outputDirDataProject, 'utf-8');
+    
+    if (deepEqual(JSON.parse(sourcedataPhotoUTF), JSON.parse(targetdataPhotoUTF))) dataPhoto = sourcedataPhoto;
+    else dataPhoto = targetdataPhoto;
+    if (deepEqual(JSON.parse(sourcedataProjectUTF), JSON.parse(targetdataProjectUTF))) dataProject = sourcedataProject;
+    else dataProject = targetdataProject;
+
+    totalInfoPhoto = dataPhoto.totalInfo;
+    totalInfoProject = dataProject.totalInfo;
+
+    // * =========================================================================
+    // * продолжение работы по вопросам
+    // * =========================================================================
+    needOpenImg = await prompts(allQuestions.questionOpenImg);
+
     const { qualityOptimize } = await prompts(allQuestions.questionQualityImg);
     optimizedDataPhoto.totalInfo.quality =
       optimizedDataProject.totalInfo.quality =
       qualityOptimizeNumber =
-        qualityOptimize;
+      qualityOptimize;
 
     const { needResize } = await prompts(
       allQuestions.questionQualitySize.needResized
@@ -578,7 +610,7 @@ async function fileHandling(
       optimizedDataPhoto.totalInfo.quality =
         optimizedDataProject.totalInfo.quality =
         resizeImgNumber =
-          resizeImg;
+        resizeImg;
     }
 
     if (
@@ -609,8 +641,9 @@ async function fileHandling(
     );
     deleteUnuseFile(outputDirPhotoJpg, outputDirPhotoWebp, inputDirPhoto);
     optimizedDataPhoto.totalInfo.totalCount =
-      Object.keys(optimizedDataPhoto.optimizedImages).length - 1;
+      Object.keys(optimizedDataPhoto.optimizedImages).length;
     updateDataFile(optimizedDataPhoto, dataFilePhoto);
+    updateDataFile(optimizedDataPhoto, outputDirDataPhoto);
 
     // * =========================================================================
     // * начало работы с фото
@@ -629,8 +662,9 @@ async function fileHandling(
     );
     deleteUnuseFile(outputDirProjectJpg, outputDirProjectWebp, inputDirProject);
     optimizedDataProject.totalInfo.totalCount =
-      Object.keys(optimizedDataProject.optimizedImages).length - 1;
+      Object.keys(optimizedDataProject.optimizedImages).length;
     updateDataFile(optimizedDataProject, dataFileProject);
+    updateDataFile(optimizedDataProject, outputDirDataProject);
 
     closeLog();
   } else {
