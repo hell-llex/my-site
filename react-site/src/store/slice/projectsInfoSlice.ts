@@ -1,5 +1,5 @@
 import { createSlice, current } from "@reduxjs/toolkit";
-import _data from "../../assets/project/data.json";
+import _data from "../../../public/project/data.json";
 import { ImageInfo, TypedJSON, filterProject } from "../../types";
 const data: TypedJSON = _data;
 

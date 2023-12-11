@@ -1,5 +1,5 @@
 import { createSlice, current } from "@reduxjs/toolkit";
-import _data from "../../assets/img/data.json";
+import _data from "../../../public/img/data.json";
 import { ImageInfo, TypedJSON, filterPhoto } from "../../types";
 const data: TypedJSON = _data;
 import loaderImg from "../../../public/loader.svg";
