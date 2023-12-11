@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "optimize-images": "node optimizeImages.js",
-    "copy-app": "node copyApp.js"
+    "copy-app": "node copyApp.js",
+    "optimize-images": "node optimizeImages.js"
   },
   "dependencies": {
     "colors": "^1.4.0",
