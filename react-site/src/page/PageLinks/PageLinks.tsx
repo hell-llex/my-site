@@ -81,7 +81,35 @@ const PageLinks = () => {
   const setFullWithGallery = (item: boolean) =>
     dispatch(updateFullWidthGallery(item));
 
-  const [imagesSocial] = useState<SocialLink[]>(Object.values(dataImages));
+  const [imagesSocial] = useState<SocialLink[]>(() => {
+    const allImages = [
+      {
+        icon: "material-symbols:skull-outline",
+        color: "#4ba395",
+        name: "My site",
+        size: dataImages.github.size,
+        link: "/",
+      },
+      ...Object.values(dataImages),
+      {
+        icon: "academicons:cv",
+        color: "#0077FF",
+        name: "My CV",
+        size: dataImages.github.size,
+        link: "/cv",
+      },
+    ];
+    const resultArray: SocialLink[] = [];
+
+    for (let i = 0; i < 10 && allImages.length > 0; i++) {
+      const randomIndex = Math.floor(Math.random() * allImages.length);
+      const randomImage = allImages[randomIndex];
+      resultArray.push(randomImage);
+      allImages.splice(randomIndex, 1);
+    }
+
+    return resultArray;
+  });
 
   const [isLoading, setIsLoading] = useState(false);
   const [isComponentLoaded, setIsComponentLoaded] = useState(false);
