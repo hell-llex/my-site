@@ -175,7 +175,6 @@ const PageLinks = () => {
     {
       loop: true,
       mode: "snap",
-      rubberband: false,
       vertical: false,
       renderMode: "performance",
       dragSpeed: 0.5,
@@ -187,9 +186,9 @@ const PageLinks = () => {
       breakpoints: {
         "(max-width: 768px)": {
           vertical: true,
-          rubberband: false,
+          mode: "free-snap",
           renderMode: "performance",
-          dragSpeed: 0.5,
+          dragSpeed: 0.3,
           slides: {
             origin: "center",
             perView: 3,
