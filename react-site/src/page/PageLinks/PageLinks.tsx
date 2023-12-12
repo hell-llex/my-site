@@ -65,12 +65,12 @@ const slideCenter: KeenSliderPlugin = (slider) => {
   slider.on("detailsChanged", checkPositionSlide);
 };
 
-const vibration = () => {
-  if (!navigator.vibrate) {
-    return;
-  }
-  navigator.vibrate(15);
-};
+// const vibration = () => {
+//   if (!navigator.vibrate) {
+//     return;
+//   }
+//   navigator.vibrate(15);
+// };
 
 const PageLinks = () => {
   const dataImages = useAppSelector((state) => state.socialIconsInfo);
@@ -175,9 +175,10 @@ const PageLinks = () => {
     {
       loop: true,
       mode: "snap",
+      rubberband: false,
       vertical: false,
       renderMode: "performance",
-      dragSpeed: 0.2,
+      dragSpeed: 0.5,
       slides: {
         origin: "center",
         perView: 5,
@@ -186,15 +187,17 @@ const PageLinks = () => {
       breakpoints: {
         "(max-width: 768px)": {
           vertical: true,
-          dragSpeed: 1,
+          rubberband: false,
+          renderMode: "performance",
+          dragSpeed: 0.5,
           slides: {
             origin: "center",
             perView: 3,
             spacing: 5,
           },
-          slideChanged() {
-            if (screenMobile) vibration();
-          },
+          // slideChanged() {
+          //   if (screenMobile) vibration();
+          // },
         },
       },
       detailsChanged(s) {
