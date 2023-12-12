@@ -173,12 +173,18 @@ const PortfolioGalleryPhoto = () => {
       },
       detailsChanged(s) {
         setProgress(s.track.details.progress * 100);
-        s.track.details.abs >= 1
-          ? (setFullWithGallery(true), setNumberSlides(6))
-          : (setFullWithGallery(false), setNumberSlides(6));
+        if (s.track.details.slides.length <= 6) {
+          setFullWithGallery(false), setNumberSlides(6);
+          setProgress(0);
+        }
       },
       created() {
         setIsComponentLoaded(true);
+      },
+      dragEnded(s) {
+        s.track.details.abs >= 1
+          ? (setFullWithGallery(true), setNumberSlides(7))
+          : (setFullWithGallery(false), setNumberSlides(6));
       },
     },
     [WheelControls, MutationPlugin, ResizePlugin]
