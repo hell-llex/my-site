@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import BackgroundStartPage from "../../components/BackgroundStartPage";
 import { ImageInfo } from "../../types";
 import "./PageWelcome.scss";
@@ -24,7 +24,6 @@ const PageWelcome = () => {
   });
 
   const [isScrolling, setIsScrolling] = useState(false);
-  const [isChangePage] = useState(false);
   useEffect(() => {
     window.addEventListener("wheel", handleScroll, { passive: false });
     return () => window.removeEventListener("wheel", handleScroll);
@@ -36,7 +35,7 @@ const PageWelcome = () => {
     deltaX: number;
     preventDefault: () => void;
   }) => {
-    console.log(event.deltaY);
+    // console.log(event.deltaY);
     if (event.deltaY >= 10 && oneRedirect) {
       oneRedirect = false;
       // if (window.scrollX >= 500) {
@@ -54,16 +53,65 @@ const PageWelcome = () => {
     }
   };
 
+  const [startX, setStartX] = useState<number | null>(null);
+  const [startY, setStartY] = useState<number | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    setStartX(e.touches[0].clientX);
+    setStartY(e.touches[0].clientY);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (startX !== null && startY !== null) {
+      const deltaX = e.touches[0].clientX - startX;
+      const deltaY = e.touches[0].clientY - startY;
+
+      // Проверка на вертикальный скролл
+      if (Math.abs(deltaY) > Math.abs(deltaX)) {
+        if (deltaY > 0) {
+          // console.log("Скроллируется вниз");
+          // Ваш код для скролла вниз
+        } else if (deltaY < 0) {
+          // console.log("Скроллируется вверх", deltaY);
+          // Ваш код для скролла вверх
+          if (deltaY < -20) {
+            setTimeout(() => {
+              navigate("../home", { relative: "path" });
+            }, 300);
+          }
+        }
+      } else {
+        // Проверка на горизонтальный скролл
+        if (deltaX > 0) {
+          // console.log("Скроллируется вправо");
+          // Ваш код для скролла вправо
+        } else if (deltaX < 0) {
+          // console.log("Скроллируется влево");
+          // Ваш код для скролла влево
+        }
+      }
+
+      // Обновите начальные точки для следующего события
+      setStartX(e.touches[0].clientX);
+      setStartY(e.touches[0].clientY);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    // Сбросите начальные состояния при завершении взаимодействия
+    setStartX(null);
+    setStartY(null);
+  };
+
   return (
     <>
       <div
         className={`welcome-page ${isScrolling ? "welcome-page_scroll" : ""}`}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
       >
-        <BackgroundStartPage
-          imgs={imagesBack}
-          width="100vw"
-          isChangePage={isChangePage}
-        />
+        <BackgroundStartPage imgs={imagesBack} />
         <div className="my-info">
           <div className="my-info__container">
             <Box>
@@ -71,28 +119,28 @@ const PageWelcome = () => {
                 variant="h2"
                 fontWeight={700}
                 color={"white"}
-                fontSize={"clamp(2rem, 4vw, 3.5rem)"}
+                fontSize={"clamp(1.8rem, 4vw, 3.5rem)"}
               >
                 Hello. I am
               </Typography>
               <Typography
                 variant="h1"
                 fontWeight={700}
-                fontSize={"clamp(2.5rem, 6vw, 6rem)"}
+                fontSize={"clamp(2.2rem, 6vw, 6rem)"}
               >
                 Alexander Demeshchenko
               </Typography>
               <Typography
                 variant="h2"
                 fontWeight={300}
-                fontSize={"clamp(2rem, 4vw, 3.5rem)"}
+                fontSize={"clamp(1.8rem, 4vw, 3.5rem)"}
               >
                 &gt; Frontend deloveper
               </Typography>
               <Typography
                 variant="h2"
                 fontWeight={300}
-                fontSize={"clamp(2rem, 4vw, 3.5rem)"}
+                fontSize={"clamp(1.8rem, 4vw, 3.5rem)"}
               >
                 &gt; (aka:{" "}
                 <Typography
@@ -106,24 +154,13 @@ const PageWelcome = () => {
                 )
               </Typography>
             </Box>
-            <Box
-              marginTop="20%"
-              component="div"
-              sx={{
-                width: "max-content",
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-                gap: "1rem",
-              }}
-            >
+            <Box component="div" className="container-link">
               <Typography
                 variant={"body1"}
                 component="p"
                 fontWeight={300}
-                className="continue-link"
-                fontSize={"clamp(2rem, 3vw, 3rem)"}
+                className="continue-text"
+                fontSize={"clamp(1.8rem, 3vw, 3rem)"}
                 sx={{}}
                 onClick={() => {
                   setIsScrolling(true);
