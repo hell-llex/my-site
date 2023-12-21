@@ -2,8 +2,7 @@ import { Box, Card, CardActionArea, Typography } from "@mui/material";
 import { KeenSliderPlugin } from "keen-slider";
 import { useKeenSlider } from "keen-slider/react";
 import { useState, useEffect } from "react";
-import { useAppSelector, useAppDispatch } from "../../hooks/redux";
-import { updateFullWidthGallery } from "../../store/slice/baseParamsSlice";
+import { useAppSelector } from "../../hooks/redux";
 import { SocialLink } from "../../types";
 import "./PageLinks.scss";
 import Loader from "../../components/Loader";
@@ -65,21 +64,11 @@ const slideCenter: KeenSliderPlugin = (slider) => {
   slider.on("detailsChanged", checkPositionSlide);
 };
 
-// const vibration = () => {
-//   if (!navigator.vibrate) {
-//     return;
-//   }
-//   navigator.vibrate(15);
-// };
-
 const PageLinks = () => {
   const dataImages = useAppSelector((state) => state.socialIconsInfo);
   const dataImagesPhoto = Object.values(
     useAppSelector((state) => state.imagesInfo.all)
   );
-  const dispatch = useAppDispatch();
-  const setFullWithGallery = (item: boolean) =>
-    dispatch(updateFullWidthGallery(item));
 
   const [imagesSocial] = useState<SocialLink[]>(() => {
     const allImages = [
@@ -222,15 +211,7 @@ const PageLinks = () => {
             perView: 3,
             spacing: 5,
           },
-          // slideChanged() {
-          //   if (screenMobile) vibration();
-          // },
         },
-      },
-      detailsChanged(s) {
-        s.track.details.abs >= 1
-          ? setFullWithGallery(true)
-          : setFullWithGallery(false);
       },
       created() {
         setIsComponentLoaded(true);
