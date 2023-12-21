@@ -44,9 +44,9 @@ const Header = ({ social }: { social: boolean }) => {
           !social
             ? {
                 justifyContent: "flex-start",
-                minWidth: fullWithGallery ? "16rem" : "35rem",
+                minWidth: fullWithGallery ? "16rem" : "30rem",
               }
-            : { justifyContent: "center", minWidth: "30rem" }
+            : { justifyContent: "center", minWidth: "26rem" }
         }
       >
         <div className="link-container__background">

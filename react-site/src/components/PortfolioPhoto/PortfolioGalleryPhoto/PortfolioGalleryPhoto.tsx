@@ -9,6 +9,7 @@ import OImage from "../../OImage";
 import { ButtonBase, LinearProgress, styled } from "@mui/material";
 import Loader from "../../Loader";
 import { updateFullWidthGallery } from "../../../store/slice/baseParamsSlice";
+import useScreenSize from "../../../hooks/useScreenSize";
 
 const WheelControls: KeenSliderPlugin = (slider) => {
   let touchTimeout: ReturnType<typeof setTimeout>;
@@ -123,19 +124,30 @@ const PortfolioGalleryPhoto = () => {
   const filterPhotoStore = useAppSelector(
     (state) => state.baseParams.filterPhoto
   );
-
   const [imagesPhoto, setImagesPhoto] = useState<(ImageInfo | "space")[][]>(
     dataImages.filteredPhotos
   );
-  const [numberSlides, setNumberSlides] = useState(6);
   const dispatch = useAppDispatch();
   const setFullWithGallery = (item: boolean) =>
     dispatch(updateFullWidthGallery(item));
+  const screenSize = useScreenSize();
 
   const [progress, setProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [isComponentLoaded, setIsComponentLoaded] = useState(false);
   const [isPreloaderTimer, setIsPreloaderTimer] = useState(false);
+  const [screenMobile, setScreenMobile] = useState(
+    screenSize.width <= 768 ? true : false
+  );
+  const [slidesCountDesktop] = useState(6);
+  const [slidesCountMobile] = useState(4);
+  const [numberSlides, setNumberSlides] = useState(
+    screenMobile ? slidesCountMobile : slidesCountDesktop
+  );
+
+  useEffect(() => {
+    setScreenMobile(screenSize.width <= 768 ? true : false);
+  }, [screenSize]);
 
   useEffect(() => {
     setImagesPhoto(dataImages.filteredPhotos);
@@ -164,7 +176,7 @@ const PortfolioGalleryPhoto = () => {
       loop: false,
       mode: "free-snap",
       rubberband: false,
-      vertical: false,
+      vertical: screenMobile ? true : false,
       renderMode: "performance",
       dragSpeed: 0.5,
       slides: {
@@ -172,9 +184,13 @@ const PortfolioGalleryPhoto = () => {
         spacing: 10,
       },
       detailsChanged(s) {
+        // добавить обновление слайдера при плавном уменьшении окна
         setProgress(s.track.details.progress * 100);
         if (s.track.details.slides.length <= 6) {
-          setFullWithGallery(false), setNumberSlides(6);
+          setFullWithGallery(false),
+            setNumberSlides(
+              screenMobile ? slidesCountMobile : slidesCountDesktop
+            );
           setProgress(0);
         }
       },
@@ -183,8 +199,14 @@ const PortfolioGalleryPhoto = () => {
       },
       dragEnded(s) {
         s.track.details.abs >= 1
-          ? (setFullWithGallery(true), setNumberSlides(7))
-          : (setFullWithGallery(false), setNumberSlides(6));
+          ? (setFullWithGallery(true),
+            setNumberSlides(
+              screenMobile ? slidesCountMobile : slidesCountDesktop + 1
+            ))
+          : (setFullWithGallery(false),
+            setNumberSlides(
+              screenMobile ? slidesCountMobile : slidesCountDesktop
+            ));
       },
     },
     [WheelControls, MutationPlugin, ResizePlugin]
@@ -220,7 +242,10 @@ const PortfolioGalleryPhoto = () => {
         <div
           ref={sliderRef}
           className="keen-slider"
-          style={{ height: "100%", width: "100%" }}
+          style={{
+            height: "100%",
+            width: "100%",
+          }}
         >
           {imagesPhoto.map((imgs, index) => {
             return (
@@ -229,7 +254,7 @@ const PortfolioGalleryPhoto = () => {
                 className="keen-slider__slide"
                 style={{
                   display: "flex",
-                  flexDirection: "column",
+                  flexDirection: screenMobile ? "row" : "column",
                   justifyContent: "space-between",
                   alignItems: "center",
                   gap: "10px",

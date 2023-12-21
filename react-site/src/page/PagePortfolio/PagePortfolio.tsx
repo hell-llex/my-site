@@ -14,7 +14,7 @@ const PagePortfolio = () => {
   return (
     <>
       <div className="portfolio-page">
-        <BackgroundPortfolioPage imgs={imagesBack} width="60vw" />
+        <BackgroundPortfolioPage imgs={imagesBack} />
       </div>
     </>
   );

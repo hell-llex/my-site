@@ -8,8 +8,29 @@ import { saveAs } from "file-saver";
 import { useState, useEffect } from "react";
 import Loader from "../../components/Loader";
 
+const ImageButton = styled(ButtonBase)(() => ({
+  position: "relative",
+  width: "100%",
+  padding: "1rem",
+  borderRadius: "5px",
+  outline: "none",
+  "& .MuiTouchRipple-root": {
+    outline: "none",
+    zIndex: 3,
+  },
+  "&.Mui-focusVisible": {
+    outline: "none",
+    "& img": {
+      position: "relative",
+      zIndex: 1,
+      width: "100%",
+      borderRadius: "5px",
+    },
+  },
+}));
+
 const PageCv = () => {
-  const [fontSize] = useState("clamp(2rem, 4vw, 3rem)");
+  const [fontSize] = useState("clamp(1.4rem, 2.2vw, 3rem)");
   const imageUrl =
     "https://hell-llex.github.io/My-CV/assets/CV%20Alexander%20Demeshchenko.png";
 
@@ -51,28 +72,6 @@ const PageCv = () => {
           "CV_Alexander_Demeshchenko.pdf"
         );
   };
-  const ImageButton = styled(ButtonBase)(() => ({
-    position: "relative",
-    width: "100%",
-    padding: "1rem",
-    borderRadius: "5px",
-    "&, &": {
-      outline: "none",
-      "& .MuiTouchRipple-root": {
-        outline: "none",
-        zIndex: 3,
-      },
-    },
-    "&, &.Mui-focusVisible": {
-      outline: "none",
-      "& img": {
-        position: "relative",
-        zIndex: 1,
-        width: "100%",
-        borderRadius: "5px",
-      },
-    },
-  }));
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -90,7 +89,7 @@ const PageCv = () => {
                 }, 0);
               }}
               style={{
-                height: "60%",
+                height: "clamp(50%, 90vw, 70%)",
                 width: "100%",
               }}
             >

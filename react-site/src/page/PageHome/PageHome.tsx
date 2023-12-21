@@ -7,16 +7,13 @@ import "./PageHome.scss";
 const PageHome = () => {
   const dataImages = useAppSelector((state) => state.imagesInfo);
   const [imagesBack] = useState<ImageInfo[]>([
-    dataImages.landscape.image_1,
-    dataImages.landscape.image_2,
-    dataImages.landscape.image_3,
-    dataImages.landscape.image_4,
+    ...Object.values(dataImages.landscape),
   ]);
 
   return (
     <>
       <div className="home-page">
-        <BackgroundHomePage imgs={imagesBack} width="60vw" />
+        <BackgroundHomePage imgs={imagesBack} />
       </div>
     </>
   );

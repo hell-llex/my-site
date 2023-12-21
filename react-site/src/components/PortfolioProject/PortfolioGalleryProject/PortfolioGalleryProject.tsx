@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import { LinearProgress } from "@mui/material";
 import Loader from "../../Loader";
 import { updateFullWidthGallery } from "../../../store/slice/baseParamsSlice";
+import useScreenSize from "../../../hooks/useScreenSize";
 
 const WheelControls: KeenSliderPlugin = (slider) => {
   let touchTimeout: ReturnType<typeof setTimeout>;
@@ -101,7 +102,7 @@ const ImageButton = styled(ButtonBase)(() => ({
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      fontSize: "1.6vw",
+      fontSize: "clamp(16px, 1.4vw, 34px)",
       textAlign: "center",
       fontWeight: 700,
       backdropFilter: "blur(3px)",
@@ -110,7 +111,7 @@ const ImageButton = styled(ButtonBase)(() => ({
       backgroundColor: "rgba(0, 0, 0, 0.5)",
       transition: "all 0.5s ease-out",
       "& span": {
-        fontSize: "1.2vw",
+        fontSize: "clamp(10px, 1.2vw, 28px)",
         textAlign: "start",
       },
     },
@@ -182,6 +183,14 @@ const PortfolioGalleryProject = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isComponentLoaded, setIsComponentLoaded] = useState(false);
   const [isPreloaderTimer, setIsPreloaderTimer] = useState(false);
+  const screenSize = useScreenSize();
+  const [screenMobile, setScreenMobile] = useState(
+    screenSize.width <= 768 ? true : false
+  );
+
+  useEffect(() => {
+    setScreenMobile(screenSize.width <= 768 ? true : false);
+  }, [screenSize]);
 
   useEffect(() => {
     setImagesProject(dataImages.filteredProjects);
@@ -210,7 +219,7 @@ const PortfolioGalleryProject = () => {
       loop: false,
       mode: "free-snap",
       rubberband: false,
-      vertical: false,
+      vertical: screenMobile ? true : false,
       renderMode: "performance",
       dragSpeed: 0.5,
       slides: {
@@ -300,7 +309,13 @@ const PortfolioGalleryProject = () => {
                   </span>
                 </Typography>
                 <div className="background__image">
-                  <OImage img={img} />
+                  <OImage
+                    img={img}
+                    style={{
+                      height: screenMobile ? "auto" : "100%",
+                      width: "100%",
+                    }}
+                  />
                 </div>
               </ImageButton>
             </div>

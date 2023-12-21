@@ -3,7 +3,7 @@ import "./PageAboutMe.scss";
 import { useState } from "react";
 
 const PageAboutMe = () => {
-  const [fontSize] = useState("clamp(2rem, 4vw, 2.6rem)");
+  const [fontSize] = useState("clamp(1.4rem, 2.4vw, 2.6rem)");
   return (
     <div className="about-me-page">
       <>

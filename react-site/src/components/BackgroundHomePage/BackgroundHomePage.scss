@@ -1,5 +1,6 @@
 .background_page-home {
   height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,6 +10,10 @@
     height: 70%;
     width: 100%;
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1vw;
 
     .text-nick {
       opacity: 1;
@@ -17,26 +22,111 @@
 
     &:focus-within .text-nick,
     &:hover .text-nick {
-      // color: blue;
       opacity: 0;
       transition: all 0.5s ease-out;
     }
 
-    &.background__images_row {
+    .background__image {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+  }
+
+  .keen-slider__slide-card {
+    max-width: 345px;
+    height: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .background_page-home {
+
+    .background__images {
+      position: relative;
+      height: 90%;
+      width: 100%;
+      display: flex;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
       gap: 1vw;
+    }
 
-      .background__image {
-        height: 100%;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 5px;
-        overflow: hidden;
+    .keen-slider {
+      height: 100%;
+      width: 70%;
+      transition: all 1s ease-out;
+      padding: 1% 5% 1% 5%;
+    }
+
+    .keen-slider__slide {
+
+      & {
+        position: relative;
+        z-index: 3;
+        box-sizing: border-box;
+        filter: blur(2px);
+        opacity: 0.7;
+        transition: filter 0.3s, opacity 0.3s;
+        user-select: none;
+        pointer-events: none;
+
+        .keen-slider__slide-card {
+          transform: scale(0.8);
+          margin: 0 0 0 0;
+          transition: all 0.5s;
+        }
       }
+
+      &.center {
+        position: relative;
+        z-index: 10;
+        filter: blur(0px);
+        opacity: 1;
+        user-select: auto;
+        pointer-events: all;
+
+        .keen-slider__slide-card {
+          transform: scale(1);
+          margin: 0 0 0 0;
+          transition: all 0.3s;
+        }
+      }
+
+      &.first-stage-prev {
+        position: relative;
+        z-index: 5;
+        filter: blur(1px);
+        opacity: 0.9;
+
+        .keen-slider__slide-card {
+          transform: scale(0.85);
+          margin: 0 0 0 0;
+          transition: all 0.7s;
+        }
+      }
+
+      &.first-stage-next {
+        position: relative;
+        z-index: 5;
+        filter: blur(1px);
+        opacity: 0.9;
+
+        .keen-slider__slide-card {
+          transform: scale(0.85);
+          margin: 0 0 0 0;
+          transition: all 0.7s;
+        }
+      }
+    }
+
+    .keen-slider__slide-card {
+      max-width: 100%;
     }
   }
 }

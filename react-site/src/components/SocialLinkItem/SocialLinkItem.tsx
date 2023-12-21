@@ -59,7 +59,7 @@ const SocialLinkItem = ({
                 borderRadius: "100px",
                 textAlign: "center",
                 verticalAlign: "middle",
-                width: "clamp(100px, 11vw, 400px)",
+                width: "clamp(120px, 11vw, 400px)",
                 height: linkItem.size,
                 cursor: "pointer",
               },
