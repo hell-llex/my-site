@@ -18,6 +18,13 @@ const initialState: SocialLinksInfo = {
     size: sizeIcon,
     link: "https://www.instagram.com/hell_llex/",
   },
+  tiktok: {
+    icon: "ic:baseline-tiktok",
+    color: "#000000",
+    name: "Tik Tok",
+    size: sizeIcon,
+    link: "https://www.tiktok.com/@hell_llex",
+  },
   telegram: {
     icon: "bxl:telegram",
     color: "#229ED9",
