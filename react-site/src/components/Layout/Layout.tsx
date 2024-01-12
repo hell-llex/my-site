@@ -4,6 +4,7 @@ import Header from "../Header";
 import { Outlet, useLocation } from "react-router-dom";
 import DrawerMenu from "../DrawerMenu";
 import useScreenSize from "../../hooks/useScreenSize";
+import DrawerMenuMobile from "../DrawerMenuMobile";
 
 const Layout = () => {
   const location = useLocation();
@@ -27,7 +28,7 @@ const Layout = () => {
       thisPath.includes("welcome") ? null : (
         <>
           {!screenMobile && <Header social={thisPath.includes("home")} />}
-          <DrawerMenu />
+          {screenMobile ? <DrawerMenuMobile /> : <DrawerMenu />}
         </>
       )}
       <Outlet />
