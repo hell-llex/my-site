@@ -27,11 +27,12 @@ import {
 import { language, platform, theme } from "../../types";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+
 type Anchor = "top" | "right";
+const anchorSide = "right";
 
 const DrawerMenu = () => {
-  const [state, setState] = useState({
-    top: false,
+  const [stateDrawer, setStateDrawer] = useState({
     right: false,
   });
   const dispatch = useAppDispatch();
@@ -150,14 +151,13 @@ const DrawerMenu = () => {
         return;
       }
 
-      setState({ ...state, [anchor]: open });
+      setStateDrawer({ ...stateDrawer, [anchor]: open });
     };
 
   const list = (anchor: Anchor) => (
     <Box
-      sx={{ width: anchor === "top" ? "auto" : 300 }}
+      sx={{ width: 300 }}
       role="presentation"
-      // onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
@@ -265,43 +265,41 @@ const DrawerMenu = () => {
 
   return (
     <>
-      {(["right"] as const).map((anchor) => (
-        <React.Fragment key={uuidv4()}>
-          <div className="setting-btn">
-            <IconButton
-              onClick={toggleDrawer(anchor, true)}
-              aria-label="setting"
-              sx={{
-                fontSize: "5rem",
-                color: "rgba(255, 255, 255, 0.7)",
+      <React.Fragment>
+        <div className="setting-btn">
+          <IconButton
+            onClick={toggleDrawer(anchorSide, true)}
+            aria-label="setting"
+            sx={{
+              fontSize: "5rem",
+              color: "rgba(255, 255, 255, 0.7)",
+              transition: "all 0.3s ease-out",
+              "&:hover": {
+                color: "rgba(255, 255, 255, 1)",
                 transition: "all 0.3s ease-out",
-                "&:hover": {
-                  color: "rgba(255, 255, 255, 1)",
-                  transition: "all 0.3s ease-out",
-                },
-                "&:focus": {
-                  outline: "none",
-                },
-              }}
-            >
-              <SettingsOutlinedIcon fontSize="inherit" color="inherit" />
-            </IconButton>
-          </div>
-
-          <Drawer
-            anchor={anchor}
-            open={state[anchor]}
-            onClose={toggleDrawer(anchor, false)}
-            PaperProps={{
-              sx: {
-                backgroundColor: "rgba(40, 40, 40, 0.9)",
+              },
+              "&:focus": {
+                outline: "none",
               },
             }}
           >
-            {list(anchor)}
-          </Drawer>
-        </React.Fragment>
-      ))}
+            <SettingsOutlinedIcon fontSize="inherit" color="inherit" />
+          </IconButton>
+        </div>
+
+        <Drawer
+          anchor={anchorSide}
+          open={stateDrawer[anchorSide]}
+          onClose={toggleDrawer(anchorSide, false)}
+          PaperProps={{
+            sx: {
+              backgroundColor: "rgba(40, 40, 40, 0.9)",
+            },
+          }}
+        >
+          {list(anchorSide)}
+        </Drawer>
+      </React.Fragment>
     </>
   );
 };
