@@ -13,12 +13,12 @@ const ImageButton = styled(ButtonBase)(() => ({
   position: "relative",
   height: "100%",
   overflow: "hidden",
-  borderRadius: "5px",
+  borderRadius: "10px",
   outline: "none",
   "& .MuiTouchRipple-root": {
     outline: "none",
     zIndex: 3,
-    borderRadius: "5px",
+    borderRadius: "10px",
   },
   "& .MuiTypography-root": {
     overflow: "hidden",
@@ -43,7 +43,7 @@ const ImageButton = styled(ButtonBase)(() => ({
   },
 
   "&:hover, &.Mui-focusVisible": {
-    borderRadius: "5px",
+    borderRadius: "10px",
     "& .MuiTypography-root": {
       position: "absolute",
       height: "110%",

@@ -21,14 +21,15 @@ const Loader = () => {
           backgroundColor: "rgba(0, 0, 0, 0.3)",
           backdropFilter: "blur(50px)",
           WebkitBackdropFilter: "blur(50px)",
+          overflow: "hidden",
         }}
       >
         <img
           src={loaderImg}
           alt=""
           style={{
-            height: "500px",
-            width: "500px",
+            height: "450px",
+            width: "450px",
           }}
         />
       </Box>
