@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
-import { ImageInfo } from "../../../types";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
+import { ImageInfo } from "../../../../types";
 import "./PortfolioGalleryPhoto.scss";
 
 import { useKeenSlider, KeenSliderPlugin } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
-import OImage from "../../OImage";
+import OImage from "../../../OImage";
 import { ButtonBase, LinearProgress, styled } from "@mui/material";
-import Loader from "../../Loader";
-import { updateFullWidthGallery } from "../../../store/slice/baseParamsSlice";
-import useScreenSize from "../../../hooks/useScreenSize";
+import Loader from "../../../Loader";
+import { updateFullWidthGallery } from "../../../../store/slice/baseParamsSlice";
+import useScreenSize from "../../../../hooks/useScreenSize";
 
 const WheelControls: KeenSliderPlugin = (slider) => {
   let touchTimeout: ReturnType<typeof setTimeout>;

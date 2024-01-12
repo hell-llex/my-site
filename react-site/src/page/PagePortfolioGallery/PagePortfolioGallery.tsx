@@ -1,8 +1,8 @@
 import "./PagePortfolioGallery.scss";
-import PortfolioGalleryProject from "../../components/PortfolioProject/PortfolioGalleryProject";
-import PortfolioGalleryPhoto from "../../components/PortfolioPhoto/PortfolioGalleryPhoto";
-import PortfolioFilterProject from "../../components/PortfolioProject/PortfolioFilterProject";
-import PortfolioFilterPhoto from "../../components/PortfolioPhoto/PortfolioFilterPhoto";
+import PortfolioGalleryProject from "../../components/Portfolio/PortfolioGallery/PortfolioGalleryProject";
+import PortfolioGalleryPhoto from "../../components/Portfolio/PortfolioGallery/PortfolioGalleryPhoto";
+import PortfolioFilterProject from "../../components/Portfolio/PortfolioFilter/PortfolioFilterProject";
+import PortfolioFilterPhoto from "../../components/Portfolio/PortfolioFilter/PortfolioFilterPhoto";
 import { useAppSelector } from "../../hooks/redux";
 import useScreenSize from "../../hooks/useScreenSize";
 import { useState, useEffect } from "react";
