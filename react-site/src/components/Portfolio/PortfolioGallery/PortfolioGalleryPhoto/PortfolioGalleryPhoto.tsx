@@ -265,10 +265,11 @@ const PortfolioGalleryPhoto = () => {
                   {imgs.map((img) => {
                     if (img != "space") {
                       return (
-                        <PhotoView key={img.name} src={img.pathJpg}>
+                        <PhotoView key={img.name} src={img.pathWebp}>
                           <ImageButton focusRipple key={img.name}>
                             <OImage
                               img={img}
+                              thumbnail
                               style={{
                                 height: "100%",
                                 width: "100%",

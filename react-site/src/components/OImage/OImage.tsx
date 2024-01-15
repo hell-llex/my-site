@@ -7,9 +7,10 @@ import { useAppSelector } from "../../hooks/redux";
 interface OImageProps {
   img: ImageInfo;
   style?: CSSProperties;
+  thumbnail?: boolean;
 }
 
-const OImage = ({ img, style }: OImageProps) => {
+const OImage = ({ img, style, thumbnail = false }: OImageProps) => {
   const spareImg = useAppSelector((state) => state.imagesInfo.image_0);
   const [OImg] = useState(img ?? spareImg);
 
@@ -27,7 +28,7 @@ const OImage = ({ img, style }: OImageProps) => {
           style={defaultStyle}
           className="optimized-image"
           src={OImg.pathJpg}
-          webp={OImg.pathWebp}
+          webp={thumbnail ? OImg.pathThumbnail : OImg.pathWebp}
           alt={OImg.description}
           // loading="lazy"
         />

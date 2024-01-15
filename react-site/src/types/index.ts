@@ -76,6 +76,7 @@ export interface ImageInfo {
   name: string;
   pathJpg: string;
   pathWebp: string;
+  pathThumbnail: string;
   metadata: ImageMetadata;
   description: string;
   category: string[];

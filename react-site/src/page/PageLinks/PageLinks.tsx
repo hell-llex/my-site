@@ -247,6 +247,7 @@ const PageLinks = () => {
                 >
                   <OImage
                     img={dataImagesPhoto[i]}
+                    thumbnail
                     style={{
                       position: "absolute",
                       width: "100%",
