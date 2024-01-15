@@ -17,28 +17,32 @@ const PageContact = () => {
           fontWeight={300}
           fontSize={"clamp(2rem, 3vw, 3.5rem)"}
         >
-          My name: ----------- Alexander Demeshchenko
+          My name: <br />
+          Alexander Demeshchenko
         </Typography>
+        <br />
         <Typography
           variant="h2"
           fontWeight={300}
           fontSize={"clamp(2rem, 3vw, 3.5rem)"}
         >
-          Location: ------------ Belarus, Minsk
+          Location: <br /> Belarus, Minsk
         </Typography>
+        <br />
         <Typography
           variant="h2"
           fontWeight={300}
           fontSize={"clamp(2rem, 3vw, 3.5rem)"}
         >
-          Phone number: --- +375(29)289-77-22
+          Phone number: <br /> +375(29)289-77-22
         </Typography>
+        <br />
         <Typography
           variant="h2"
           fontWeight={300}
           fontSize={"clamp(2rem, 3vw, 3.5rem)"}
         >
-          Email: ---------------- demeshenko333@gmail.com
+          Email: <br /> demeshenko333@gmail.com
         </Typography>
       </Box>
       {/* <div className="contact-page__links">
