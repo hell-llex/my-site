@@ -10,6 +10,7 @@ import { ButtonBase, LinearProgress, styled } from "@mui/material";
 import Loader from "../../../Loader";
 import { updateFullWidthGallery } from "../../../../store/slice/baseParamsSlice";
 import useScreenSize from "../../../../hooks/useScreenSize";
+import { PhotoProvider, PhotoView } from "react-photo-view";
 
 const WheelControls: KeenSliderPlugin = (slider) => {
   let touchTimeout: ReturnType<typeof setTimeout>;
@@ -247,48 +248,43 @@ const PortfolioGalleryPhoto = () => {
             width: "100%",
           }}
         >
-          {imagesPhoto.map((imgs, index) => {
-            return (
-              <div
-                key={index}
-                className="keen-slider__slide"
-                style={{
-                  display: "flex",
-                  flexDirection: screenMobile ? "row" : "column",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  gap: "10px",
-                }}
-              >
-                {imgs.map((img) => {
-                  if (img != "space") {
-                    return (
-                      <ImageButton
-                        key={img.name}
-                        focusRipple
-                        onClick={() => {
-                          setTimeout(() => {
-                            // navigate(settingPage[index].path, { relative: "path" });
-                            alert(Object.values(img).join(" | "));
-                          }, 500);
-                        }}
-                      >
-                        <OImage
-                          img={img}
-                          style={{
-                            height: "100%",
-                            width: "100%",
-                            borderRadius: "5px",
-                            overflow: "hidden",
-                          }}
-                        />
-                      </ImageButton>
-                    );
-                  }
-                })}
-              </div>
-            );
-          })}
+          <PhotoProvider>
+            {imagesPhoto.map((imgs, index) => {
+              return (
+                <div
+                  key={index}
+                  className="keen-slider__slide"
+                  style={{
+                    display: "flex",
+                    flexDirection: screenMobile ? "row" : "column",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    gap: "10px",
+                  }}
+                >
+                  {imgs.map((img) => {
+                    if (img != "space") {
+                      return (
+                        <PhotoView key={img.name} src={img.pathJpg}>
+                          <ImageButton focusRipple key={img.name}>
+                            <OImage
+                              img={img}
+                              style={{
+                                height: "100%",
+                                width: "100%",
+                                borderRadius: "5px",
+                                overflow: "hidden",
+                              }}
+                            />
+                          </ImageButton>
+                        </PhotoView>
+                      );
+                    }
+                  })}
+                </div>
+              );
+            })}
+          </PhotoProvider>
         </div>
       </>
     </>
