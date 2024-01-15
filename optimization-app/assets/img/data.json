@@ -4,6 +4,7 @@
       "name": "image_1",
       "pathJpg": "/img/jpg/image_1.jpg",
       "pathWebp": "/img/webp/image_1.webp",
+      "pathThumbnail": "/img/thumbnail/image_1.webp",
       "description": "Street mirror",
       "category": [
         "landscape",
@@ -47,6 +48,7 @@
       "name": "image_11",
       "pathJpg": "/img/jpg/image_11.jpg",
       "pathWebp": "/img/webp/image_11.webp",
+      "pathThumbnail": "/img/thumbnail/image_11.webp",
       "description": "Trying to survive",
       "category": [
         "landscape",
@@ -106,6 +108,7 @@
       "name": "image_12",
       "pathJpg": "/img/jpg/image_12.jpg",
       "pathWebp": "/img/webp/image_12.webp",
+      "pathThumbnail": "/img/thumbnail/image_12.webp",
       "description": "Flowers in the dark",
       "category": [
         "landscape"
@@ -139,6 +142,7 @@
       "name": "image_13",
       "pathJpg": "/img/jpg/image_13.jpg",
       "pathWebp": "/img/webp/image_13.webp",
+      "pathThumbnail": "/img/thumbnail/image_13.webp",
       "description": "Sea breeze in a stone jungle",
       "category": [
         "landscape"
@@ -321,6 +325,7 @@
       "name": "image_14",
       "pathJpg": "/img/jpg/image_14.jpg",
       "pathWebp": "/img/webp/image_14.webp",
+      "pathThumbnail": "/img/thumbnail/image_14.webp",
       "description": "The Ferris wheel at sunset",
       "category": [
         "landscape"
@@ -364,6 +369,7 @@
       "name": "image_15",
       "pathJpg": "/img/jpg/image_15.jpg",
       "pathWebp": "/img/webp/image_15.webp",
+      "pathThumbnail": "/img/thumbnail/image_15.webp",
       "description": "Yellow voltage",
       "category": [
         "landscape"
@@ -413,6 +419,7 @@
       "name": "image_16",
       "pathJpg": "/img/jpg/image_16.jpg",
       "pathWebp": "/img/webp/image_16.webp",
+      "pathThumbnail": "/img/thumbnail/image_16.webp",
       "description": "The flying fluff",
       "category": [
         "landscape"
@@ -508,6 +515,7 @@
       "name": "image_17",
       "pathJpg": "/img/jpg/image_17.jpg",
       "pathWebp": "/img/webp/image_17.webp",
+      "pathThumbnail": "/img/thumbnail/image_17.webp",
       "description": "A shining leaf in the darkness",
       "category": [
         "landscape"
@@ -526,6 +534,7 @@
       "name": "image_18",
       "pathJpg": "/img/jpg/image_18.jpg",
       "pathWebp": "/img/webp/image_18.webp",
+      "pathThumbnail": "/img/thumbnail/image_18.webp",
       "description": "Needles in the clouds",
       "category": [
         "landscape"
@@ -544,6 +553,7 @@
       "name": "image_19",
       "pathJpg": "/img/jpg/image_19.jpg",
       "pathWebp": "/img/webp/image_19.webp",
+      "pathThumbnail": "/img/thumbnail/image_19.webp",
       "description": "Flowers in the darkness",
       "category": [
         "landscape"
@@ -643,6 +653,7 @@
       "name": "image_2",
       "pathJpg": "/img/jpg/image_2.jpg",
       "pathWebp": "/img/webp/image_2.webp",
+      "pathThumbnail": "/img/thumbnail/image_2.webp",
       "description": "Street mirror",
       "category": [
         "landscape",
@@ -686,6 +697,7 @@
       "name": "image_20",
       "pathJpg": "/img/jpg/image_20.jpg",
       "pathWebp": "/img/webp/image_20.webp",
+      "pathThumbnail": "/img/thumbnail/image_20.webp",
       "description": "Micro flowers in the dark",
       "category": [
         "landscape"
@@ -785,6 +797,7 @@
       "name": "image_21",
       "pathJpg": "/img/jpg/image_21.jpg",
       "pathWebp": "/img/webp/image_21.webp",
+      "pathThumbnail": "/img/thumbnail/image_21.webp",
       "description": "Home stargazing",
       "category": [
         "landscape"
@@ -884,6 +897,7 @@
       "name": "image_22",
       "pathJpg": "/img/jpg/image_22.jpg",
       "pathWebp": "/img/webp/image_22.webp",
+      "pathThumbnail": "/img/thumbnail/image_22.webp",
       "description": "A lantern in a pink sky",
       "category": [
         "landscape"
@@ -990,6 +1004,7 @@
       "name": "image_23",
       "pathJpg": "/img/jpg/image_23.jpg",
       "pathWebp": "/img/webp/image_23.webp",
+      "pathThumbnail": "/img/thumbnail/image_23.webp",
       "description": "Waves in the doldrums",
       "category": [
         "landscape"
@@ -1096,6 +1111,7 @@
       "name": "image_24",
       "pathJpg": "/img/jpg/image_24.jpg",
       "pathWebp": "/img/webp/image_24.webp",
+      "pathThumbnail": "/img/thumbnail/image_24.webp",
       "description": "Dazzling flowers",
       "category": [
         "landscape"
@@ -1202,6 +1218,7 @@
       "name": "image_25",
       "pathJpg": "/img/jpg/image_25.jpg",
       "pathWebp": "/img/webp/image_25.webp",
+      "pathThumbnail": "/img/thumbnail/image_25.webp",
       "description": "Dazzling flowers v2",
       "category": [
         "landscape"
@@ -1308,6 +1325,7 @@
       "name": "image_26",
       "pathJpg": "/img/jpg/image_26.jpg",
       "pathWebp": "/img/webp/image_26.webp",
+      "pathThumbnail": "/img/thumbnail/image_26.webp",
       "description": "Pressurizing clouds",
       "category": [
         "landscape"
@@ -1414,6 +1432,7 @@
       "name": "image_27",
       "pathJpg": "/img/jpg/image_27.jpg",
       "pathWebp": "/img/webp/image_27.webp",
+      "pathThumbnail": "/img/thumbnail/image_27.webp",
       "description": "Soaking up the sun's rays",
       "category": [
         "portrait"
@@ -1520,6 +1539,7 @@
       "name": "image_28",
       "pathJpg": "/img/jpg/image_28.jpg",
       "pathWebp": "/img/webp/image_28.webp",
+      "pathThumbnail": "/img/thumbnail/image_28.webp",
       "description": "I'm holding the floor",
       "category": [
         "portrait",
@@ -1631,6 +1651,7 @@
       "name": "image_29",
       "pathJpg": "/img/jpg/image_29.jpg",
       "pathWebp": "/img/webp/image_29.webp",
+      "pathThumbnail": "/img/thumbnail/image_29.webp",
       "description": "Rushing upward",
       "category": [
         "landscape"
@@ -1737,6 +1758,7 @@
       "name": "image_3",
       "pathJpg": "/img/jpg/image_3.jpg",
       "pathWebp": "/img/webp/image_3.webp",
+      "pathThumbnail": "/img/thumbnail/image_3.webp",
       "description": "Night river",
       "category": [
         "landscape",
@@ -1780,6 +1802,7 @@
       "name": "image_30",
       "pathJpg": "/img/jpg/image_30.jpg",
       "pathWebp": "/img/webp/image_30.webp",
+      "pathThumbnail": "/img/thumbnail/image_30.webp",
       "description": "I'm in the anime world",
       "category": [
         "portrait",
@@ -1887,6 +1910,7 @@
       "name": "image_31",
       "pathJpg": "/img/jpg/image_31.jpg",
       "pathWebp": "/img/webp/image_31.webp",
+      "pathThumbnail": "/img/thumbnail/image_31.webp",
       "description": "I'm in the anime world v2",
       "category": [
         "portrait",
@@ -1994,6 +2018,7 @@
       "name": "image_32",
       "pathJpg": "/img/jpg/image_32.jpg",
       "pathWebp": "/img/webp/image_32.webp",
+      "pathThumbnail": "/img/thumbnail/image_32.webp",
       "description": "I'm in the anime world v3",
       "category": [
         "portrait",
@@ -2101,6 +2126,7 @@
       "name": "image_33",
       "pathJpg": "/img/jpg/image_33.jpg",
       "pathWebp": "/img/webp/image_33.webp",
+      "pathThumbnail": "/img/thumbnail/image_33.webp",
       "description": "I'm in the anime world v4",
       "category": [
         "portrait",
@@ -2208,6 +2234,7 @@
       "name": "image_34",
       "pathJpg": "/img/jpg/image_34.jpg",
       "pathWebp": "/img/webp/image_34.webp",
+      "pathThumbnail": "/img/thumbnail/image_34.webp",
       "description": "I'm in the anime world v5",
       "category": [
         "portrait",
@@ -2315,6 +2342,7 @@
       "name": "image_35",
       "pathJpg": "/img/jpg/image_35.jpg",
       "pathWebp": "/img/webp/image_35.webp",
+      "pathThumbnail": "/img/thumbnail/image_35.webp",
       "description": "Flying in the clouds",
       "category": [
         "landscape"
@@ -2414,6 +2442,7 @@
       "name": "image_36",
       "pathJpg": "/img/jpg/image_36.jpg",
       "pathWebp": "/img/webp/image_36.webp",
+      "pathThumbnail": "/img/thumbnail/image_36.webp",
       "description": "A stranger amongst his own",
       "category": [
         "landscape"
@@ -2432,6 +2461,7 @@
       "name": "image_37",
       "pathJpg": "/img/jpg/image_37.jpg",
       "pathWebp": "/img/webp/image_37.webp",
+      "pathThumbnail": "/img/thumbnail/image_37.webp",
       "description": "Blossoming flowers",
       "category": [
         "landscape",
@@ -2532,6 +2562,7 @@
       "name": "image_38",
       "pathJpg": "/img/jpg/image_38.jpg",
       "pathWebp": "/img/webp/image_38.webp",
+      "pathThumbnail": "/img/thumbnail/image_38.webp",
       "description": "Blossoming flowers among the wires",
       "category": [
         "landscape"
@@ -2550,6 +2581,7 @@
       "name": "image_39",
       "pathJpg": "/img/jpg/image_39.jpg",
       "pathWebp": "/img/webp/image_39.webp",
+      "pathThumbnail": "/img/thumbnail/image_39.webp",
       "description": "Sunshine in the stone jungle",
       "category": [
         "landscape"
@@ -2649,6 +2681,7 @@
       "name": "image_4",
       "pathJpg": "/img/jpg/image_4.jpg",
       "pathWebp": "/img/webp/image_4.webp",
+      "pathThumbnail": "/img/thumbnail/image_4.webp",
       "description": "Night work",
       "category": [
         "landscape",
@@ -2692,6 +2725,7 @@
       "name": "image_40",
       "pathJpg": "/img/jpg/image_40.jpg",
       "pathWebp": "/img/webp/image_40.webp",
+      "pathThumbnail": "/img/thumbnail/image_40.webp",
       "description": "Green panels",
       "category": [
         "landscape"
@@ -2791,6 +2825,7 @@
       "name": "image_41",
       "pathJpg": "/img/jpg/image_41.jpg",
       "pathWebp": "/img/webp/image_41.webp",
+      "pathThumbnail": "/img/thumbnail/image_41.webp",
       "description": "Long stars in the forest",
       "category": [
         "landscape"
@@ -2890,6 +2925,7 @@
       "name": "image_42",
       "pathJpg": "/img/jpg/image_42.jpg",
       "pathWebp": "/img/webp/image_42.webp",
+      "pathThumbnail": "/img/thumbnail/image_42.webp",
       "description": "A moment of a butterfly in the flowers",
       "category": [
         "landscape"
@@ -2989,6 +3025,7 @@
       "name": "image_43",
       "pathJpg": "/img/jpg/image_43.jpg",
       "pathWebp": "/img/webp/image_43.webp",
+      "pathThumbnail": "/img/thumbnail/image_43.webp",
       "description": "Green spruce branches",
       "category": [
         "landscape"
@@ -3099,6 +3136,7 @@
       "name": "image_44",
       "pathJpg": "/img/jpg/image_44.jpg",
       "pathWebp": "/img/webp/image_44.webp",
+      "pathThumbnail": "/img/thumbnail/image_44.webp",
       "description": "Glistening snow",
       "category": [
         "landscape"
@@ -3209,6 +3247,7 @@
       "name": "image_45",
       "pathJpg": "/img/jpg/image_45.jpg",
       "pathWebp": "/img/webp/image_45.webp",
+      "pathThumbnail": "/img/thumbnail/image_45.webp",
       "description": "Fatigue",
       "category": [
         "portrait",
@@ -3230,6 +3269,7 @@
       "name": "image_6",
       "pathJpg": "/img/jpg/image_6.jpg",
       "pathWebp": "/img/webp/image_6.webp",
+      "pathThumbnail": "/img/thumbnail/image_6.webp",
       "description": "A rocky labyrinth",
       "category": [
         "landscape",
@@ -3273,6 +3313,7 @@
       "name": "image_7",
       "pathJpg": "/img/jpg/image_7.jpg",
       "pathWebp": "/img/webp/image_7.webp",
+      "pathThumbnail": "/img/thumbnail/image_7.webp",
       "description": "Glowing tree",
       "category": [
         "landscape",
@@ -3332,6 +3373,7 @@
       "name": "image_8",
       "pathJpg": "/img/jpg/image_8.jpg",
       "pathWebp": "/img/webp/image_8.webp",
+      "pathThumbnail": "/img/thumbnail/image_8.webp",
       "description": "A blooming stone forest",
       "category": [
         "landscape",
@@ -3391,6 +3433,7 @@
       "name": "image_9",
       "pathJpg": "/img/jpg/image_9.jpg",
       "pathWebp": "/img/webp/image_9.webp",
+      "pathThumbnail": "/img/thumbnail/image_9.webp",
       "description": "Workplace",
       "category": [
         "landscape",
@@ -3409,7 +3452,7 @@
   },
   "totalInfo": {
     "resize": null,
-    "quality": 20,
+    "quality": 80,
     "totalCount": 43
   }
 }

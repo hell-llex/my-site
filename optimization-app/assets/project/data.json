@@ -4,6 +4,7 @@
       "name": "My CV",
       "pathJpg": "/project/jpg/project_1.png",
       "pathWebp": "/project/webp/project_1.webp",
+      "pathThumbnail": "/project/thumbnail/project_1.webp",
       "description": "My CV ",
       "category": [
         "vanilla"
@@ -22,6 +23,7 @@
       "name": "Smart Clock",
       "pathJpg": "/project/jpg/project_2.png",
       "pathWebp": "/project/webp/project_2.webp",
+      "pathThumbnail": "/project/thumbnail/project_2.webp",
       "description": "Smart watch based on ESP32.Additional modules wil",
       "category": [
         "other"
@@ -40,6 +42,7 @@
       "name": "Online Store",
       "pathJpg": "/project/jpg/project_3.png",
       "pathWebp": "/project/webp/project_3.webp",
+      "pathThumbnail": "/project/thumbnail/project_3.webp",
       "description": "Online store made on vanilla js with filtering and responsive design.",
       "category": [
         "vanilla"
@@ -58,6 +61,7 @@
       "name": "To-Do List",
       "pathJpg": "/project/jpg/project_4.png",
       "pathWebp": "/project/webp/project_4.webp",
+      "pathThumbnail": "/project/thumbnail/project_4.webp",
       "description": "To Do List to save notes with the ability to filter, edit data, save data on reboot.",
       "category": [
         "react"
@@ -76,6 +80,7 @@
       "name": "TransitFlow",
       "pathJpg": "/project/jpg/project_5.png",
       "pathWebp": "/project/webp/project_5.webp",
+      "pathThumbnail": "/project/thumbnail/project_5.webp",
       "description": "TransitFlow website layout made on pure HTML and CSS",
       "category": [
         "vanilla"
@@ -94,6 +99,7 @@
       "name": "GraphiQL",
       "pathJpg": "/project/jpg/project_6.png",
       "pathWebp": "/project/webp/project_6.webp",
+      "pathThumbnail": "/project/thumbnail/project_6.webp",
       "description": "GraphiQL made on react with authorization, query editing.",
       "category": [
         "react"
@@ -112,6 +118,7 @@
       "name": "Online Cinema",
       "pathJpg": "/project/jpg/project_7.png",
       "pathWebp": "/project/webp/project_7.webp",
+      "pathThumbnail": "/project/thumbnail/project_7.webp",
       "description": "Online Cinema movie search clone made in Vue.js using kinopoisk API.",
       "category": [
         "vue"
@@ -129,7 +136,7 @@
   },
   "totalInfo": {
     "resize": null,
-    "quality": 20,
+    "quality": 80,
     "totalCount": 7
   }
 }

@@ -31,8 +31,10 @@ const inputDirPhoto = "./assets/img"; // Папка с исходными изо
 const inputDirProject = "./assets/project"; // Папка с исходными проектами
 let outputDirPhotoJpg = "../FOLDER/public/img/jpg"; // Папка для оптимизированных изображений
 let outputDirPhotoWebp = "../FOLDER/public/img/webp"; // Папка для оптимизированных изображений
+let outputDirPhotoThumbnail = "../FOLDER/public/img/thumbnail"; // Папка для оптимизированных миниатюр
 let outputDirProjectJpg = "../FOLDER/public/project/jpg"; // Папка для оптимизированных проектов
 let outputDirProjectWebp = "../FOLDER/public/project/webp"; // Папка для оптимизированных проектов
+let outputDirProjectThumbnail = "../FOLDER/public/project/thumbnail"; // Папка для оптимизированных проектов
 const dataFilePhoto = "./assets/img/data.json"; // Файл для сохранения данных об оптимизированных изображениях
 const dataFileProject = "./assets/project/data.json"; // Файл для сохранения данных об оптимизированных проектов
 let outputDirDataPhoto = "../FOLDER/public/img/data.json"; // Папка для оптимизированных изображений
@@ -147,7 +149,7 @@ const allQuestions = {
   },
   questionOpenImg: {
     type: "confirm",
-    name: "needOpenImg",
+    name: "openImg",
     message: "Требуется ли открывать изображения?",
     initial: true,
   },
@@ -237,8 +239,8 @@ function updateDataFile(updateData, pathDataFile) {
 // * =================================================================
 // ! ============ удаление отсутствующих изображений =================
 // * =================================================================
-function deleteUnuseFile(outputDirJpg, outputDirWebp, inputDir) {
-  for (const dir of [outputDirJpg, outputDirWebp]) {
+function deleteUnusedFile(outputDirJpg, outputDirWebp, outputDirThumbnailWebp, inputDir) {
+  for (const dir of [outputDirJpg, outputDirWebp, outputDirThumbnailWebp]) {
     const files = readdirSync(dir);
 
     for (const file of files) {
@@ -267,6 +269,7 @@ async function optimizeImage(
   inputPath,
   outputPathJpg,
   outputPathWebp,
+  outputPathThumbnail,
   fileName
 ) {
   // Оптимизация в формате JPEG
@@ -288,6 +291,17 @@ async function optimizeImage(
     .then(() => {
       console.log(
         `${"->".green} Оптимизировано изображение в формате WebP: ${fileName.split(".")[0].blue
+        }`
+      );
+
+      return sharp(inputPath)
+        .resize(900)
+        .webp({ quality: 60 })
+        .toFile(outputPathThumbnail);
+    })
+    .then(() => {
+      console.log(
+        `${"->".green} Оптимизировано изображение в миниатюру WebP: ${fileName.split(".")[0].blue
         }`
       );
 
@@ -326,6 +340,7 @@ function createFileRenamer(index) {
     inputPath,
     outputDirJpg,
     outputDirWebp,
+    outputDirThumbnail,
     inputDir
   ) {
     const patternName = inputDir.includes("img") ? "image_" : "project_";
@@ -338,6 +353,10 @@ function createFileRenamer(index) {
         newPathJpg: join(outputDirJpg, file),
         newPathWebp: join(
           outputDirWebp,
+          file.replace(/\.[^/.]+$/, "") + ".webp"
+        ),
+        newPathThumbnail: join(
+          outputDirThumbnail,
           file.replace(/\.[^/.]+$/, "") + ".webp"
         ),
         newInputPath: inputPath,
@@ -368,6 +387,10 @@ function createFileRenamer(index) {
           outputDirWebp,
           name.replace(/\.[^/.]+$/, "") + ".webp"
         ),
+        newPathThumbnail: join(
+          outputDirThumbnail,
+          file.replace(/\.[^/.]+$/, "") + ".webp"
+        ),
         newInputPath: newInputPath,
         newIndex: newIndex,
       };
@@ -382,6 +405,7 @@ async function fileHandling(
   index,
   outputDirJpg,
   outputDirWebp,
+  outputDirThumbnail,
   inputDir,
   data
 ) {
@@ -403,12 +427,17 @@ async function fileHandling(
       outputDirWebp,
       file.replace(/\.[^/.]+$/, "") + ".webp"
     );
+    let outputPathThumbnail = join(
+      outputDirThumbnail,
+      file.replace(/\.[^/.]+$/, "") + ".webp"
+    );
     let shortFileName = file.split(".")[0];
 
     const newFile = {
       name: shortFileName,
       pathJpg: outputPathJpg,
       pathWebp: outputPathWebp,
+      pathThumbnail: outputPathThumbnail,
       description: "",
       category: [],
       orientation: "",
@@ -418,12 +447,13 @@ async function fileHandling(
     const renameFile = createFileRenamer(index);
 
     try {
-      const { newName, newPathJpg, newPathWebp, newInputPath, newIndex } =
+      const { newName, newPathJpg, newPathWebp, newPathThumbnail, newInputPath, newIndex } =
         await renameFile(
           file,
           inputPath,
           outputDirJpg,
           outputDirWebp,
+          outputDirThumbnail,
           inputDir
         );
 
@@ -431,6 +461,7 @@ async function fileHandling(
       if (fileImg) newFile.name = shortFileName;
       newFile.pathJpg = outputPathJpg = newPathJpg;
       newFile.pathWebp = outputPathWebp = newPathWebp;
+      newFile.pathThumbnail = outputPathThumbnail = newPathThumbnail;
       inputPath = newInputPath;
       index = newIndex;
     } catch (err) {
@@ -508,6 +539,7 @@ async function fileHandling(
     if (
       existsSync(outputPathJpg) &&
       existsSync(outputPathWebp) &&
+      existsSync(outputPathThumbnail) &&
       !forcedUpdate &&
       data.optimizedImages[shortFileName] &&
       data.optimizedImages[shortFileName].orientation &&
@@ -527,6 +559,7 @@ async function fileHandling(
         inputPath,
         outputPathJpg,
         outputPathWebp,
+        outputPathThumbnail,
         shortFileName
       );
       newFile.orientation = orientation;
@@ -536,6 +569,7 @@ async function fileHandling(
     // ! =================================================================
     newFile.pathJpg = '/' + newFile.pathJpg.split('/').slice(3).join('/');
     newFile.pathWebp = '/' + newFile.pathWebp.split('/').slice(3).join('/');
+    newFile.pathThumbnail = '/' + newFile.pathThumbnail.split('/').slice(3).join('/');
     optimizedData.optimizedImages[shortFileName] = newFile;
     if (nowOpenImg) closeFileInVSCode();
     console.log(EOL);
@@ -552,8 +586,8 @@ async function fileHandling(
 
   if (startApp && project) {
 
-    [outputDirPhotoJpg, outputDirPhotoWebp, outputDirDataPhoto, outputDirProjectJpg, outputDirProjectWebp, outputDirDataProject] =
-      [outputDirPhotoJpg, outputDirPhotoWebp, outputDirDataPhoto, outputDirProjectJpg, outputDirProjectWebp, outputDirDataProject].map(elem => elem.replace("FOLDER", project))
+    [outputDirPhotoJpg, outputDirPhotoWebp, outputDirPhotoThumbnail, outputDirDataPhoto, outputDirProjectJpg, outputDirProjectWebp, outputDirProjectThumbnail, outputDirDataProject] =
+      [outputDirPhotoJpg, outputDirPhotoWebp, outputDirPhotoThumbnail, outputDirDataPhoto, outputDirProjectJpg, outputDirProjectWebp, outputDirProjectThumbnail, outputDirDataProject].map(elem => elem.replace("FOLDER", project))
 
     !existsSync(outputDirPhotoJpg)
       ? mkdirSync(outputDirPhotoJpg, { recursive: true })
@@ -561,11 +595,17 @@ async function fileHandling(
     !existsSync(outputDirPhotoWebp)
       ? mkdirSync(outputDirPhotoWebp, { recursive: true })
       : null;
+    !existsSync(outputDirPhotoThumbnail)
+      ? mkdirSync(outputDirPhotoThumbnail, { recursive: true })
+      : null;
     !existsSync(outputDirProjectJpg)
       ? mkdirSync(outputDirProjectJpg, { recursive: true })
       : null;
     !existsSync(outputDirProjectWebp)
       ? mkdirSync(outputDirProjectWebp, { recursive: true })
+      : null;
+    !existsSync(outputDirProjectThumbnail)
+      ? mkdirSync(outputDirProjectThumbnail, { recursive: true })
       : null;
 
     // * =========================================================================
@@ -579,7 +619,7 @@ async function fileHandling(
     let targetdataProject = await checkDataFile(outputDirDataProject, dataProject);
     const sourcedataProjectUTF = await fs.readFile(dataFileProject, 'utf-8');
     const targetdataProjectUTF = await fs.readFile(outputDirDataProject, 'utf-8');
-    
+
     if (deepEqual(JSON.parse(sourcedataPhotoUTF), JSON.parse(targetdataPhotoUTF))) dataPhoto = sourcedataPhoto;
     else dataPhoto = targetdataPhoto;
     if (deepEqual(JSON.parse(sourcedataProjectUTF), JSON.parse(targetdataProjectUTF))) dataProject = sourcedataProject;
@@ -591,7 +631,8 @@ async function fileHandling(
     // * =========================================================================
     // * продолжение работы по вопросам
     // * =========================================================================
-    needOpenImg = await prompts(allQuestions.questionOpenImg);
+    const { openImg } = await prompts(allQuestions.questionOpenImg);
+    needOpenImg = openImg
 
     const { qualityOptimize } = await prompts(allQuestions.questionQualityImg);
     optimizedDataPhoto.totalInfo.quality =
@@ -636,17 +677,18 @@ async function fileHandling(
       index,
       outputDirPhotoJpg,
       outputDirPhotoWebp,
+      outputDirPhotoThumbnail,
       inputDirPhoto,
       dataPhoto
     );
-    deleteUnuseFile(outputDirPhotoJpg, outputDirPhotoWebp, inputDirPhoto);
+    deleteUnusedFile(outputDirPhotoJpg, outputDirPhotoWebp, outputDirPhotoThumbnail, inputDirPhoto);
     optimizedDataPhoto.totalInfo.totalCount =
       Object.keys(optimizedDataPhoto.optimizedImages).length;
     updateDataFile(optimizedDataPhoto, dataFilePhoto);
     updateDataFile(optimizedDataPhoto, outputDirDataPhoto);
 
     // * =========================================================================
-    // * начало работы с фото
+    // * начало работы с проектами
     // * =========================================================================
     optimizedDataProject.totalInfo.totalCount = await listAvailableImg(
       inputDirProject,
@@ -657,10 +699,11 @@ async function fileHandling(
       index,
       outputDirProjectJpg,
       outputDirProjectWebp,
+      outputDirProjectThumbnail,
       inputDirProject,
       dataProject
     );
-    deleteUnuseFile(outputDirProjectJpg, outputDirProjectWebp, inputDirProject);
+    deleteUnusedFile(outputDirProjectJpg, outputDirProjectWebp, outputDirProjectThumbnail, inputDirProject);
     optimizedDataProject.totalInfo.totalCount =
       Object.keys(optimizedDataProject.optimizedImages).length;
     updateDataFile(optimizedDataProject, dataFileProject);
