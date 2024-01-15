@@ -57,6 +57,7 @@ const Header = ({ social }: { social: boolean }) => {
                   link={linkItem}
                   key={uuidv4()}
                   defaultSetting={{
+                    defaultOpen: false,
                     placement: "right",
                     arrow: false,
                   }}
