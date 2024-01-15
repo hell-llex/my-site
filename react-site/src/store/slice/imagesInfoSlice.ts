@@ -20,6 +20,7 @@ const imgStandby: ImageInfo = {
     interoperability: {},
     makernote: {},
   },
+  pathThumbnail: "/image_0/image_0.webp",
 };
 const createArrayForPhotoGallery = (objectImages: (ImageInfo | "space")[]) => {
   const allImagesBase: (ImageInfo | "space")[] = objectImages;

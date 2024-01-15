@@ -19,6 +19,7 @@ const imgStandby: ImageInfo = {
     interoperability: {},
     makernote: {},
   },
+  pathThumbnail: "/project/webp/project_0.webp",
 };
 
 const initialState: {
