@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../../hooks/redux";
 import { ImageInfo } from "../../../../types";
 import "./PortfolioGalleryProject.scss";
@@ -10,10 +10,21 @@ import OImage from "../../../OImage";
 import { styled } from "@mui/material/styles";
 import ButtonBase from "@mui/material/ButtonBase";
 import Typography from "@mui/material/Typography";
-import { LinearProgress } from "@mui/material";
+import {
+  Alert,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  LinearProgress,
+  Snackbar,
+} from "@mui/material";
 import Loader from "../../../Loader";
 import { updateFullWidthGallery } from "../../../../store/slice/baseParamsSlice";
 import useScreenSize from "../../../../hooks/useScreenSize";
+import CloseIcon from "@mui/icons-material/Close";
 
 const WheelControls: KeenSliderPlugin = (slider) => {
   let touchTimeout: ReturnType<typeof setTimeout>;
@@ -72,6 +83,7 @@ const WheelControls: KeenSliderPlugin = (slider) => {
     });
   });
 };
+
 const ImageButton = styled(ButtonBase)(() => ({
   position: "relative",
   height: "100%",
@@ -166,6 +178,15 @@ const ResizePlugin: KeenSliderPlugin = (slider) => {
   });
 };
 
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+  "& .MuiDialogContent-root": {
+    padding: theme.spacing(2),
+  },
+  "& .MuiDialogActions-root": {
+    padding: theme.spacing(1),
+  },
+}));
+
 const PortfolioGalleryProject = () => {
   const dataImages = useAppSelector((state) => state.projectsInfo);
   const filterProjectStore = useAppSelector(
@@ -179,6 +200,23 @@ const PortfolioGalleryProject = () => {
     dataImages.filteredProjects
   );
 
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
+  const handleClickSnackbar = () => {
+    setOpenSnackbar(true);
+  };
+
+  const handleCloseSnackbar = (
+    _event: SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenSnackbar(false);
+  };
+
   const [progress, setProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [isComponentLoaded, setIsComponentLoaded] = useState(false);
@@ -191,6 +229,17 @@ const PortfolioGalleryProject = () => {
   useEffect(() => {
     setScreenMobile(screenSize.width <= 768 ? true : false);
   }, [screenSize]);
+
+  const [openModal, setOpenModal] = useState(false);
+  const [infoModal, setInfoModal] = useState<ImageInfo>();
+
+  const handleClickOpen = () => {
+    setOpenModal(true);
+  };
+  const handleClose = () => {
+    setOpenModal(false);
+    setInfoModal(undefined);
+  };
 
   useEffect(() => {
     setImagesProject(dataImages.filteredProjects);
@@ -286,14 +335,17 @@ const PortfolioGalleryProject = () => {
               <ImageButton
                 focusRipple
                 onClick={() => {
-                  setTimeout(() => {
-                    alert(Object.values(img).join(" | "));
-                  }, 500);
+                  // setTimeout(() => {
+                  //   alert(Object.values(img).join(" | "));
+                  // }, 500);
+                  setInfoModal(img);
+                  handleClickOpen();
                 }}
+                // onClick={handleClickOpen}
               >
                 <Typography component="p" variant="body1" color="inherit">
                   {img.name}
-                  <span>
+                  {/* <span>
                     <br />
                     {"Category: " +
                       img.category
@@ -301,12 +353,12 @@ const PortfolioGalleryProject = () => {
                         .join(" / ")}
                     <br />
                     <br />
-                    {"Description: " + img.description}
-                    {/* <br />
+                    {"Description: " + img.description} */}
+                  {/* <br />
                     {"Link GitHub"}
                     <br />
                     {"Link Project"} */}
-                  </span>
+                  {/* </span> */}
                 </Typography>
                 <div className="background__image">
                   <OImage
@@ -321,6 +373,153 @@ const PortfolioGalleryProject = () => {
             </div>
           ))}
         </div>
+        <BootstrapDialog
+          onClose={handleClose}
+          aria-labelledby="customized-dialog-title"
+          open={openModal}
+          fullWidth
+          maxWidth={"md"}
+          sx={{
+            backdropFilter: "blur(2px)",
+            WebkitBackdropFilter: "blur(2px)",
+            "& .MuiDialog-paper": {
+              fontWeight: 700,
+              backdropFilter: "blur(10px)",
+              WebkitBackdropFilter: "blur(10px)",
+              background: "rgba(60, 60, 60, 0.7)",
+              color: "rgba(255,255,255, 0.7)",
+              borderRadius: "10px",
+            },
+          }}
+        >
+          <DialogTitle
+            sx={{
+              m: 0,
+              p: 2,
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              color: "rgba(255,255,255, 0.7)",
+              fontWeight: 700,
+            }}
+            id="customized-dialog-title"
+            fontSize={"2.5rem"}
+          >
+            {infoModal?.name}
+            <IconButton
+              aria-label="close"
+              onClick={handleClose}
+              color="inherit"
+            >
+              <CloseIcon sx={{ fontSize: "2.6rem" }} color="inherit" />
+            </IconButton>
+          </DialogTitle>
+
+          <DialogContent dividers>
+            <div
+              style={{
+                width: "auto",
+                height: "40vh",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                overflowX: "auto",
+              }}
+            >
+              {infoModal && (
+                <OImage
+                  img={infoModal}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    opacity: "0.8",
+                  }}
+                />
+              )}
+            </div>
+
+            <Typography
+              gutterBottom
+              component="p"
+              variant="body1"
+              color="inherit"
+              fontSize={"1.6rem"}
+              sx={{ fontWeight: 500 }}
+            >
+              <br />
+              <span>
+                <b>{"Category: "}</b>
+                {infoModal?.category
+                  .map((elem) => elem[0].toUpperCase() + elem.slice(1))
+                  .join(" / ")}
+                <br />
+                <b>{"Description: "}</b>
+                {infoModal?.description}
+              </span>
+            </Typography>
+          </DialogContent>
+          <DialogActions
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-around",
+              alignItems: "center",
+              color: "rgba(255,255,255, 0.7)",
+            }}
+          >
+            <Button
+              onClick={handleClickSnackbar}
+              sx={{
+                fontSize: "1.6rem",
+                fontWeight: 700,
+                background: "rgba(0, 0, 0, 0.5)",
+                borderRadius: "10px",
+                padding: "0.5rem 2rem",
+                "&:hover": {
+                  background: "rgba(20, 20, 20, 0.5)",
+                },
+              }}
+              color="inherit"
+              autoFocus
+            >
+              Visit the <br /> website
+            </Button>
+            <Button
+              onClick={handleClickSnackbar}
+              sx={{
+                fontSize: "1.6rem",
+                fontWeight: 700,
+                background: "rgba(0, 0, 0, 0.5)",
+                borderRadius: "10px",
+                padding: "0.5rem 2rem",
+                "&:hover": {
+                  background: "rgba(20, 20, 20, 0.5)",
+                },
+              }}
+              color="inherit"
+              autoFocus
+            >
+              View code <br />
+              on GitHub
+            </Button>
+          </DialogActions>
+        </BootstrapDialog>
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={openSnackbar}
+          autoHideDuration={2000}
+          onClose={handleCloseSnackbar}
+          key={"top" + "center"}
+        >
+          <Alert
+            severity="error"
+            variant="filled"
+            sx={{ width: "100%", fontSize: "1.4rem" }}
+          >
+            Unfortunately, this link doesn&#39;t work!
+          </Alert>
+        </Snackbar>
       </>
     </>
   );
