@@ -50,9 +50,19 @@ const SettingWithUrl = ({ children }: { children?: JSX.Element }) => {
     return rightPlatform.react === platform ? (
       children
     ) : (
-      <p style={{ fontSize: "40px", width: "100%", textAlign: "center" }}>
+      <p
+        style={{
+          fontSize: "40px",
+          width: "100%",
+          textAlign: "center",
+          lineHeight: "50px",
+          padding: "10px",
+        }}
+      >
         This relocate to {platform.toUpperCase()} site{" "}
         {lang ? `in ${lang === "en" ? "English" : "Russian"} language.` : ""}
+        <br />
+        <a href="/">Go home!</a>
       </p>
     );
   }
