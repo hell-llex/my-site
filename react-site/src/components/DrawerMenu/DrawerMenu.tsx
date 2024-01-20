@@ -20,14 +20,17 @@ import {
 } from "@mui/material";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import {
-  updateLang,
-  updatePlatform,
-  updateTheme,
-} from "../../store/slice/baseParamsSlice";
-import { language, platform, theme } from "../../types";
-import { useNavigate } from "react-router-dom";
+  // useAppDispatch,
+  useAppSelector,
+} from "../../hooks/redux";
+// import {
+//   updateLang,
+//   updatePlatform,
+//   updateTheme,
+// } from "../../store/slice/baseParamsSlice";
+// import { language, platform, theme } from "../../types";
+// import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
 type Anchor = "top" | "right";
@@ -37,14 +40,14 @@ const DrawerMenu = () => {
   const [stateDrawer, setStateDrawer] = useState({
     right: false,
   });
-  const dispatch = useAppDispatch();
-  const newLang = (item: language | undefined) => dispatch(updateLang(item));
-  const newTheme = (item: theme | undefined) => dispatch(updateTheme(item));
-  const newPlatform = (item: platform) => dispatch(updatePlatform(item));
+  // const dispatch = useAppDispatch();
+  // const newLang = (item: language | undefined) => dispatch(updateLang(item));
+  // const newTheme = (item: theme | undefined) => dispatch(updateTheme(item));
+  // const newPlatform = (item: platform) => dispatch(updatePlatform(item));
   const thisLang = useAppSelector((state) => state.baseParams.lang);
   const thisTheme = useAppSelector((state) => state.baseParams.theme);
   const thisPlatform = useAppSelector((state) => state.baseParams.platform);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
@@ -124,42 +127,41 @@ const DrawerMenu = () => {
     });
   }, [thisLang, thisPlatform, thisTheme]);
 
-  // eslint-disable-next-line no-unused-vars
-  const handleChange = (
-    // включить когда будет функционал
-    event: React.MouseEvent<HTMLElement>,
-    newSettings: language | theme | platform
-  ) => {
-    if (newSettings !== null) {
-      const target = event.currentTarget as HTMLInputElement;
-      target.name === "theme" ? newTheme(newSettings as theme) : null;
-      if (target.name === "language") {
-        newLang(newSettings as language);
-        const newPath = location.pathname.replace(thisLang, newSettings);
-        navigate(newPath);
-      }
-      if (target.name === "platform") {
-        newPlatform(newSettings as platform);
-        const newPath = location.pathname.replace(thisPlatform, newSettings);
-        navigate(newPath);
-      }
+  // const handleChange = (
+  //   // включить когда будет функционал
+  //   event: React.MouseEvent<HTMLElement>,
+  //   newSettings: language | theme | platform
+  // ) => {
+  //   if (newSettings !== null) {
+  //     const target = event.currentTarget as HTMLInputElement;
+  //     target.name === "theme" ? newTheme(newSettings as theme) : null;
+  //     if (target.name === "language") {
+  //       newLang(newSettings as language);
+  //       const newPath = location.pathname.replace(thisLang, newSettings);
+  //       navigate(newPath);
+  //     }
+  //     if (target.name === "platform") {
+  //       newPlatform(newSettings as platform);
+  //       const newPath = location.pathname.replace(thisPlatform, newSettings);
+  //       navigate(newPath);
+  //     }
 
-      setSettingsValue({
-        language:
-          target.name === "language"
-            ? (newSettings as language)
-            : settingsValue.language,
-        theme:
-          target.name === "theme"
-            ? (newSettings as theme)
-            : settingsValue.theme,
-        platform:
-          target.name === "platform"
-            ? (newSettings as platform)
-            : settingsValue.platform,
-      });
-    }
-  };
+  //     setSettingsValue({
+  //       language:
+  //         target.name === "language"
+  //           ? (newSettings as language)
+  //           : settingsValue.language,
+  //       theme:
+  //         target.name === "theme"
+  //           ? (newSettings as theme)
+  //           : settingsValue.theme,
+  //       platform:
+  //         target.name === "platform"
+  //           ? (newSettings as platform)
+  //           : settingsValue.platform,
+  //     });
+  //   }
+  // };
 
   const toggleDrawer =
     (anchor: Anchor, open: boolean) =>
