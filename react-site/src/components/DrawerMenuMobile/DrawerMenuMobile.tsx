@@ -7,7 +7,7 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import LanguageIcon from "@mui/icons-material/Language";
 import CloseIcon from "@mui/icons-material/Close";
-import { IconButton, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { Alert, IconButton, Snackbar, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
@@ -128,6 +128,23 @@ const DrawerMenuMobile = () => {
     platform: thisPlatform,
   });
 
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
+  const handleClickSnackbar = () => {
+    setOpenSnackbar(true);
+  };
+
+  const handleCloseSnackbar = (
+    _event: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenSnackbar(false);
+  };
+
   useEffect(() => {
     setSettingsValue({
       language: thisLang,
@@ -136,6 +153,7 @@ const DrawerMenuMobile = () => {
     });
   }, [thisLang, thisPlatform, thisTheme]);
 
+  // eslint-disable-next-line no-unused-vars
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,
     newSettings: language | theme | platform
@@ -271,7 +289,9 @@ const DrawerMenuMobile = () => {
                   ]
                 }
                 exclusive
-                onChange={handleChange}
+                // onChange={handleChange}
+                // onChange={handleChange} // включить когда будет функционал
+                onClick={handleClickSnackbar} // выключить когда будет функционал
                 aria-label={item.label}
                 size="large"
                 sx={{
@@ -408,6 +428,21 @@ const DrawerMenuMobile = () => {
           {list(anchorSide)}
         </Drawer>
       </React.Fragment>
+      <Snackbar // удалить когда будет функционал
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={openSnackbar}
+        autoHideDuration={2000}
+        onClose={handleCloseSnackbar}
+        key={"top" + "center"}
+      >
+        <Alert
+          severity="error"
+          variant="filled"
+          sx={{ width: "100%", fontSize: "1.4rem" }}
+        >
+          Unfortunately, this button doesn&#39;t work!
+        </Alert>
+      </Snackbar>
     </>
   );
 };

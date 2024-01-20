@@ -11,7 +11,9 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import LanguageIcon from "@mui/icons-material/Language";
 import CloseIcon from "@mui/icons-material/Close";
 import {
+  Alert,
   IconButton,
+  Snackbar,
   ToggleButton,
   ToggleButtonGroup,
   Typography,
@@ -43,6 +45,23 @@ const DrawerMenu = () => {
   const thisTheme = useAppSelector((state) => state.baseParams.theme);
   const thisPlatform = useAppSelector((state) => state.baseParams.platform);
   const navigate = useNavigate();
+
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
+  const handleClickSnackbar = () => {
+    setOpenSnackbar(true);
+  };
+
+  const handleCloseSnackbar = (
+    _event: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenSnackbar(false);
+  };
 
   const [settings] = useState({
     language: {
@@ -105,7 +124,9 @@ const DrawerMenu = () => {
     });
   }, [thisLang, thisPlatform, thisTheme]);
 
+  // eslint-disable-next-line no-unused-vars
   const handleChange = (
+    // включить когда будет функционал
     event: React.MouseEvent<HTMLElement>,
     newSettings: language | theme | platform
   ) => {
@@ -207,7 +228,8 @@ const DrawerMenu = () => {
                   ]
                 }
                 exclusive
-                onChange={handleChange}
+                // onChange={handleChange} // включить когда будет функционал
+                onClick={handleClickSnackbar} // выключить когда будет функционал
                 aria-label={item.label}
                 size="large"
                 sx={{
@@ -300,6 +322,21 @@ const DrawerMenu = () => {
           {list(anchorSide)}
         </Drawer>
       </React.Fragment>
+      <Snackbar // удалить когда будет функционал
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={openSnackbar}
+        autoHideDuration={2000}
+        onClose={handleCloseSnackbar}
+        key={"top" + "center"}
+      >
+        <Alert
+          severity="error"
+          variant="filled"
+          sx={{ width: "100%", fontSize: "1.4rem" }}
+        >
+          Unfortunately, this button doesn&#39;t work!
+        </Alert>
+      </Snackbar>
     </>
   );
 };
