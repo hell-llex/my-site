@@ -82,6 +82,7 @@ const PageCv = () => {
         <Box className={`container-cv ${isOpen && "container-cv_open"}`}>
           <Container className="btn-img-cv">
             <ImageButton
+              className="pulse"
               focusRipple
               onClick={() => {
                 setTimeout(() => {

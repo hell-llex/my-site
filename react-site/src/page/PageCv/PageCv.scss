@@ -107,3 +107,38 @@
     align-items: center;
   }
 }
+
+.container {
+  position: relative;
+  z-index: 9999;
+}
+
+.pulse {
+
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: #ffffff7b;
+    border-radius: 20px;
+    z-index: -1;
+    opacity: 0.7;
+  }
+
+  &:before {
+    animation: pulse 2s ease-out infinite;
+  }
+
+  &:after {
+    animation: pulse 2s 1s ease-out infinite;
+  }
+}
+
+@keyframes pulse {
+  100% {
+    transform: scale(1.1);
+    opacity: 0;
+  }
+}
