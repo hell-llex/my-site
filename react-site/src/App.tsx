@@ -69,6 +69,7 @@ function App() {
           <Route path="contact" element={<PageContact />} />
           <Route path="about-me" element={<PageAboutMe />} />
           <Route path="cv" element={<PageCv />} />
+          <Route path="*" element={<Navigate to="/error-page-404" replace />} />
         </Route>
         <Route path="*" element={<Navigate to="error-page-404" replace />} />
         <Route path="error-page-404" element={<PageError404 />} />
