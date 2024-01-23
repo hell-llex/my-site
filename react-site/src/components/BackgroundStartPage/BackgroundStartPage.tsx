@@ -43,6 +43,7 @@ function BackgroundStartPage({ imgs }: { imgs: ImageInfo[] }) {
             >
               <OImage
                 img={img}
+                thumbnail
                 style={{
                   width: "100%",
                   height: "100%",
