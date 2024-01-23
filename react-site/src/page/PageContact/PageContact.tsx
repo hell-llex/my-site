@@ -4,9 +4,11 @@
 // import { SocialLinksInfo } from "../../types";
 import { Box, Typography } from "@mui/material";
 import "./PageContact.scss";
+import { useTranslation } from "react-i18next";
 // import { v4 as uuidv4 } from "uuid";
 
 const PageContact = () => {
+  const { t } = useTranslation();
   // const dataIcons = useAppSelector((state) => state.socialIconsInfo);
   // const [socialLinksInfo] = useState<SocialLinksInfo>(dataIcons);
   return (
@@ -17,8 +19,8 @@ const PageContact = () => {
           fontWeight={300}
           fontSize={"clamp(2rem, 3vw, 3.5rem)"}
         >
-          My name: <br />
-          Alexander Demeshchenko
+          {t("page.PageContact.title1")}: <br />
+          {t("page.PageContact.textName")}
         </Typography>
         <br />
         <Typography
@@ -26,7 +28,8 @@ const PageContact = () => {
           fontWeight={300}
           fontSize={"clamp(2rem, 3vw, 3.5rem)"}
         >
-          Location: <br /> Belarus, Minsk
+          {t("page.PageContact.title2")}: <br />
+          {t("page.PageContact.textLocation")}
         </Typography>
         <br />
         <Typography
@@ -34,7 +37,8 @@ const PageContact = () => {
           fontWeight={300}
           fontSize={"clamp(2rem, 3vw, 3.5rem)"}
         >
-          Phone number: <br /> +375(29)289-77-22
+          {t("page.PageContact.title3")}: <br />
+          +375(29)289-77-22{" "}
         </Typography>
         <br />
         <Typography
@@ -42,7 +46,8 @@ const PageContact = () => {
           fontWeight={300}
           fontSize={"clamp(2rem, 3vw, 3.5rem)"}
         >
-          Email: <br /> demeshenko333@gmail.com
+          {t("page.PageContact.title4")}: <br />
+          demeshenko333@gmail.com
         </Typography>
       </Box>
       {/* <div className="contact-page__links">

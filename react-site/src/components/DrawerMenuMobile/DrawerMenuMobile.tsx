@@ -16,25 +16,16 @@ import {
 } from "@mui/material";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import {
-  // useAppDispatch,
-  useAppSelector,
-} from "../../hooks/redux";
-// import {
-//   updateLang,
-//   updatePlatform,
-//   updateTheme,
-// } from "../../store/slice/baseParamsSlice";
-import {
-  RouteInfo,
-  // language, platform, theme
-} from "../../types";
-import {
-  NavLink,
-  useLocation,
-  // useNavigate
-} from "react-router-dom";
+  updateLang,
+  updatePlatform,
+  updateTheme,
+} from "../../store/slice/baseParamsSlice";
+import { RouteInfo, language, platform, theme } from "../../types";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import { useTranslation } from "react-i18next";
 import Logo from "../../../public/logo_black.png";
 // import Logo from "../../../public/logo.png";
 
@@ -45,14 +36,15 @@ const DrawerMenuMobile = () => {
   const [stateDrawer, setStateDrawer] = useState({
     top: false,
   });
-  // const dispatch = useAppDispatch();
-  // const newLang = (item: language | undefined) => dispatch(updateLang(item));
-  // const newTheme = (item: theme | undefined) => dispatch(updateTheme(item));
-  // const newPlatform = (item: platform) => dispatch(updatePlatform(item));
+  const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+  const newLang = (item: language | undefined) => dispatch(updateLang(item));
+  const newTheme = (item: theme | undefined) => dispatch(updateTheme(item));
+  const newPlatform = (item: platform) => dispatch(updatePlatform(item));
   const thisLang = useAppSelector((state) => state.baseParams.lang);
   const thisTheme = useAppSelector((state) => state.baseParams.theme);
   const thisPlatform = useAppSelector((state) => state.baseParams.platform);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const location = useLocation();
   const [thisPathGallery, setThisPathGallery] = useState(
     location.pathname.includes("photo") || location.pathname.includes("project")
@@ -69,15 +61,43 @@ const DrawerMenuMobile = () => {
   }, [location]);
 
   const [linksInfo] = useState<RouteInfo[]>([
-    { path: "home", name: "Home", otherPath: false },
-    { path: "portfolio", name: "Portfolio", otherPath: true },
-    { path: "contact", name: "Contact", otherPath: false },
-    { path: "about-me", name: "About me", otherPath: false },
-    { path: "cv", name: "My CV", otherPath: false },
+    {
+      path: "home",
+      name: "components.DrawerMenuMobile.title1",
+      otherPath: false,
+    },
+    {
+      path: "portfolio",
+      name: "components.DrawerMenuMobile.title2",
+      otherPath: true,
+    },
+    {
+      path: "contact",
+      name: "components.DrawerMenuMobile.title3",
+      otherPath: false,
+    },
+    {
+      path: "about-me",
+      name: "components.DrawerMenuMobile.title4",
+      otherPath: false,
+    },
+    {
+      path: "cv",
+      name: "components.DrawerMenuMobile.title5",
+      otherPath: false,
+    },
   ]);
   const [otherLinksInfo] = useState<RouteInfo[]>([
-    { path: "portfolio/photo", name: "Photo", otherPath: false },
-    { path: "portfolio/project", name: "Project", otherPath: false },
+    {
+      path: "portfolio/photo",
+      name: "components.DrawerMenuMobile.title21",
+      otherPath: false,
+    },
+    {
+      path: "portfolio/project",
+      name: "components.DrawerMenuMobile.title22",
+      otherPath: false,
+    },
   ]);
 
   const setActive = ({ isActive }: { isActive: boolean }) => {
@@ -169,40 +189,40 @@ const DrawerMenuMobile = () => {
     });
   }, [thisLang, thisPlatform, thisTheme]);
 
-  // const handleChange = (
-  //   event: React.MouseEvent<HTMLElement>,
-  //   newSettings: language | theme | platform
-  // ) => {
-  //   if (newSettings !== null) {
-  //     const target = event.currentTarget as HTMLInputElement;
-  //     target.name === "theme" ? newTheme(newSettings as theme) : null;
-  //     if (target.name === "language") {
-  //       newLang(newSettings as language);
-  //       const newPath = location.pathname.replace(thisLang, newSettings);
-  //       navigate(newPath);
-  //     }
-  //     if (target.name === "platform") {
-  //       newPlatform(newSettings as platform);
-  //       const newPath = location.pathname.replace(thisPlatform, newSettings);
-  //       navigate(newPath);
-  //     }
+  const handleChange = (
+    event: React.MouseEvent<HTMLElement>,
+    newSettings: language | theme | platform
+  ) => {
+    if (newSettings !== null) {
+      const target = event.currentTarget as HTMLInputElement;
+      target.name === "theme" ? newTheme(newSettings as theme) : null;
+      if (target.name === "language") {
+        newLang(newSettings as language);
+        const newPath = location.pathname.replace(thisLang, newSettings);
+        navigate(newPath);
+      }
+      if (target.name === "platform") {
+        newPlatform(newSettings as platform);
+        const newPath = location.pathname.replace(thisPlatform, newSettings);
+        navigate(newPath);
+      }
 
-  //     setSettingsValue({
-  //       language:
-  //         target.name === "language"
-  //           ? (newSettings as language)
-  //           : settingsValue.language,
-  //       theme:
-  //         target.name === "theme"
-  //           ? (newSettings as theme)
-  //           : settingsValue.theme,
-  //       platform:
-  //         target.name === "platform"
-  //           ? (newSettings as platform)
-  //           : settingsValue.platform,
-  //     });
-  //   }
-  // };
+      setSettingsValue({
+        language:
+          target.name === "language"
+            ? (newSettings as language)
+            : settingsValue.language,
+        theme:
+          target.name === "theme"
+            ? (newSettings as theme)
+            : settingsValue.theme,
+        platform:
+          target.name === "platform"
+            ? (newSettings as platform)
+            : settingsValue.platform,
+      });
+    }
+  };
 
   const toggleDrawer =
     (anchor: Anchor, open: boolean) =>
@@ -273,7 +293,7 @@ const DrawerMenuMobile = () => {
                 to={linkNav.path}
                 className={setActive}
               >
-                {linkNav.name}
+                {t(linkNav.name)}
               </NavLink>
 
               {linkNav.otherPath &&
@@ -284,7 +304,7 @@ const DrawerMenuMobile = () => {
                     key={uuidv4()}
                     className={setActiveOther}
                   >
-                    {linkOtherNav.name}
+                    {t(linkOtherNav.name)}
                   </NavLink>
                 ))}
             </div>
@@ -297,58 +317,111 @@ const DrawerMenuMobile = () => {
                 width: "100%",
               }}
             >
-              <ToggleButtonGroup
-                value={
-                  settingsValue[
-                    item.label.toLowerCase() as keyof typeof settings
-                  ]
-                }
-                exclusive
-                // onChange={handleChange}
-                // onChange={handleChange} // включить когда будет функционал
-                onClick={handleClickSnackbar} // выключить когда будет функционал
-                aria-label={item.label}
-                size="large"
-                sx={{
-                  width: "100%",
-                  padding: "0 3rem",
-                  boxSizing: "border-box",
-                  ".MuiToggleButtonGroup-grouped:not(:first-of-type)": {
-                    borderLeft: "2px solid white",
-                  },
-                }}
-              >
-                {item.value.map((elem) => (
-                  <ToggleButton
-                    name={item.label.toLowerCase()}
-                    value={elem}
-                    key={uuidv4()}
-                    sx={{
-                      color: "gray",
-                      border: "0px solid transparent",
-                      width: "100%",
-                      fontSize: "1.6rem",
-                      padding: "0rem",
-                      fontWeight: "300",
-                      background: "transparent",
-                      "&:focus, &:hover": {
-                        outline: "none",
-                        borderColor: "transparent",
+              {item.label === "Language" ? (
+                <ToggleButtonGroup
+                  value={
+                    settingsValue[
+                      item.label.toLowerCase() as keyof typeof settings
+                    ]
+                  }
+                  exclusive
+                  onChange={handleChange} // включить когда будет функционал
+                  // onClick={handleClickSnackbar} // выключить когда будет функционал
+                  aria-label={item.label}
+                  size="large"
+                  sx={{
+                    width: "100%",
+                    padding: "0 3rem",
+                    boxSizing: "border-box",
+                    ".MuiToggleButtonGroup-grouped:not(:first-of-type)": {
+                      borderLeft: "2px solid white",
+                    },
+                  }}
+                >
+                  {item.value.map((elem) => (
+                    <ToggleButton
+                      name={item.label.toLowerCase()}
+                      value={elem}
+                      key={uuidv4()}
+                      sx={{
+                        color: "gray",
+                        border: "0px solid transparent",
+                        width: "100%",
+                        fontSize: "1.6rem",
+                        padding: "0rem",
+                        fontWeight: "300",
                         background: "transparent",
-                      },
-                      "&.Mui-selected, &.Mui-selected:focus, &.Mui-selected:hover":
-                        {
-                          color: "white",
-                          fontWeight: "700",
-                          fontSize: "1.8rem",
+                        "&:focus, &:hover": {
+                          outline: "none",
+                          borderColor: "transparent",
                           background: "transparent",
                         },
-                    }}
-                  >
-                    {elem}
-                  </ToggleButton>
-                ))}
-              </ToggleButtonGroup>
+                        "&.Mui-selected, &.Mui-selected:focus, &.Mui-selected:hover":
+                          {
+                            color: "white",
+                            fontWeight: "700",
+                            fontSize: "1.8rem",
+                            background: "transparent",
+                          },
+                      }}
+                    >
+                      {elem}
+                    </ToggleButton>
+                  ))}
+                </ToggleButtonGroup>
+              ) : (
+                <ToggleButtonGroup
+                  value={
+                    settingsValue[
+                      item.label.toLowerCase() as keyof typeof settings
+                    ]
+                  }
+                  exclusive
+                  // onChange={handleChange} // включить когда будет функционал
+                  onClick={handleClickSnackbar} // выключить когда будет функционал
+                  aria-label={item.label}
+                  size="large"
+                  sx={{
+                    width: "100%",
+                    padding: "0 3rem",
+                    boxSizing: "border-box",
+                    ".MuiToggleButtonGroup-grouped:not(:first-of-type)": {
+                      borderLeft: "2px solid white",
+                    },
+                  }}
+                >
+                  {item.value.map((elem) => (
+                    <ToggleButton
+                      name={item.label.toLowerCase()}
+                      value={elem}
+                      key={uuidv4()}
+                      sx={{
+                        color: "gray",
+                        border: "0px solid transparent",
+                        width: "100%",
+                        fontSize: "1.6rem",
+                        padding: "0rem",
+                        fontWeight: "300",
+                        background: "transparent",
+                        "&:focus, &:hover": {
+                          outline: "none",
+                          borderColor: "transparent",
+                          background: "transparent",
+                        },
+                        "&.Mui-selected, &.Mui-selected:focus, &.Mui-selected:hover":
+                          {
+                            color: "white",
+                            fontWeight: "700",
+                            fontSize: "1.8rem",
+                            background: "transparent",
+                          },
+                      }}
+                    >
+                      {elem}
+                    </ToggleButton>
+                  ))}
+                </ToggleButtonGroup>
+              )}
             </div>
           ))}
         </div>
@@ -455,7 +528,7 @@ const DrawerMenuMobile = () => {
           variant="filled"
           sx={{ width: "100%", fontSize: "1.4rem" }}
         >
-          Unfortunately, this button doesn&#39;t work!
+          {t("components.DrawerMenuMobile.text1")}
         </Alert>
       </Snackbar>
     </>

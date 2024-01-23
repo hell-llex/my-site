@@ -10,6 +10,7 @@ import { updateFilterProject } from "../../../../store/slice/baseParamsSlice";
 import { filterProjects } from "../../../../store/slice/projectsInfoSlice";
 import { v4 as uuidv4 } from "uuid";
 import useScreenSize from "../../../../hooks/useScreenSize";
+import { useTranslation } from "react-i18next";
 
 const ImageButton = styled(ButtonBase)(() => ({
   position: "relative",
@@ -117,7 +118,7 @@ const ImageButtonMobile = styled(ButtonBase)(() => ({
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      fontSize: "2rem",
+      fontSize: "1.8rem",
       fontWeight: 700,
       color: "rgba(255, 255, 255, 0.6)",
       backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -224,6 +225,7 @@ const ImageButtonFilterBtnMobile = styled(ButtonBase)(() => ({
 }));
 
 function PortfolioFilterProject() {
+  const { t } = useTranslation();
   const dataImages = useAppSelector((state) => state.imagesInfo);
 
   const filterProjectStore = useAppSelector(
@@ -250,12 +252,24 @@ function PortfolioFilterProject() {
   >([
     {
       value: "vanilla",
-      name: "Vanilla",
+      name: "components.Portfolio.PortfolioFilter.PortfolioFilterProject.title1",
       img: dataImages.all.image_5,
     },
-    { value: "react", name: "React", img: dataImages.all.image_6 },
-    { value: "vue", name: "Vue", img: dataImages.all.image_7 },
-    { value: "other", name: "Other", img: dataImages.all.image_8 },
+    {
+      value: "react",
+      name: "components.Portfolio.PortfolioFilter.PortfolioFilterProject.title2",
+      img: dataImages.all.image_6,
+    },
+    {
+      value: "vue",
+      name: "components.Portfolio.PortfolioFilter.PortfolioFilterProject.title3",
+      img: dataImages.all.image_7,
+    },
+    {
+      value: "other",
+      name: "components.Portfolio.PortfolioFilter.PortfolioFilterProject.title4",
+      img: dataImages.all.image_8,
+    },
   ]);
 
   function updateFilter(value: filterProject) {
@@ -288,7 +302,7 @@ function PortfolioFilterProject() {
               }}
             >
               <Typography component="p" variant="subtitle1" color="inherit">
-                {item.name}
+                {t(item.name)}
               </Typography>
               <div className="portfolio-filter__image">
                 <OImage
@@ -337,7 +351,7 @@ function PortfolioFilterProject() {
                       variant="subtitle1"
                       color="inherit"
                     >
-                      {item.name}
+                      {t(item.name)}
                     </Typography>
                     <div className="portfolio-filter__image">
                       <OImage
@@ -386,15 +400,19 @@ function PortfolioFilterProject() {
                           fontSize: "2.8rem",
                         }}
                       >
-                        {"All"}
+                        {t(
+                          "components.Portfolio.PortfolioFilter.PortfolioFilterProject.title6"
+                        )}
                       </span>
                     ) : (
-                      filterProjectStore.map(
-                        (elem, i) =>
-                          elem[0].toLocaleUpperCase() +
-                          elem.slice(1) +
-                          (i % 2 ? "\n" : "\t")
-                      )
+                      filterProjectStore.map((elem, i) => {
+                        const filterName = filterItem.find(
+                          (item) => item.value === elem
+                        );
+                        return (
+                          t(filterName!.name as string) + (i % 2 ? "\n" : "\t")
+                        );
+                      })
                     )}
                   </Typography>
                   <div className="portfolio-filter__btn-images">

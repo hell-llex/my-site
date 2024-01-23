@@ -11,6 +11,7 @@ import useScreenSize from "../../hooks/useScreenSize";
 import { Card, CardActionArea, Box } from "@mui/material";
 import { KeenSliderPlugin, useKeenSlider } from "keen-slider/react";
 import Loader from "../Loader";
+import { useTranslation } from "react-i18next";
 
 const MutationPlugin: KeenSliderPlugin = (slider) => {
   const observer = new MutationObserver(function (mutations) {
@@ -166,11 +167,24 @@ const Image = styled("span")(({ theme }) => ({
 }));
 
 function BackgroundHomePage({ imgs }: { imgs: ImageInfo[] }) {
+  const { t } = useTranslation();
   const [settingPage] = useState([
-    { path: "../portfolio", nick: "he", name: "Portfolio" },
-    { path: "../contact", nick: "ll", name: "Contact" },
-    { path: "../about-me", nick: "ll", name: "About me" },
-    { path: "../cv", nick: "ex", name: "My CV" },
+    {
+      path: "../portfolio",
+      nick: "he",
+      name: "components.BackgroundHomePage.title1",
+    },
+    {
+      path: "../contact",
+      nick: "ll",
+      name: "components.BackgroundHomePage.title2",
+    },
+    {
+      path: "../about-me",
+      nick: "ll",
+      name: "components.BackgroundHomePage.title3",
+    },
+    { path: "../cv", nick: "ex", name: "components.BackgroundHomePage.title4" },
   ]);
 
   const navigate = useNavigate();
@@ -294,7 +308,11 @@ function BackgroundHomePage({ imgs }: { imgs: ImageInfo[] }) {
               <div ref={sliderRef} className="keen-slider">
                 {[
                   ...settingPage,
-                  { path: "/links", nick: "ll", name: "My Links" },
+                  {
+                    path: "/links",
+                    nick: "ll",
+                    name: "components.BackgroundHomePage.title5",
+                  },
                 ].map((card, index) => (
                   <div
                     key={card.name}
@@ -348,7 +366,7 @@ function BackgroundHomePage({ imgs }: { imgs: ImageInfo[] }) {
                             fontWeight="bold"
                             sx={{ marginBottom: 0 }}
                           >
-                            {card.name}
+                            {t(card.name)}
                           </Typography>
                         </Box>
                       </CardActionArea>
@@ -386,7 +404,7 @@ function BackgroundHomePage({ imgs }: { imgs: ImageInfo[] }) {
                     color="inherit"
                     fontSize="2vw"
                   >
-                    {card.name}
+                    {t(card.name)}
                   </Typography>
                 </Image>
                 <div

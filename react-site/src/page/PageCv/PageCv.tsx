@@ -7,6 +7,7 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import { saveAs } from "file-saver";
 import { useState, useEffect } from "react";
 import Loader from "../../components/Loader";
+import { useTranslation } from "react-i18next";
 
 const ImageButton = styled(ButtonBase)(() => ({
   position: "relative",
@@ -37,6 +38,7 @@ const PageCv = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isComponentLoaded, setIsComponentLoaded] = useState(false);
   const [isPreloaderTimer, setIsPreloaderTimer] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const img = new Image();
@@ -102,7 +104,7 @@ const PageCv = () => {
                   objectFit: "cover",
                 }}
                 src={imageUrl}
-                alt="My CV"
+                alt={t("page.PageCv.altImg")}
               />
             </ImageButton>
           </Container>
@@ -133,7 +135,7 @@ const PageCv = () => {
                 color: "black",
               }}
             >
-              Download PNG
+              {t("page.PageCv.buttonPNG")}
             </Button>
             <Button
               className="btn-container-cv__btn-item-cv"
@@ -157,7 +159,7 @@ const PageCv = () => {
                 color: "black",
               }}
             >
-              Download PDF
+              {t("page.PageCv.buttonPDF")}
             </Button>
             <Button
               className="btn-container-cv__btn-item-cv"
@@ -181,7 +183,7 @@ const PageCv = () => {
                 color: "black",
               }}
             >
-              Go to site
+              {t("page.PageCv.buttonSite")}
             </Button>
             <Button
               className="btn-container-cv__btn-item-cv"
@@ -205,7 +207,7 @@ const PageCv = () => {
                 color: "black",
               }}
             >
-              Come back
+              {t("page.PageCv.buttonBack")}
             </Button>
           </Container>
         </Box>

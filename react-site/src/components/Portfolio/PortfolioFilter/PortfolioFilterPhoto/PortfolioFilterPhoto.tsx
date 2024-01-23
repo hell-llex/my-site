@@ -11,6 +11,7 @@ import { filterPhotos } from "../../../../store/slice/imagesInfoSlice";
 import { v4 as uuidv4 } from "uuid";
 import useScreenSize from "../../../../hooks/useScreenSize";
 import { Button } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 const ImageButton = styled(ButtonBase)(() => ({
   position: "relative",
@@ -39,7 +40,7 @@ const ImageButton = styled(ButtonBase)(() => ({
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      fontSize: "2vw",
+      fontSize: "1.8vw",
       fontWeight: 700,
       backdropFilter: "blur(3px)",
       WebkitBackdropFilter: "blur(3px)",
@@ -118,7 +119,7 @@ const ImageButtonMobile = styled(ButtonBase)(() => ({
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      fontSize: "2rem",
+      fontSize: "1.6rem",
       fontWeight: 700,
       color: "rgba(255, 255, 255, 0.6)",
       backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -225,6 +226,7 @@ const ImageButtonFilterBtnMobile = styled(ButtonBase)(() => ({
 }));
 
 function PortfolioFilterPhoto() {
+  const { t } = useTranslation();
   const dataImages = useAppSelector((state) => state.imagesInfo);
 
   const filterPhotoStore = useAppSelector(
@@ -251,20 +253,24 @@ function PortfolioFilterPhoto() {
   >([
     {
       value: "portrait",
-      name: "Portrait",
+      name: "components.Portfolio.PortfolioFilter.PortfolioFilterPhoto.title1",
       img: Object.values(dataImages.portrait)[0],
     },
     {
       value: "landscape",
-      name: "Landscape",
+      name: "components.Portfolio.PortfolioFilter.PortfolioFilterPhoto.title2",
       img: Object.values(dataImages.landscape)[0],
     },
     {
       value: "mobile",
-      name: "Mobile",
+      name: "components.Portfolio.PortfolioFilter.PortfolioFilterPhoto.title3",
       img: Object.values(dataImages.mobile)[1],
     },
-    { value: "me", name: "Me", img: Object.values(dataImages.me)[0] },
+    {
+      value: "me",
+      name: "components.Portfolio.PortfolioFilter.PortfolioFilterPhoto.title4",
+      img: Object.values(dataImages.me)[0],
+    },
   ]);
 
   function updateFilter(value: filterPhoto) {
@@ -295,7 +301,7 @@ function PortfolioFilterPhoto() {
               }}
             >
               <Typography component="p" variant="subtitle1" color="inherit">
-                {item.name}
+                {t(item.name)}
               </Typography>
               <div className="portfolio-filter__image">
                 <OImage
@@ -344,7 +350,7 @@ function PortfolioFilterPhoto() {
                       variant="subtitle1"
                       color="inherit"
                     >
-                      {item.name}
+                      {t(item.name)}
                     </Typography>
                     <div className="portfolio-filter__image">
                       <OImage
@@ -592,8 +598,8 @@ function PortfolioFilterPhoto() {
                     variant="subtitle1"
                     color="inherit"
                     sx={{
-                      fontSize: "1.3rem",
-                      lineHeight: "1.4rem",
+                      fontSize: "0.9rem",
+                      lineHeight: "1.3rem",
                       whiteSpace: "pre-wrap",
                     }}
                   >
@@ -604,15 +610,19 @@ function PortfolioFilterPhoto() {
                           fontSize: "2.8rem",
                         }}
                       >
-                        {"All"}
+                        {t(
+                          "components.Portfolio.PortfolioFilter.PortfolioFilterPhoto.title6"
+                        )}
                       </span>
                     ) : (
-                      filterPhotoStore.map(
-                        (elem, i) =>
-                          elem[0].toLocaleUpperCase() +
-                          elem.slice(1) +
-                          (i % 2 ? "\n" : "\t")
-                      )
+                      filterPhotoStore.map((elem, i) => {
+                        const filterName = filterItem.find(
+                          (item) => item.value === elem
+                        );
+                        return (
+                          t(filterName!.name as string) + (i % 2 ? "\n" : "\t")
+                        );
+                      })
                     )}
                   </Typography>
                   <div className="portfolio-filter__btn-images">

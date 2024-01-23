@@ -1,15 +1,17 @@
 import { Container, Typography } from "@mui/material";
 import "./PageAboutMe.scss";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const PageAboutMe = () => {
+  const { t } = useTranslation();
   const [fontSize] = useState("clamp(1.4rem, 2.4vw, 2.6rem)");
   return (
     <div className="about-me-page">
       <>
         <Container>
           <Typography variant="h2" fontWeight={700} fontSize={fontSize}>
-            About me:
+            {t("page.PageAboutMe.title1")}:
           </Typography>
           <Typography
             variant="body1"
@@ -17,7 +19,7 @@ const PageAboutMe = () => {
             fontSize={fontSize}
             textAlign="justify"
           >
-            Hi, I&apos;m{" "}
+            {t("page.PageAboutMe.title2")}
             <Typography
               variant="body1"
               component={"span"}
@@ -25,31 +27,27 @@ const PageAboutMe = () => {
               fontSize={fontSize}
               textAlign="justify"
             >
-              Alexander Demeshchenko
+              {t("page.PageAboutMe.textName")}
             </Typography>{" "}
-            Highly motivated and detail-oriented Frontend Developer with a
-            passion for creating user-friendly and visually appealing web
-            applications. Seeking an opportunity to apply my knowledge of
-            JavaScript, React, and other frontend technologies to contribute to
-            the success of a dynamic IT team.
+            {t("page.PageAboutMe.textAboutMe")}
           </Typography>
         </Container>
 
         <Container>
           <Typography variant="h2" fontWeight={700} fontSize={fontSize}>
-            Of the good skills , I can mention a couple:
+            {t("page.PageAboutMe.title3")}:
           </Typography>
           <Typography variant="body1" fontWeight={300} fontSize={fontSize}>
-            Communication skills: 9/10;
+            {t("page.PageAboutMe.textSkills1")}: 9/10;
           </Typography>
           <Typography variant="body1" fontWeight={300} fontSize={fontSize}>
-            Stress resistance: 9/10;
+            {t("page.PageAboutMe.textSkills2")}: 9/10;
           </Typography>
           <Typography variant="body1" fontWeight={300} fontSize={fontSize}>
-            Modesty: 9/10;
+            {t("page.PageAboutMe.textSkills3")}: 9/10;
           </Typography>
           <Typography variant="body1" fontWeight={300} fontSize={fontSize}>
-            Creativity: 7±2/10;
+            {t("page.PageAboutMe.textSkills4")}: 7±2/10;
           </Typography>
         </Container>
         <Container>
@@ -59,7 +57,7 @@ const PageAboutMe = () => {
             fontSize={fontSize}
             textAlign="center"
           >
-            Statistic:
+            {t("page.PageAboutMe.title4")}:
           </Typography>
           <Typography
             variant="body1"
@@ -67,7 +65,8 @@ const PageAboutMe = () => {
             fontSize={fontSize}
             textAlign="center"
           >
-            Codewars - 104; Project - 5; and other...
+            Codewars - 104; {t("page.PageAboutMe.textStat1")} - 5;{" "}
+            {t("page.PageAboutMe.textStat2")}...
           </Typography>
         </Container>
       </>

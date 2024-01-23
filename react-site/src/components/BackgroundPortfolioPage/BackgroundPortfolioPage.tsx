@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import useScreenSize from "../../hooks/useScreenSize";
+import { useTranslation } from "react-i18next";
 
 const ImageButton = styled(ButtonBase)(() => ({
   position: "relative",
@@ -33,7 +34,7 @@ const ImageButton = styled(ButtonBase)(() => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    fontSize: "6vw",
+    fontSize: "5vw",
     fontWeight: 700,
     backdropFilter: "blur(3px)",
     WebkitBackdropFilter: "blur(3px)",
@@ -63,9 +64,16 @@ const ImageButton = styled(ButtonBase)(() => ({
 }));
 
 function BackgroundPortfolioPage({ imgs }: { imgs: ImageInfo[] }) {
+  const { t } = useTranslation();
   const [settingPage] = useState([
-    { path: "../portfolio/photo", name: "Photo" },
-    { path: "../portfolio/project", name: "Project" },
+    {
+      path: "../portfolio/photo",
+      name: "components.BackgroundPortfolioPage.title1",
+    },
+    {
+      path: "../portfolio/project",
+      name: "components.BackgroundPortfolioPage.title2",
+    },
   ]);
   const screenSize = useScreenSize();
   const [screenMobile, setScreenMobile] = useState(
@@ -95,7 +103,7 @@ function BackgroundPortfolioPage({ imgs }: { imgs: ImageInfo[] }) {
             }}
           >
             <Typography component="p" variant="subtitle1" color="inherit">
-              {settingPage[index].name}
+              {t(settingPage[index].name)}
             </Typography>
             <div
               className="background__image"

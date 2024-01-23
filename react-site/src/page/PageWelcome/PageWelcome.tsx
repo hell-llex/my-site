@@ -5,8 +5,10 @@ import "./PageWelcome.scss";
 import { Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../hooks/redux";
+import { useTranslation } from "react-i18next";
 
 const PageWelcome = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const dataImages = useAppSelector((state) => state.imagesInfo);
   const [imagesBack] = useState<ImageInfo[]>(() => {
@@ -35,7 +37,6 @@ const PageWelcome = () => {
     deltaX: number;
     preventDefault: () => void;
   }) => {
-    // console.log(event.deltaY);
     if (event.deltaY >= 10 && oneRedirect) {
       oneRedirect = false;
       // if (window.scrollX >= 500) {
@@ -69,11 +70,9 @@ const PageWelcome = () => {
       // Проверка на вертикальный скролл
       if (Math.abs(deltaY) > Math.abs(deltaX)) {
         if (deltaY > 0) {
-          // console.log("Скроллируется вниз");
-          // Ваш код для скролла вниз
+          // Код для скролла вниз
         } else if (deltaY < 0) {
-          // console.log("Скроллируется вверх", deltaY);
-          // Ваш код для скролла вверх
+          // Код для скролла вверх
           if (deltaY < -20) {
             setTimeout(() => {
               navigate("../home", { relative: "path" });
@@ -83,11 +82,9 @@ const PageWelcome = () => {
       } else {
         // Проверка на горизонтальный скролл
         if (deltaX > 0) {
-          // console.log("Скроллируется вправо");
-          // Ваш код для скролла вправо
+          // Код для скролла вправо
         } else if (deltaX < 0) {
-          // console.log("Скроллируется влево");
-          // Ваш код для скролла влево
+          // Код для скролла влево
         }
       }
 
@@ -121,21 +118,22 @@ const PageWelcome = () => {
                 color={"white"}
                 fontSize={"clamp(1.8rem, 4vw, 3.5rem)"}
               >
-                Hello. I am
+                {t("page.PageWelcome.title1")}
               </Typography>
               <Typography
                 variant="h1"
                 fontWeight={700}
                 fontSize={"clamp(2.2rem, 6vw, 6rem)"}
               >
-                Alexander Demeshchenko
+                {/* Alexander Demeshchenko */}
+                {t("page.PageWelcome.title2")}
               </Typography>
               <Typography
                 variant="h2"
                 fontWeight={300}
                 fontSize={"clamp(1.8rem, 4vw, 3.5rem)"}
               >
-                &gt; Frontend deloveper
+                &gt; {t("page.PageWelcome.title3")}
               </Typography>
               <Typography
                 variant="h2"
@@ -149,7 +147,7 @@ const PageWelcome = () => {
                   fontWeight={700}
                   fontSize="inherit"
                 >
-                  hell-llex
+                  {t("page.PageWelcome.title4")}
                 </Typography>
                 )
               </Typography>
@@ -169,7 +167,7 @@ const PageWelcome = () => {
                   }, 300);
                 }}
               >
-                Continue
+                {t("page.PageWelcome.button")}
               </Typography>
               <Typography component="span" className="arrow" />
             </Box>

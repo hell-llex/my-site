@@ -6,6 +6,7 @@ import {
   platform,
   theme,
 } from "../../types";
+import i18next from "i18next";
 
 const initialState: {
   platform: platform;
@@ -42,6 +43,7 @@ const baseParamsSlice = createSlice({
           state.lang = "en";
         }
       }
+      i18next.changeLanguage(state.lang);
       localStorage.setItem("lang", JSON.stringify(state.lang));
     },
     updateTheme(state, action: { payload: theme | undefined; type: string }) {

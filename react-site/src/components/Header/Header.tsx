@@ -6,23 +6,33 @@ import SocialLinkItem from "../SocialLinkItem";
 import { NavLink } from "react-router-dom";
 import { useAppSelector } from "../../hooks/redux";
 import { v4 as uuidv4 } from "uuid";
+import { useTranslation } from "react-i18next";
 
 const Header = ({ social }: { social: boolean }) => {
   const dataIcons = useAppSelector((state) => state.socialIconsInfo);
   const fullWithGallery = useAppSelector(
     (state) => state.baseParams.fullWithGallery
   );
+  const { t } = useTranslation();
   const [socialLinksInfo] = useState<SocialLinksInfo>(dataIcons);
   const [linksInfo] = useState<RouteInfo[]>([
-    { path: "home", name: "Home", otherPath: false },
-    { path: "portfolio", name: "Portfolio", otherPath: true },
-    { path: "contact", name: "Contact", otherPath: false },
-    { path: "about-me", name: "About me", otherPath: false },
-    { path: "cv", name: "My CV", otherPath: false },
+    { path: "home", name: "components.Header.title1", otherPath: false },
+    { path: "portfolio", name: "components.Header.title2", otherPath: true },
+    { path: "contact", name: "components.Header.title3", otherPath: false },
+    { path: "about-me", name: "components.Header.title4", otherPath: false },
+    { path: "cv", name: "components.Header.title5", otherPath: false },
   ]);
   const [otherLinksInfo] = useState<RouteInfo[]>([
-    { path: "portfolio/photo", name: "Photo", otherPath: false },
-    { path: "portfolio/project", name: "Project", otherPath: false },
+    {
+      path: "portfolio/photo",
+      name: "components.Header.title21",
+      otherPath: false,
+    },
+    {
+      path: "portfolio/project",
+      name: "components.Header.title22",
+      otherPath: false,
+    },
   ]);
 
   const setActive = ({ isActive }: { isActive: boolean }) => {
@@ -44,7 +54,7 @@ const Header = ({ social }: { social: boolean }) => {
           !social
             ? {
                 justifyContent: "flex-start",
-                minWidth: fullWithGallery ? "16rem" : "30rem",
+                minWidth: fullWithGallery ? "16rem" : "35rem",
               }
             : { justifyContent: "center", minWidth: "26rem" }
         }
@@ -80,7 +90,7 @@ const Header = ({ social }: { social: boolean }) => {
               <div key={linkNav.name}>
                 <div className="link-container__container-nav-link">
                   <NavLink to={linkNav.path} className={setActive}>
-                    <span>{linkNav.name}</span>
+                    <span>{t(linkNav.name)}</span>
                   </NavLink>
                   {linkNav.otherPath &&
                     otherLinksInfo.map((linkOtherNav) => (
@@ -89,7 +99,7 @@ const Header = ({ social }: { social: boolean }) => {
                         key={linkOtherNav.name}
                         className={setActiveOther}
                       >
-                        <span>{linkOtherNav.name}</span>
+                        <span>{t(linkOtherNav.name)}</span>
                       </NavLink>
                     ))}
                 </div>

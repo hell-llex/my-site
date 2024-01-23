@@ -25,6 +25,7 @@ import Loader from "../../../Loader";
 import { updateFullWidthGallery } from "../../../../store/slice/baseParamsSlice";
 import useScreenSize from "../../../../hooks/useScreenSize";
 import CloseIcon from "@mui/icons-material/Close";
+import { useTranslation } from "react-i18next";
 
 const WheelControls: KeenSliderPlugin = (slider) => {
   let touchTimeout: ReturnType<typeof setTimeout>;
@@ -188,6 +189,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 const PortfolioGalleryProject = () => {
+  const { t } = useTranslation();
   const dataImages = useAppSelector((state) => state.projectsInfo);
   const filterProjectStore = useAppSelector(
     (state) => state.baseParams.filterProject
@@ -449,12 +451,20 @@ const PortfolioGalleryProject = () => {
             >
               <br />
               <span>
-                <b>{"Category: "}</b>
+                <b>
+                  {t(
+                    "components.Portfolio.PortfolioGallery.PortfolioGalleryProject.title1"
+                  ) + ": "}
+                </b>
                 {infoModal?.category
                   .map((elem) => elem[0].toUpperCase() + elem.slice(1))
                   .join(" / ")}
                 <br />
-                <b>{"Description: "}</b>
+                <b>
+                  {t(
+                    "components.Portfolio.PortfolioGallery.PortfolioGalleryProject.title2"
+                  ) + ": "}
+                </b>
                 {infoModal?.description}
               </span>
             </Typography>
@@ -483,7 +493,13 @@ const PortfolioGalleryProject = () => {
               color="inherit"
               autoFocus
             >
-              Visit the <br /> website
+              {t(
+                "components.Portfolio.PortfolioGallery.PortfolioGalleryProject.button11"
+              )}
+              <br />
+              {t(
+                "components.Portfolio.PortfolioGallery.PortfolioGalleryProject.button12"
+              )}
             </Button>
             <Button
               onClick={handleClickSnackbar}
@@ -500,8 +516,15 @@ const PortfolioGalleryProject = () => {
               color="inherit"
               autoFocus
             >
-              View code <br />
-              on GitHub
+              {t(
+                "components.Portfolio.PortfolioGallery.PortfolioGalleryProject.button21"
+              )}
+              <br />
+              {t(
+                "components.Portfolio.PortfolioGallery.PortfolioGalleryProject.button22"
+              )}
+              {/* View code <br />
+              on GitHub */}
             </Button>
           </DialogActions>
         </BootstrapDialog>
@@ -517,7 +540,9 @@ const PortfolioGalleryProject = () => {
             variant="filled"
             sx={{ width: "100%", fontSize: "1.4rem" }}
           >
-            Unfortunately, this link doesn&#39;t work!
+            {t(
+              "components.Portfolio.PortfolioGallery.PortfolioGalleryProject.text1"
+            )}
           </Alert>
         </Snackbar>
       </>

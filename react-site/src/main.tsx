@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App.tsx";
@@ -8,6 +8,8 @@ import "react-photo-view/dist/react-photo-view.css";
 import { Provider } from "react-redux";
 import { setupStore } from "./store/index";
 import { createTheme, ThemeProvider } from "@mui/material";
+import "./i18n";
+import Loader from "./components/Loader/Loader.tsx";
 
 const theme = createTheme({
   typography: {
@@ -31,7 +33,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <ThemeProvider theme={theme}>
       <Provider store={store}>
         <BrowserRouter>
-          <App />
+          <Suspense fallback={<Loader />}>
+            <App />
+          </Suspense>
         </BrowserRouter>
       </Provider>
     </ThemeProvider>

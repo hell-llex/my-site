@@ -1,0 +1,118 @@
+{
+  "components": {
+    "BackgroundHomePage": {
+      "title1": "Portfolio",
+      "title2": "Contact",
+      "title3": "About me",
+      "title4": "My Cv",
+      "title5": "My Links"
+    },
+    "BackgroundPortfolioPage": {
+      "title1": "Photo",
+      "title2": "Project"
+    },
+    "BackgroundStartPage": {},
+    "DrawerMenu": {
+      "title1": "Settings",
+      "title2": "Language",
+      "title3": "Theme",
+      "title4": "Platform",
+      "text1": "Unfortunately, this button doesn't work!"
+    },
+    "DrawerMenuMobile": {
+      "title1": "Home",
+      "title2": "Portfolio",
+      "title21": "Photo",
+      "title22": "Project",
+      "title3": "Contact",
+      "title4": "About me",
+      "title5": "My Cv",
+      "text1": "Unfortunately, this button doesn't work!"
+    },
+    "Header": {
+      "title1": "Home",
+      "title2": "Portfolio",
+      "title21": "Photo",
+      "title22": "Project",
+      "title3": "Contact",
+      "title4": "About me",
+      "title5": "My Cv"
+    },
+    "Layout": {},
+    "OImage": {},
+    "SocialLinkItem": {},
+    "Portfolio": {
+      "PortfolioFilter": {
+        "PortfolioFilterPhoto": {
+          "title1": "Portrait",
+          "title2": "Landscape",
+          "title3": "Mobile",
+          "title4": "Me",
+          "title6": "All"
+        },
+        "PortfolioFilterProject": {
+          "title1": "Vanilla",
+          "title2": "React",
+          "title3": "Vue",
+          "title4": "Other",
+          "title6": "All"
+        }
+      },
+      "PortfolioGallery": {
+        "PortfolioGalleryPhoto": {},
+        "PortfolioGalleryProject": {
+          "title1": "Categories",
+          "title2": "Description",
+          "button11": "Visit the",
+          "button12": "website",
+          "button21": "View code",
+          "button22": "on GitHub",
+          "text1": "Unfortunately, this link doesn't work!"
+        }
+      }
+    }
+},
+  "page": {
+    "PageAboutMe": {
+      "title1": "About me",
+      "title2": "Hi, I'm ",
+      "textName": "Alexander Demeshchenko",
+      "textAboutMe": "Highly motivated and detail-oriented Frontend Developer with a passion for creating user-friendly and visually appealing web applications. Seeking an opportunity to apply my knowledge of JavaScript, React, and other frontend technologies to contribute to the success of a dynamic IT team.",
+      "title3": "Of the good skills , I can mention a couple",
+      "textSkills1": "Communication skills",
+      "textSkills2": "Stress resistance",
+      "textSkills3": "Modesty",
+      "textSkills4": "Creativity",
+      "title4": "Statistic",
+      "textStat1": "Projects",
+      "textStat2": "and other"
+    },
+    "PageContact": {
+      "title1": "My name",
+      "textName": "Alexander Demeshchenko",
+      "title2": "Location",
+      "textLocation": "Belarus, Minsk",
+      "title3": "Phone number",
+      "title4": "Email"
+    },
+    "PageCv": {
+      "altImg": "My CV",
+      "buttonPNG": "Download PNG",
+      "buttonPDF": "Download PDF",
+      "buttonSite": "Go to site",
+      "buttonBack": "Return"
+    },
+    "PageError404": {},
+    "PageHome": {},
+    "PageLinks": {},
+    "PagePortfolio": {},
+    "PagePortfolioGallery": {},
+    "PageWelcome": {
+      "title1": "Hello. I am",
+      "title2": "Alexander Demeshchenko",
+      "title3": "Frontend deloveper",
+      "title4": "hell-llex",
+      "button": "Continue"
+    }
+  }
+}
