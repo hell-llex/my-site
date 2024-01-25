@@ -109,7 +109,11 @@ function BackgroundPortfolioPage({ imgs }: { imgs: ImageInfo[] }) {
               className="background__image"
               style={{ width: screenMobile ? "80vw" : "26vw" }}
             >
-              <OImage img={img} style={{ width: "100%", height: "100%" }} />
+              <OImage
+                img={img}
+                thumbnail
+                style={{ width: "100%", height: "100%" }}
+              />
             </div>
           </ImageButton>
         ))}

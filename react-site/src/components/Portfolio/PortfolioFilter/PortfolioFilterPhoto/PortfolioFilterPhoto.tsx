@@ -306,6 +306,7 @@ function PortfolioFilterPhoto() {
               <div className="portfolio-filter__image">
                 <OImage
                   img={item.img}
+                  thumbnail
                   style={{ width: "100%", height: "auto" }}
                 />
               </div>
@@ -355,6 +356,7 @@ function PortfolioFilterPhoto() {
                     <div className="portfolio-filter__image">
                       <OImage
                         img={item.img}
+                        thumbnail
                         style={{ width: "100%", height: "auto" }}
                       />
                     </div>
@@ -639,6 +641,7 @@ function PortfolioFilterPhoto() {
                           >
                             <OImage
                               img={elem.img}
+                              thumbnail
                               style={{
                                 width: "100%",
                                 height: "100%",
@@ -662,6 +665,7 @@ function PortfolioFilterPhoto() {
                             >
                               <OImage
                                 img={elem.img}
+                                thumbnail
                                 style={{
                                   width: "100%",
                                   height: "100%",

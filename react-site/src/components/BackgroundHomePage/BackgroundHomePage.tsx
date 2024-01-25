@@ -338,6 +338,7 @@ function BackgroundHomePage({ imgs }: { imgs: ImageInfo[] }) {
                       >
                         <OImage
                           img={imgs[index]}
+                          thumbnail
                           style={{
                             position: "absolute",
                             width: "100%",
@@ -411,7 +412,7 @@ function BackgroundHomePage({ imgs }: { imgs: ImageInfo[] }) {
                   className="background__image"
                   style={{ width: screenMobile ? "20vw" : "13vw" }}
                 >
-                  <OImage img={imgs[index]} />
+                  <OImage img={imgs[index]} thumbnail />
                 </div>
               </ImageButton>
             ))}
