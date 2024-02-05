@@ -15,6 +15,8 @@
     "@mui/icons-material": "^5.14.11",
     "@mui/material": "^5.14.11",
     "@reduxjs/toolkit": "^1.9.5",
+    "@splinetool/react-spline": "^2.2.6",
+    "@splinetool/runtime": "^1.0.34",
     "file-saver": "^2.0.5",
     "i18next": "^23.7.18",
     "i18next-browser-languagedetector": "^7.2.0",
