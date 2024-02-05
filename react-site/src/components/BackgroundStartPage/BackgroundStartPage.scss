@@ -1,0 +1,46 @@
+.background-page {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .background-page__images {
+    position: relative;
+    height: 70%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    &.background-page__images_row {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 1vw;
+    }
+
+    .keen-slider {
+      height: 100%;
+      width: 100%;
+      transition: "width 1s ease",
+    }
+
+    .background-page__image {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 5px;
+      filter: blur(3px);
+      -webkit-filter: blur(3px);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .background-page {
+    .background-page__images {
+      height: 100%;
+    }
+  }
+}

@@ -1,0 +1,219 @@
+import "./PageCv.scss";
+import { Box, Button, ButtonBase, Container, styled } from "@mui/material";
+import ImageIcon from "@mui/icons-material/Image";
+import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
+import ClearIcon from "@mui/icons-material/Clear";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import { saveAs } from "file-saver";
+import { useState, useEffect } from "react";
+import Loader from "../../components/Loader";
+import { useTranslation } from "react-i18next";
+
+const ImageButton = styled(ButtonBase)(() => ({
+  position: "relative",
+  width: "100%",
+  padding: "1rem",
+  borderRadius: "5px",
+  outline: "none",
+  "& .MuiTouchRipple-root": {
+    outline: "none",
+    zIndex: 3,
+  },
+  "&.Mui-focusVisible": {
+    outline: "none",
+    "& img": {
+      position: "relative",
+      zIndex: 1,
+      width: "100%",
+      borderRadius: "5px",
+    },
+  },
+}));
+
+const PageCv = () => {
+  const [fontSize] = useState("clamp(1.4rem, 2.2vw, 3rem)");
+  const imageUrl =
+    "https://hell-llex.github.io/My-CV/assets/CV%20Alexander%20Demeshchenko.png";
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [isComponentLoaded, setIsComponentLoaded] = useState(false);
+  const [isPreloaderTimer, setIsPreloaderTimer] = useState(false);
+  const { t } = useTranslation();
+
+  useEffect(() => {
+    const img = new Image();
+    img.onload = () => {
+      setIsComponentLoaded(true);
+    };
+    img.src = imageUrl;
+
+    const timerId = setTimeout(() => {
+      setIsPreloaderTimer(true);
+    }, 500);
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isComponentLoaded && isPreloaderTimer) {
+      setIsLoading(true);
+      setIsPreloaderTimer(false);
+      setIsComponentLoaded(false);
+    }
+  }, [isComponentLoaded, isPreloaderTimer]);
+
+  const downloadImage = (file: boolean) => {
+    file
+      ? saveAs(
+          "https://hell-llex.github.io/My-CV/assets/CV%20Alexander%20Demeshchenko.png",
+          "CV_Alexander_Demeshchenko.png"
+        )
+      : saveAs(
+          "https://hell-llex.github.io/My-CV/assets/CV%20Alexander%20Demeshchenko.pdf",
+          "CV_Alexander_Demeshchenko.pdf"
+        );
+  };
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <>
+      {!isLoading && <Loader />}
+      <div className="cv-page">
+        <Box className={`container-cv ${isOpen && "container-cv_open"}`}>
+          <Container className="btn-img-cv">
+            <ImageButton
+              className="pulse"
+              focusRipple
+              onClick={() => {
+                setTimeout(() => {
+                  setIsOpen(!isOpen);
+                }, 0);
+              }}
+              style={{
+                height: "clamp(50%, 90vw, 70%)",
+                width: "100%",
+              }}
+            >
+              <img
+                className="background__image"
+                style={{
+                  height: "100%",
+                  width: "100%",
+                  objectFit: "cover",
+                }}
+                src={imageUrl}
+                alt={t("page.PageCv.altImg")}
+              />
+            </ImageButton>
+          </Container>
+
+          <Container
+            className="btn-container-cv"
+            style={{ fontSize: fontSize }}
+          >
+            <Button
+              className="btn-container-cv__btn-item-cv"
+              startIcon={
+                <ImageIcon
+                  style={{
+                    fontSize: "inherit",
+                  }}
+                />
+              }
+              size="large"
+              onClick={() =>
+                setTimeout(() => {
+                  downloadImage(true);
+                }, 300)
+              }
+              style={{
+                fontSize: "inherit",
+                padding: "1rem 3rem",
+                backgroundColor: "white",
+                color: "black",
+              }}
+            >
+              {t("page.PageCv.buttonPNG")}
+            </Button>
+            <Button
+              className="btn-container-cv__btn-item-cv"
+              startIcon={
+                <InsertDriveFileIcon
+                  style={{
+                    fontSize: "inherit",
+                  }}
+                />
+              }
+              size="large"
+              onClick={() =>
+                setTimeout(() => {
+                  downloadImage(false);
+                }, 300)
+              }
+              style={{
+                fontSize: "inherit",
+                padding: "1rem 3rem",
+                backgroundColor: "white",
+                color: "black",
+              }}
+            >
+              {t("page.PageCv.buttonPDF")}
+            </Button>
+            <Button
+              className="btn-container-cv__btn-item-cv"
+              startIcon={
+                <OpenInNewIcon
+                  style={{
+                    fontSize: "inherit",
+                  }}
+                />
+              }
+              size="large"
+              onClick={() =>
+                setTimeout(() => {
+                  window.open("https://hell-llex.github.io/My-CV/", "_blank");
+                }, 300)
+              }
+              style={{
+                fontSize: "inherit",
+                padding: "1rem 3rem",
+                backgroundColor: "white",
+                color: "black",
+              }}
+            >
+              {t("page.PageCv.buttonSite")}
+            </Button>
+            <Button
+              className="btn-container-cv__btn-item-cv"
+              startIcon={
+                <ClearIcon
+                  style={{
+                    fontSize: "inherit",
+                  }}
+                />
+              }
+              size="large"
+              onClick={() =>
+                setTimeout(() => {
+                  setIsOpen(!isOpen);
+                }, 0)
+              }
+              style={{
+                fontSize: "inherit",
+                padding: "1rem 3rem",
+                backgroundColor: "white",
+                color: "black",
+              }}
+            >
+              {t("page.PageCv.buttonBack")}
+            </Button>
+          </Container>
+        </Box>
+      </div>
+    </>
+  );
+};
+
+export default PageCv;

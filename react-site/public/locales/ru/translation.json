@@ -1,0 +1,118 @@
+{
+  "components": {
+    "BackgroundHomePage": {
+      "title1": "Портфолио",
+      "title2": "Контакты",
+      "title3": "Обо мне",
+      "title4": "Резюме",
+      "title5": "Ссылки"
+    },
+    "BackgroundPortfolioPage": {
+      "title1": "Фото",
+      "title2": "Проекты"
+    },
+    "BackgroundStartPage": {},
+    "DrawerMenu": {
+      "title1": "Настройки",
+      "title2": "Язык",
+      "title3": "Тема",
+      "title4": "Платформа",
+      "text1": "К сожалению, эта кнопка не работает!"
+    },
+    "DrawerMenuMobile": {
+      "title1": "Домой",
+      "title2": "Портфолио",
+      "title21": "Фото",
+      "title22": "Проекты",
+      "title3": "Контакты",
+      "title4": "Обо мне",
+      "title5": "Резюме",
+      "text1": "К сожалению, эта кнопка не работает!"
+    },
+    "Header": {
+      "title1": "Домой",
+      "title2": "Портфолио",
+      "title21": "Фото",
+      "title22": "Проекты",
+      "title3": "Контакты",
+      "title4": "Обо мне",
+      "title5": "Резюме"
+    },
+    "Layout": {},
+    "OImage": {},
+    "SocialLinkItem": {},
+    "Portfolio": {
+      "PortfolioFilter": {
+        "PortfolioFilterPhoto": {
+          "title1": "Портреты",
+          "title2": "Пейзажи",
+          "title3": "Мобильные",
+          "title4": "Я",
+          "title6": "Все"
+        },
+        "PortfolioFilterProject": {
+          "title1": "Vanilla",
+          "title2": "React",
+          "title3": "Vue",
+          "title4": "Остальное",
+          "title6": "Все"
+        }
+      },
+      "PortfolioGallery": {
+        "PortfolioGalleryPhoto": {},
+        "PortfolioGalleryProject": {
+          "title1": "Категории",
+          "title2": "Описание",
+          "button11": "Посетить",
+          "button12": "сайт",
+          "button21": "Посмотреть",
+          "button22": "код на GitHub",
+          "text1": "К сожалению, эта ссылка не работает!"
+        }
+      }
+    }
+},
+  "page": {
+    "PageAboutMe": {
+      "title1": "Обо мне",
+      "title2": "Привет, Я ",
+      "textName": "Александр Демещенко",
+      "textAboutMe": "высокомотивированный и ориентированный на детали фронтенд-разработчик со страстью к созданию удобных и визуально привлекательных веб-приложений. Ищу возможность применить свои знания JavaScript, React и других фронтенд-технологий, чтобы внести свой вклад в успех динамичной ИТ-команды.",
+      "title3": "Из хороших навыков я могу отметить несколько.",
+      "textSkills1": "Коммуникативные навыки",
+      "textSkills2": "Стрессоустойчивость",
+      "textSkills3": "Скромность",
+      "textSkills4": "Творчество",
+      "title4": "Статистика",
+      "textStat1": "Проекты",
+      "textStat2": "и другое"
+    },
+    "PageContact": {
+      "title1": "Мое имя",
+      "textName": "Александр Демещенко",
+      "title2": "Местоположение",
+      "textLocation": "Беларусь, Минск",
+      "title3": "Номер телефона",
+      "title4": "Электронная почта"
+    },
+    "PageCv": {
+      "altImg": "Мое резюме",
+      "buttonPNG": "Скачать PNG",
+      "buttonPDF": "Скачать PDF",
+      "buttonSite": "Перейти на сайт",
+      "buttonBack": "Вернуться"
+    },
+    "PageError404": {},
+    "PageHome": {},
+    "PageLinks": {},
+    "PagePortfolio": {},
+    "PagePortfolioGallery": {},
+    "PageWelcome": {
+      "title1": "Привет.",
+      "title2": "я Александр Демещенко",
+      "title3": "Фронтенд разработчик",
+      "title4": "hell-llex",
+      "button": "Продолжить"
+    }
+  }
+}
